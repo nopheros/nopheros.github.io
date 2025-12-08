@@ -1675,18 +1675,17 @@ img {
 /* ===== NOPHEROS HERO VIDEO ===== */
 
 /* Make the video behave like the original slide background */
+/* Ensure hero video is visible and covers hero area */
 .hero-background-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: -10;           /* same depth as .slide-img was */
-    background: #000;       /* fallback while loading */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  display: block;
+  background: #000;
 }
 
 /* Optional: slightly stronger dark overlay for readability
