@@ -3,12 +3,7 @@
 
     var browserWindow = $(window);
 
-    // :: 1.0 Preloader Active Code
-    browserWindow.on('load', function () {
-        $('.preloader').fadeOut('slow', function () {
-            $(this).remove();
-        });
-    });
+    // Preloader code removed
 
     // :: 2.0 Nav Active Code
     if ($.fn.classyNav) {
@@ -21,18 +16,7 @@
         var testimonials = $('.testimonials-slide');
         var albumSlides = $('.albums-slideshow');
 
-        welcomeSlide.owlCarousel({
-            items: 1,
-            margin: 0,
-            loop: true,
-            nav: false,
-            dots: false,
-            autoplay: true,
-            autoplayTimeout: 7000,
-            smartSpeed: 1000,
-            animateIn: 'fadeIn',
-            animateOut: 'fadeOut'
-        });
+        // Disabled Owl Carousel on hero-slides to fix white block issue
 
         welcomeSlide.on('translate.owl.carousel', function () {
             var slideLayer = $("[data-animation]");
