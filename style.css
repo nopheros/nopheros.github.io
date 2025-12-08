@@ -1676,3 +1676,22 @@ img {
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
+
+/* ===== NOPHEROS LAYOUT FIXES ===== */
+
+/* Fix header gap at very top */
+.header-area {
+    top: 0 !important;
+}
+
+/* Reduce hero height so the 'Experience the Chaos' area feels tighter */
+.single-hero-slide {
+    height: 700px !important; /* adjust if needed */
+}
+
+@media (max-width: 991px) {
+    .single-hero-slide {
+        height: 550px !important;
+    }
+}
+/* ===== END NOPHEROS LAYOUT FIXES ===== */
