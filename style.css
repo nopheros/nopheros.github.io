@@ -1695,3 +1695,26 @@ img {
     }
 }
 /* ===== END NOPHEROS LAYOUT FIXES ===== */
+/* ===== NOPHEROS HERO VIDEO ===== */
+
+/* Make the video behave like the original slide background */
+.hero-background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -10;           /* same depth as .slide-img was */
+    background: #000;       /* fallback while loading */
+}
+
+/* Optional: slightly stronger dark overlay for readability
+   (we already have .single-hero-slide::after, but this keeps control handy) */
+.single-hero-slide::after {
+    background-color: rgba(0, 0, 0, 0.35);
+}
+/* ===== END NOPHEROS HERO VIDEO ===== */
