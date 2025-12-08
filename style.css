@@ -1,6 +1,3 @@
-body { background: red !important; }
-
-
 /* [Master Stylesheet - v1.0] */
 /* :: 1.0 Import Fonts */
 @import url("https://fonts.googleapis.com/css?family=Archivo+Narrow:400,400i,500,500i,600,600i,700,700i");
@@ -1679,6 +1676,7 @@ img {
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
+
 /* ===== NOPHEROS DARK THEME OVERRIDES ===== */
 
 /* Global */
