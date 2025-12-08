@@ -675,7 +675,22 @@ img {
       .single-event-area:hover .event-text h4,
       .single-event-area:hover .event-text .event-meta-data a, .single-event-area:focus .event-text h4,
       .single-event-area:focus .event-text .event-meta-data a {
+  /* Ensure hero video is visible and covers hero area */
+  .hero-background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    display: block;
+  }
         color: #000000; }
+  .single-hero-slide {
+    position: relative;
+    overflow: hidden;
+  }
       .single-event-area:hover .event-text .see-more-btn, .single-event-area:focus .event-text .see-more-btn {
         border-bottom-color: #000000;
         color: #000000; }
