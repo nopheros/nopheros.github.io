@@ -1718,3 +1718,12 @@ img {
     background-color: rgba(0, 0, 0, 0.35);
 }
 /* ===== END NOPHEROS HERO VIDEO ===== */
+
+/* ===== NOPHEROS PRELOADER FIX ===== */
+/* Disable the full-screen white preloader overlay */
+.preloader {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+/* ===== END NOPHEROS PRELOADER FIX ===== */
