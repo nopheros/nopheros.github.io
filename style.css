@@ -465,6 +465,33 @@ img {
   text-transform: uppercase;
   display: inline-block;
   line-height: 85px;
+  text-decoration: none;
+  transition: none;
+}
+
+.classy-navbar .nav-brand:hover, .classy-navbar .nav-brand:focus {
+  color: #fff;
+  text-decoration: none;
+  transition: none;
+}
+
+/* Footer brand text styling */
+.footer-area .footer-brand {
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  text-decoration: none;
+  transition: none;
+}
+
+.footer-area .footer-brand:hover, .footer-area .footer-brand:focus {
+  color: #fff;
+  text-decoration: none;
+  transition: none;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
