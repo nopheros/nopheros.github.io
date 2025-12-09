@@ -770,22 +770,18 @@ img {
 .featured-artist-area {
   position: relative;
   z-index: 1;
-  /* darker at top to blend with hero banner, then fade to white */
-  background: linear-gradient(to bottom,
-                              rgba(0, 0, 0, 0.75) 0%,
-                              rgba(0, 0, 0, 0.6) 30%,
-                              rgba(0, 0, 0, 0.3) 60%,
-                              rgba(255, 255, 255, 1) 100%);
+  /* solid black background (no gradient) */
+  background: #000000;
 }
 
-.featured-artist-content {
+  .featured-artist-content {
   position: relative;
   z-index: 1; }
   @media only screen and (max-width: 767px) {
     .featured-artist-content {
       margin-top: 50px; } }
   .featured-artist-content p {
-    color: #333; }
+    color: #ffffff; }
 
 .browse-by-catagories {
   position: relative;
