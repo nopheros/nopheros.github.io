@@ -456,19 +456,14 @@ img {
         height: 70px; } }
 
 .classy-navbar .nav-brand {
-  max-width: 130px; }
-
-.nav-brand-text {
-  font-family: 'Orbitron', 'Courier Prime', monospace !important;
-  font-weight: 900;
-  font-size: 20px;
+  max-width: 130px;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
   letter-spacing: 2px;
-  color: #fff !important;
   text-transform: uppercase;
-  text-decoration: none !important;
-  transition: all 0.3s ease;
   display: inline-block;
-  padding: 0 20px;
   line-height: 85px;
 }
 
