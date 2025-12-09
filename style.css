@@ -456,42 +456,52 @@ img {
         height: 70px; } }
 
 .classy-navbar .nav-brand {
-  max-width: 130px;
-  font-family: "Archivo Narrow", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: inline-block;
-  line-height: 85px;
-  text-decoration: none;
-  transition: none;
+  max-width: 130px !important;
+  font-family: "Archivo Narrow", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  display: inline-block !important;
+  line-height: 85px !important;
+  text-decoration: none !important;
+  transition: none !important;
+  -webkit-transition-duration: 0ms !important;
+  transition-duration: 0ms !important;
 }
 
-.classy-navbar .nav-brand:hover, .classy-navbar .nav-brand:focus {
-  color: #fff;
-  text-decoration: none;
-  transition: none;
+.classy-navbar .nav-brand:hover, 
+.classy-navbar .nav-brand:focus {
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: none !important;
+  -webkit-transition-duration: 0ms !important;
+  transition-duration: 0ms !important;
 }
 
 /* Footer brand text styling */
 .footer-area .footer-brand {
-  font-family: "Archivo Narrow", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: inline-block;
-  text-decoration: none;
-  transition: none;
+  font-family: "Archivo Narrow", sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+  transition: none !important;
+  -webkit-transition-duration: 0ms !important;
+  transition-duration: 0ms !important;
 }
 
-.footer-area .footer-brand:hover, .footer-area .footer-brand:focus {
-  color: #fff;
-  text-decoration: none;
-  transition: none;
+.footer-area .footer-brand:hover, 
+.footer-area .footer-brand:focus {
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: none !important;
+  -webkit-transition-duration: 0ms !important;
+  transition-duration: 0ms !important;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
