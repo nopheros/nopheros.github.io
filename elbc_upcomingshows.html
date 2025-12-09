@@ -23,6 +23,9 @@
       .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
       .calendar-wrap { display:flex; justify-content:center; }
       .calendar-embed { width:100%; max-width:1000px; height:800px; border:1px solid rgba(255,255,255,0.06); }
+            .tz-controls { display:flex; justify-content:center; gap:8px; align-items:center; margin-bottom:18px; }
+            .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; }
+            .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; }
       @media (max-width: 991px){ .calendar-embed { height:700px; } }
       @media (max-width: 480px){ .calendar-embed { height:620px; } }
     </style>
@@ -72,11 +75,30 @@
     <main class="page-main">
       <div class="container">
         <h1>Upcoming Everlook Broadcasting Co. Shows</h1>
-        <p>Live schedule for Everlook Broadcasting Company. If the calendar does not load, try opening it directly in a new tab.</p>
+                <p>Live schedule for Everlook Broadcasting Company. If the calendar does not load, try opening it directly in a new tab.</p>
 
-        <div class="calendar-wrap">
-          <iframe class="calendar-embed" src="https://calendar.google.com/calendar/embed?src=3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5%40group.calendar.google.com&ctz=UTC&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" style="border:0" frameborder="0" scrolling="no" aria-label="Everlook Broadcasting Calendar"></iframe>
-        </div>
+                <div class="tz-controls" aria-hidden="false">
+                    <label for="tzSelect" style="color:#ddd; margin-right:8px;">Timezone:</label>
+                    <select id="tzSelect" aria-label="Select timezone">
+                        <option value="AUTO">Automatic (browser)</option>
+                        <option value="UTC">UTC</option>
+                        <option value="America/New_York">America / New_York</option>
+                        <option value="America/Los_Angeles">America / Los_Angeles</option>
+                        <option value="Europe/London">Europe / London</option>
+                        <option value="Europe/Berlin">Europe / Berlin</option>
+                        <option value="Asia/Tokyo">Asia / Tokyo</option>
+                        <option value="Australia/Sydney">Australia / Sydney</option>
+                        <option value="OTHER">Other…</option>
+                    </select>
+
+                    <input id="tzOther" type="text" placeholder="Enter IANA timezone e.g. Pacific/Auckland" style="display:none;" />
+
+                    <button id="openCalendar" class="oneMusic-btn" style="margin-left:12px;">Open in Google Calendar</button>
+                </div>
+
+                <div class="calendar-wrap">
+                    <iframe class="calendar-embed" src="https://calendar.google.com/calendar/embed?src=3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5%40group.calendar.google.com&ctz=UTC&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" style="border:0" frameborder="0" scrolling="no" aria-label="Everlook Broadcasting Calendar"></iframe>
+                </div>
 
       </div>
     </main>
@@ -103,11 +125,92 @@
         </div>
     </footer>
 
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <script src="js/bootstrap/popper.min.js"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/plugins/plugins.js"></script>
-    <script src="js/active.js"></script>
+        <script src="js/jquery/jquery-2.2.4.min.js"></script>
+        <script src="js/bootstrap/popper.min.js"></script>
+        <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script src="js/plugins/plugins.js"></script>
+        <script src="js/active.js"></script>
+
+        <script>
+            (function(){
+                const iframe = document.querySelector('.calendar-embed');
+                const tzSelect = document.getElementById('tzSelect');
+                const tzOther = document.getElementById('tzOther');
+                const openBtn = document.getElementById('openCalendar');
+
+                function detectTZ(){
+                    try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; }catch(e){ return 'UTC'; }
+                }
+
+                function getSavedTz(){ return localStorage.getItem('elbc_tz'); }
+
+                function setIframeTz(tz){
+                    if(!iframe) return;
+                    try{
+                        const url = new URL(iframe.src);
+                        url.searchParams.set('ctz', tz);
+                        iframe.src = url.toString();
+                    }catch(e){
+                        // fallback: replace ctz parameter manually
+                        iframe.src = iframe.src.replace(/([&?]ctz=)[^&]*/,'$1'+encodeURIComponent(tz));
+                    }
+                }
+
+                function updateOpenHref(){
+                    if(!openBtn || !iframe) return;
+                    openBtn.onclick = function(){ window.open(iframe.src.replace(/&amp;/g,'&'), '_blank'); };
+                }
+
+                function applySelection(value){
+                    if(value === 'AUTO'){
+                        tzOther.style.display = 'none';
+                        const tz = detectTZ();
+                        setIframeTz(tz);
+                        localStorage.removeItem('elbc_tz');
+                    } else if(value === 'OTHER'){
+                        tzOther.style.display = '';
+                        tzOther.focus();
+                        const custom = tzOther.value.trim() || detectTZ();
+                        setIframeTz(custom);
+                        localStorage.setItem('elbc_tz', custom);
+                    } else {
+                        tzOther.style.display = 'none';
+                        setIframeTz(value);
+                        localStorage.setItem('elbc_tz', value);
+                    }
+                    updateOpenHref();
+                }
+
+                // initialize
+                (function init(){
+                    const saved = getSavedTz();
+                    const autoTz = detectTZ();
+                    if(saved){
+                        // if saved matches one of options, select it
+                        const found = Array.from(tzSelect.options).some(opt => opt.value === saved);
+                        if(found){ tzSelect.value = saved; tzOther.style.display = 'none'; setIframeTz(saved); }
+                        else { tzSelect.value = 'OTHER'; tzOther.style.display = ''; tzOther.value = saved; setIframeTz(saved); }
+                    } else {
+                        // default to automatic
+                        tzSelect.value = 'AUTO'; tzOther.style.display = 'none'; setIframeTz(autoTz);
+                    }
+
+                    tzSelect.addEventListener('change', function(e){
+                        applySelection(e.target.value);
+                    });
+
+                    tzOther.addEventListener('change', function(){
+                        const v = tzOther.value.trim() || detectTZ();
+                        localStorage.setItem('elbc_tz', v);
+                        setIframeTz(v);
+                        updateOpenHref();
+                    });
+
+                    updateOpenHref();
+                })();
+
+            })();
+        </script>
 </body>
 
 </html>
