@@ -485,11 +485,12 @@ img {
   font-family: "Archivo Narrow", sans-serif !important;
   font-size: 18px !important;
   font-weight: 700 !important;
-  color: #fff !important;
+  color: #ffffff !important;
   letter-spacing: 2px !important;
   text-transform: uppercase !important;
   display: inline-block !important;
   text-decoration: none !important;
+  line-height: 1 !important;
   transition: none !important;
   -webkit-transition-duration: 0ms !important;
   transition-duration: 0ms !important;
@@ -1245,19 +1246,27 @@ img {
         justify-content: center;
         margin-top: 30px; } }
   .footer-area .footer-nav li a {
-    color: #898888;
+    color: #ffffff;
     font-size: 16px;
+    font-weight: 700;
+    text-transform: capitalize;
     padding: 0 20px; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .footer-area .footer-nav li a {
         padding: 0 10px;
-        font-size: 14px; } }
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 700;
+        text-transform: capitalize; } }
     @media only screen and (max-width: 767px) {
       .footer-area .footer-nav li a {
         padding: 0 10px;
-        font-size: 14px; } }
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 700;
+        text-transform: capitalize; } }
     .footer-area .footer-nav li a:hover, .footer-area .footer-nav li a:focus {
-      color: #fff; }
+      color: rgba(255, 255, 255, 0.7); }
   .footer-area .footer-nav li:last-child a {
     padding-right: 0; }
 
