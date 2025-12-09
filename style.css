@@ -458,6 +458,20 @@ img {
 .classy-navbar .nav-brand {
   max-width: 130px; }
 
+.nav-brand-text {
+  font-family: 'Orbitron', 'Courier Prime', monospace !important;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  display: inline-block;
+  padding: 0 20px;
+  line-height: 85px;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .breakpoint-on .classy-navbar .classy-menu {
     background-color: #000000; } }
