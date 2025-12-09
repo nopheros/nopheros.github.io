@@ -1729,7 +1729,15 @@ img {
     gap: 20px;
 }
 
-.social-links a {
+.social-links-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.social-links a,
+.social-links-grid a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1742,7 +1750,8 @@ img {
     transition: all 0.3s ease;
 }
 
-.social-links a:hover {
+.social-links a:hover,
+.social-links-grid a:hover {
     background-color: #00ff64;
     color: #000;
     border-color: #00ff64;
