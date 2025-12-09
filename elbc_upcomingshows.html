@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="">
+    <meta name="description" content="Upcoming Everlook Broadcasting Co. Shows">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>DJ — DJ NOPHEROS</title>
+    <title>Upcoming Everlook Broadcasting Co. Shows — DJ NOPHEROS</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -20,12 +20,16 @@
       html, body { background-color: #000 !important; color: #fff; }
       .page-main { padding: 120px 0; text-align: center; }
       .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
-      .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto; line-height:1.8; }
+      .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
+      .calendar-wrap { display:flex; justify-content:center; }
+      .calendar-embed { width:100%; max-width:1000px; height:800px; border:1px solid rgba(255,255,255,0.06); }
+      @media (max-width: 991px){ .calendar-embed { height:700px; } }
+      @media (max-width: 480px){ .calendar-embed { height:620px; } }
     </style>
 </head>
 
 <body>
-    <!-- header (copied from index.html) -->
+    <!-- header (re-used consistent header) -->
     <header class="header-area">
         <div class="oneMusic-main-menu">
             <div class="classy-nav-container breakpoint-off">
@@ -49,12 +53,13 @@
                                             <li><a href="patreon.html">patreon</a></li>
                                         </ul>
                                     </li>
+
                                     <li><a href="#">everlook broadcasting</a>
                                         <ul class="dropdown">
                                             <li><a href="/elbc_upcomingshows.html">upcoming shows</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="writing.html">writing</a></li>
+                                    <li><a href="/writing.html">writing</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -64,15 +69,18 @@
         </div>
     </header>
 
-    <!-- main content -->
     <main class="page-main">
       <div class="container">
-        <h1>DJ</h1>
-        <p>Placeholder content for DJ services — showreels, mixes, event types, and booking details. Replace this with your portfolio specifics and media embeds.</p>
+        <h1>Upcoming Everlook Broadcasting Co. Shows</h1>
+        <p>Live schedule for Everlook Broadcasting Company. If the calendar does not load, try opening it directly in a new tab.</p>
+
+        <div class="calendar-wrap">
+          <iframe class="calendar-embed" src="https://calendar.google.com/calendar/embed?src=3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5%40group.calendar.google.com&ctz=UTC&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" style="border:0" frameborder="0" scrolling="no" aria-label="Everlook Broadcasting Calendar"></iframe>
+        </div>
+
       </div>
     </main>
 
-    <!-- footer (copied from index.html) -->
     <footer class="footer-area">
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
@@ -80,12 +88,13 @@
                     <a href="/index.html" class="footer-brand">DJ NOPHEROS</a>
                     <p class="copywrite-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | You're gonna carry that weight</p>
                 </div>
+
                 <div class="col-12 col-md-6">
                     <div class="footer-nav">
                         <ul>
                             <li><a href="/index.html">home</a></li>
                             <li><a href="#">media</a></li>
-                            <li><a href="#">everlook broadcasting</a></li>
+                            <li><a href="/elbc_upcomingshows.html">everlook broadcasting</a></li>
                             <li><a href="/writing.html">writing</a></li>
                         </ul>
                     </div>
@@ -100,4 +109,5 @@
     <script src="js/plugins/plugins.js"></script>
     <script src="js/active.js"></script>
 </body>
+
 </html>
