@@ -1661,9 +1661,9 @@ img {
     top: 0 !important;
 }
 
-/* Reduce hero height so the 'Experience the Chaos' area feels tighter */
+/* Reduce hero height so the button area feels tighter */
 .single-hero-slide {
-    height: 700px !important; /* adjust if needed */
+    height: 700px !important;
 }
 
 @media (max-width: 991px) {
@@ -1671,6 +1671,84 @@ img {
         height: 550px !important;
     }
 }
+
+/* Terminal/Matrix style button */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Orbitron:wght@400;700;900&display=swap');
+
+.terminal-btn {
+    font-family: 'Orbitron', 'Courier Prime', monospace !important;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, rgba(0,255,100,0.1), rgba(0,255,100,0.05));
+    border: 2px solid #00ff64 !important;
+    color: #00ff64 !important;
+    box-shadow: 0 0 10px rgba(0,255,100,0.3), inset 0 0 10px rgba(0,255,100,0.1);
+    transition: all 0.3s ease;
+}
+
+.terminal-btn:hover, .terminal-btn:focus {
+    background: linear-gradient(90deg, rgba(0,255,100,0.2), rgba(0,255,100,0.15));
+    border-color: #00ff64 !important;
+    color: #00ff64 !important;
+    box-shadow: 0 0 20px rgba(0,255,100,0.6), inset 0 0 20px rgba(0,255,100,0.2);
+    text-shadow: 0 0 10px rgba(0,255,100,0.8);
+}
+
+/* Contact page social links section */
+.contact-social-area {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.contact-social-area h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.contact-email {
+    margin-bottom: 30px;
+}
+
+.contact-email a {
+    color: #00ff64;
+    text-decoration: underline;
+    font-size: 16px;
+}
+
+.contact-email a:hover {
+    color: #fff;
+}
+
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: #00ff64;
+    color: #000;
+    border-color: #00ff64;
+    transform: scale(1.1);
+}
+
 /* ===== END NOPHEROS LAYOUT FIXES ===== */
 /* ===== NOPHEROS HERO VIDEO ===== */
 
