@@ -595,6 +595,24 @@ img {
         .single-hero-slide .hero-slides-content h2 {
           letter-spacing: 5px;
           font-size: 30px; } }
+    
+    /* Hero Logo Styling */
+    .hero-logo {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 30px auto;
+      filter: drop-shadow(0 0 20px rgba(0, 255, 100, 0.4));
+      animation: fadeInUp 0.8s ease-out 300ms both;
+    }
+    
+    @media only screen and (max-width: 767px) {
+      .hero-logo {
+        max-width: 250px;
+      }
+    }
+    
     .single-hero-slide .hero-slides-content .btn {
       border: 1px solid #fff;
       background-color: transparent;
