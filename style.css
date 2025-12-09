@@ -1225,7 +1225,14 @@ img {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
+  .nav-button-area { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(10,10,10,0.95) 100%); padding: 80px 0; }
+  .button-group .nav-button { font-family: 'Orbitron', 'Courier Prime', monospace; letter-spacing: 3px; color:#00ff64; border:2px solid rgba(0,255,100,0.14); background:transparent; padding:18px 28px; margin:8px; font-size:18px; box-shadow: 0 0 18px rgba(0,255,100,0.06); }
+  .button-group .nav-button:hover { background: rgba(0,255,100,0.04); transform: translateY(-3px); }
     -ms-flex-align: center;
+  @media (max-width:768px){
+    .nav-button-area { padding: 40px 0; }
+    .button-group .nav-button { display:block; width:100%; margin:8px 0; }
+  }
     -ms-grid-row-align: center;
     align-items: center;
     -webkit-box-pack: end;
