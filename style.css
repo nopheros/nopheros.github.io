@@ -554,15 +554,6 @@ img {
     left: 0;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.5) 100%);
     content: ''; }
-  .single-hero-slide .slide-img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0; }
   .single-hero-slide .hero-slides-content {
     display: inline-block;
     width: 100%; }
@@ -778,16 +769,7 @@ img {
 /* :: 9.0 Album Catagory Area CSS */
 .featured-artist-area {
   position: relative;
-  z-index: 1;
-  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%), url(img/bg-img/adonis_nopheros.jpg);
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
+  z-index: 1; }
 
 .featured-artist-content {
   position: relative;
@@ -1807,15 +1789,16 @@ img {
 /* Ensure hero video is visible and covers hero area */
 .hero-background-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  z-index: -1;
+  object-fit: contain;
+  z-index: 1;
   display: block;
   background: #000;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 /* Optional: slightly stronger dark overlay for readability
