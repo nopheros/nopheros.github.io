@@ -603,6 +603,8 @@ img {
       height: auto;
       display: block;
       margin: 0 auto 30px auto;
+      z-index: 10;
+      position: relative;
       filter: drop-shadow(0 0 20px rgba(0, 255, 100, 0.4));
       animation: fadeInUp 0.8s ease-out 300ms both;
     }
