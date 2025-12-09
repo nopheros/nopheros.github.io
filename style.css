@@ -1806,7 +1806,7 @@ img {
 /* Optional: slightly stronger dark overlay for readability
    (we already have .single-hero-slide::after, but this keeps control handy) */
 .single-hero-slide::after {
-    background-color: rgba(0, 0, 0, 0.35);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 /* ===== END NOPHEROS HERO VIDEO ===== */
 
