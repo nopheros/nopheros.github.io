@@ -769,7 +769,9 @@ img {
 /* :: 9.0 Album Catagory Area CSS */
 .featured-artist-area {
   position: relative;
-  z-index: 1; }
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 1) 100%);
+}
 
 .featured-artist-content {
   position: relative;
@@ -778,7 +780,7 @@ img {
     .featured-artist-content {
       margin-top: 50px; } }
   .featured-artist-content p {
-    color: #fff; }
+    color: #333; }
 
 .browse-by-catagories {
   position: relative;
