@@ -1746,8 +1746,8 @@ img {
 /* Navigation Button Area */
 .nav-button-area {
     background-color: #000000;
-    min-height: 300px;
-    padding: 60px 0;
+    min-height: 500px;
+    padding: 100px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1784,13 +1784,13 @@ img {
     font-family: 'Orbitron', 'Courier Prime', monospace !important;
     font-weight: 700;
     letter-spacing: 2px;
-    font-size: 13px;
+    font-size: 16px;
     text-transform: uppercase;
     background: linear-gradient(90deg, rgba(0,255,100,0.1), rgba(0,255,100,0.05));
     border: 2px solid #00ff64 !important;
     color: #00ff64 !important;
     box-shadow: 0 0 10px rgba(0,255,100,0.3), inset 0 0 10px rgba(0,255,100,0.1);
-    padding: 12px 22px !important;
+    padding: 18px 35px !important;
     transition: all 0.3s ease;
     display: inline-block;
     text-decoration: none;
@@ -1822,8 +1822,8 @@ img {
 
 @media only screen and (max-width: 767px) {
     .nav-button-area {
-        min-height: 200px;
-        padding: 40px 0;
+        min-height: 350px;
+        padding: 60px 0;
     }
     
     .button-group {
