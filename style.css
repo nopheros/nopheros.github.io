@@ -1731,18 +1731,31 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .nav-button-area .container {
-    display: flex;
     width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-button-area .row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-button-area .col-12 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .button-group {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
-    width: 100%;
     justify-content: center;
     align-items: center;
 }
