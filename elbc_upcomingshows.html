@@ -23,9 +23,9 @@
       .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
       .calendar-wrap { display:flex; justify-content:center; }
       .calendar-embed { width:100%; max-width:1000px; height:800px; border:1px solid rgba(255,255,255,0.06); }
-            .tz-controls { display:flex; justify-content:center; gap:8px; align-items:center; margin-bottom:18px; }
-            .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; }
-            .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; }
+      .tz-controls { display:flex; justify-content:center; gap:12px; align-items:center; margin-bottom:30px; flex-wrap:wrap; }
+      .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; }
+      .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; }
       @media (max-width: 991px){ .calendar-embed { height:700px; } }
       @media (max-width: 480px){ .calendar-embed { height:620px; } }
     </style>
@@ -93,7 +93,7 @@
 
                     <input id="tzOther" type="text" placeholder="Enter IANA timezone e.g. Pacific/Auckland" style="display:none;" />
 
-                    <button id="openCalendar" class="oneMusic-btn" style="margin-left:12px;">Open in Google Calendar</button>
+                    <button id="openCalendar" class="oneMusic-btn">Open in Google Calendar</button>
                 </div>
 
                 <div class="calendar-wrap">
