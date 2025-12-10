@@ -256,8 +256,10 @@
                 if(!response.ok) throw new Error(`API error: ${response.status}`);
 
                 const data = await response.json();
+                console.log('Calendar API response:', data);
                 const events = (data.items || []).map(event => {
                   const title = event.summary || 'Event';
+                  console.log('Processing event:', title);
                   // Choose emoji based on title
                   let emoji = '📅';
                   if(title.toLowerCase().includes('live dj') || title.toLowerCase().includes('dj')) emoji = '🎵';
@@ -279,6 +281,7 @@
                     }
                   };
                 });
+                console.log('Processed events:', events);
 
                 return events;
               } catch(err){
