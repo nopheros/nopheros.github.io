@@ -354,18 +354,31 @@ img {
             border-bottom-color: rgba(255, 255, 255, 0.1); } }
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.megamenu-item > a::after,
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.has-down > a::after {
-        color: #ffffff; }
+        color: #00d4ff;
+        text-shadow: 0 0 8px rgba(0, 212, 255, 0.6); }
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.megamenu-item ul li > a::after,
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.has-down ul li > a::after {
-        color: #232323; }
+        color: #00d4ff; }
         @media only screen and (max-width: 767px) {
           .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.megamenu-item ul li > a::after,
           .header-area .oneMusic-main-menu .classy-navbar .classynav ul li.has-down ul li > a::after {
             color: #ffffff; } }
+      .header-area .oneMusic-main-menu .classy-navbar .classynav ul li .dropdown {
+        background-color: rgba(10, 20, 30, 0.92) !important;
+        border: 1px solid rgba(0, 212, 255, 0.4) !important;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 15px rgba(0, 212, 255, 0.05) !important;
+        border-radius: 4px; }
       .header-area .oneMusic-main-menu .classy-navbar .classynav ul li ul li a {
-        color: #232323; }
+        color: #00d4ff;
+        background-color: rgba(10, 20, 30, 0.9);
+        text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+        border-bottom: 1px solid rgba(0, 212, 255, 0.3) !important; }
         .header-area .oneMusic-main-menu .classy-navbar .classynav ul li ul li a:hover, .header-area .oneMusic-main-menu .classy-navbar .classynav ul li ul li a:focus {
-          color: #888888; }
+          color: #9fd8ff;
+          text-shadow: 0 0 12px rgba(0, 212, 255, 0.9), 0 0 20px rgba(0, 212, 255, 0.5);
+          background-color: rgba(0, 212, 255, 0.1);
+          border-bottom-color: rgba(0, 212, 255, 0.6) !important;
+          box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.2); }
         @media only screen and (min-width: 992px) and (max-width: 1199px) {
           .header-area .oneMusic-main-menu .classy-navbar .classynav ul li ul li a {
             padding: 0 15px; } }
