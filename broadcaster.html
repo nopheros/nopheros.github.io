@@ -186,6 +186,7 @@
         transition: transform 0.15s ease, box-shadow 0.15s ease;
       }
       .twitch-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 200, 255, 0.45); }
+      .twitch-card { margin: 0 auto 22px auto; max-width: 500px; }
       .gallery-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
       .gallery-placeholder {
         flex: 1 1 320px;
@@ -225,33 +226,68 @@
       .cta-title { font-size: 1.2rem; letter-spacing: 1px; text-shadow: 0 0 12px rgba(0, 200, 255, 0.7); }
       .cta-sub { font-size: 0.95rem; font-family: 'Share Tech Mono', monospace; color: #9fd8ff; opacity: 0.85; }
 
-      /* Logo strip */
-      .logo-strip {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 24px;
-        margin: 18px auto 4px auto;
-        flex-wrap: wrap;
+      /* Flyer Gallery Section */
+      .flyer-gallery-section {
+        margin: 60px auto 40px auto;
+        max-width: 1200px;
       }
-      .logo-badge {
-        background: linear-gradient(145deg, rgba(0,200,255,0.12), rgba(0,120,180,0.2));
-        border: 1px solid rgba(0,200,255,0.28);
-        border-radius: 14px;
-        padding: 10px 14px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.55), 0 0 18px rgba(0,200,255,0.18);
-        min-width: 140px;
-        min-height: 70px;
+      .flyers-title {
+        text-align: center;
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #9fd8ff;
+        letter-spacing: 3px;
+        font-size: 1.8rem;
+        margin: 0 auto 28px auto;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
+      }
+      .flyer-showcase {
         display: grid;
-        place-items: center;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 30px;
       }
-      .logo-badge img { max-height: 60px; max-width: 160px; display: block; }
+      .flyer-item {
+        position: relative;
+        border-radius: 14px;
+        aspect-ratio: 3/4;
+        padding: 12px;
+        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
+        box-shadow: 0 14px 40px rgba(0,0,0,0.7), 0 0 28px rgba(0,200,255,0.28);
+        border: 1px solid rgba(0,200,255,0.45);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+      .flyer-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 48px rgba(0,0,0,0.78), 0 0 34px rgba(0,200,255,0.42);
+        border-color: rgba(0,200,255,0.65);
+      }
+      .flyer-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
+      }
+      @media (max-width: 992px) {
+        .flyer-showcase {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
+      @media (max-width: 640px) {
+        .flyer-showcase {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+      }
 
       /* Layout: desktop two-column */
       .content-grid {
         display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 24px;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 20px;
         align-items: start;
         margin-top: 20px;
       }
@@ -261,8 +297,8 @@
       }
       .scroll-wrapper {
         position: relative;
-        margin: 40px auto 60px auto;
-        max-width: 920px;
+        margin: 20px auto 50px auto;
+        max-width: 1040px;
         padding: 28px;
       }
       .scroll {
@@ -294,6 +330,15 @@
         letter-spacing: 2px;
         margin-bottom: 14px;
       }
+      .scroll .scroll-subtitle {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        color: #3a5670;
+        letter-spacing: 1px;
+        margin-top: -6px;
+        margin-bottom: 14px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+      }
       .scroll b { color: #0f4e73; }
       .schedule-section {
         background: linear-gradient(145deg, #0c0c0c, #0a1116);
@@ -310,6 +355,7 @@
         letter-spacing: 3px;
         margin-bottom: 16px;
         text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
+        text-align: center;
       }
       .schedule-list {
         list-style: none;
@@ -331,6 +377,44 @@
         .scroll { padding: 44px 24px 36px 24px; }
         .gallery-row { gap: 12px; }
         .twitch-embed { height: 320px; }
+      }
+
+      /* Schedule split layout */
+      .schedule-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .schedule-col h3 {
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #9fd8ff;
+        letter-spacing: 2px;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
+      }
+      .schedule-float {
+        position: fixed;
+        top: 130px;
+        right: 24px;
+        z-index: 10;
+        background: linear-gradient(135deg, rgba(0,200,255,0.22), rgba(0,120,180,0.34));
+        color: #dff8ff;
+        font-family: 'Share Tech Mono', monospace;
+        padding: 12px 18px;
+        border-radius: 14px;
+        border: 1px solid rgba(0,200,255,0.45);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 24px rgba(0,200,255,0.32);
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .schedule-float:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(0,0,0,0.68), 0 0 30px rgba(0,200,255,0.4);
+      }
+      @media (max-width: 992px) {
+        .schedule-float { display: none; }
       }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
@@ -384,6 +468,7 @@
 
     <div class="rune-rain"></div>
     <main class="page-main">
+      <a class="schedule-float" href="#schedule-overview">Schedule Overview</a>
       <div class="container">
         <h1>BROADCASTER</h1>
         <div class="hero-title">PILGRIM OF THE SIGNAL</div>
@@ -392,37 +477,10 @@
           <span class="status-dot"></span>
           <span class="status-text">OFFLINE — FOLLOW FOR LIVE ALERTS</span>
         </div>
-        <div class="cta-row">
-          <a class="cta-book" href="https://nopheros.github.io/contact.html">Book Nopheros</a>
-        </div>
-
-        <div class="logo-strip">
-          <div class="logo-badge">
-            <img src="/img/bg-img/turtle-wow-logo.png" alt="Turtle WoW Logo" onerror="this.style.opacity=0.35; this.alt='Turtle WoW logo placeholder';">
-          </div>
-          <div class="logo-badge">
-            <img src="/img/bg-img/everlook-logo.png" alt="Everlook Broadcasting Logo" onerror="this.style.opacity=0.35; this.alt='Everlook Broadcasting logo placeholder';">
-          </div>
-        </div>
-
         <div class="content-grid">
           <div>
-            <!-- TWITCH SECTION -->
-            <section class="section-shell">
-              <div class="scanline"></div>
-              <div id="twitch-embed-container">
-                <!-- Twitch embed or button will be injected here -->
-              </div>
-            </section>
-
-            <!-- GALLERY/VIDEO SECTION -->
-            <section class="section-shell">
-              <div class="scanline"></div>
-              <div class="gallery-row">
-                <div class="gallery-placeholder">[ Video or Image Placeholder 1 ]</div>
-                <div class="gallery-placeholder">[ Video or Image Placeholder 2 ]</div>
-              </div>
-            </section>
+            <!-- TWITCH SECTION (panel removed) -->
+            <div id="twitch-embed-container" style="margin-bottom: 22px; text-align:center;"></div>
 
             <!-- DISCORD CTA PANEL -->
             <section class="section-shell">
@@ -435,13 +493,15 @@
                 </a>
               </div>
             </section>
+
           </div>
 
           <div>
             <!-- SCROLL: EVERLOOK BROADCASTING -->
             <div class="scroll-wrapper">
               <div class="scroll">
-                <h2>Everlook Broadcasting Co. &amp; Turtle WoW</h2>
+                <h2>Everlook Broadcasting Co.</h2>
+                <div class="scroll-subtitle">Pilgrim of the Signal</div>
                 <p>Nopheros, an architect of atmosphere. A Digital Sherpa traveling the virtual hills, curating music, knowledge, and an insatiable creativity. A DJ that walks both the Real and Digital.<br><br>
                 Starting in the virtual worlds of <b>Anarchy Online</b>, <b>The Matrix Online</b>, and <b>World of Warcraft</b>, this DJ crossed realms, finding sanctuary in Providence, Rhode Island and Boston, Massachusetts at night clubs such as Club Hell, Alchemy, Ego, Xmortis, Darq, Jaded, Kink, and more.<br><br>
                 Combining these realms the deck became a storytelling canvas. Nopheros weaves textures of rhythm and emotion, guiding the crowd through waves of tension and release. By the end of the night the audience leaves holding more than memories. They carry an experience and a story. That journey starts with booking DJ Nopheros.<br><br>
@@ -452,14 +512,65 @@
         </div>
 
         <!-- SCHEDULE SECTION -->
-        <section class="schedule-section">
-          <h2>Upcoming Schedule</h2>
-          <ul class="schedule-list">
-            <li><b>Pilgrim of the Signal</b> — Bi-weekly Wednesdays, 23:00 Server Time (Everlook Broadcasting / Turtle WoW)</li>
-            <li><b>Live on Twitch</b> — Spontaneous DJ sets, music production, and MMO radio (Follow for notifications!)</li>
-            <li><b>Special Events</b> — See Discord or Twitter for pop-up shows and collaborations</li>
-          </ul>
+        <section id="schedule-overview" class="schedule-section">
+          <h2>Schedule Overview</h2>
+          <div class="schedule-grid">
+            <div class="schedule-col">
+              <h3>Rotating Shows</h3>
+              <ul class="schedule-list">
+                <li><b>Pilgrim of the Signal</b> — Bi-weekly Wednesdays, 23:00 Server Time</li>
+                <li><b>Smuggle the Signal</b> — Covert ops broadcasts across Azeroth</li>
+                <li><b>Ashes of the Fader</b> — Industrial/EBM journeys</li>
+                <li><b>Back from the Brink</b> — Recovery arc sets</li>
+                <li><b>Protect the Signal</b> — Community call-to-arms shows</li>
+                <li><b>Easy Come Easy Go</b> — Chill & downtempo rotations</li>
+                <li><b>Shadowforge Seance</b> — Deep lore + atmospheric sets</li>
+                <li><b>Redridge Heat</b> — High-energy field reports</li>
+              </ul>
+            </div>
+            <div class="schedule-col">
+              <h3>Special Sets</h3>
+              <ul class="schedule-list">
+                <li style="opacity:0.7; list-style: none; border-left: none; padding-left: 0;">More special sets coming soon. Watch this space.</li>
+              </ul>
+            </div>
+          </div>
         </section>
+
+        <div class="flyer-gallery-section">
+          <h2 class="flyers-title">SHOW FLYERS</h2>
+          <!-- Flyer Gallery -->
+          <div class="flyer-showcase">
+            <!-- Grid of other flyers (3 columns) -->
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_accident.png" alt="Accident Episode Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_china.jpg" alt="China Broadcast Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_dayoff.png" alt="Nopheros Day Off Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_feast.png" alt="Booty for Breakfast Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_karazhan.png" alt="Karazhan Episode Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_sa.png" alt="South Seas Episode Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_tapes.png" alt="Ambershire Tapes Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_tram.png" alt="Tram Episode Flyer">
+            </div>
+            <div class="flyer-item">
+              <img src="/img/bg-img/flyer_treehab.png" alt="Treehab Recovery Flyer">
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 

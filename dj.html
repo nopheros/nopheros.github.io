@@ -18,315 +18,440 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-      html, body { background-color: #000 !important; color: #fff; }
-      
-      /* Video Banner Section */
-      .video-banner-section {
-        padding: 120px 0 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #000;
+      html, body { 
+        background-color: #050505 !important; 
+        color: #dff8ff;
       }
       
-      .video-banner-container {
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-      
-      .video-banner {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      }
-      
-      /* Terminal Log Section */
-      .dj-log-section {
-        padding: 80px 20px 120px;
-        background-color: #000;
-        min-height: 100vh;
-      }
-      
-      .dj-log-container {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      
-      .terminal-window {
-        background-color: #0a0a0a;
-        border: 1px solid #0d3a4a;
-        border-radius: 6px;
-        padding: 30px;
-        box-shadow: 0 0 50px rgba(0, 212, 255, 0.15), inset 0 0 30px rgba(0, 212, 255, 0.02);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .terminal-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 25px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #0d3a4a;
-        position: relative;
-      }
-      
-      .terminal-header::before {
+      body::before {
         content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 60px;
-        height: 2px;
-        background: linear-gradient(90deg, #00d4ff, transparent);
-        box-shadow: 0 0 10px #00d4ff;
-      }
-      
-      .terminal-prompt {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      
-      .terminal-icon {
-        color: #00d4ff;
-        font-family: 'Courier New', monospace;
-        font-size: 1.2rem;
-        text-shadow: 0 0 8px rgba(0, 212, 255, 0.8);
-      }
-      
-      .terminal-title {
-        color: #00d4ff;
-        font-family: 'Courier New', monospace;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-        text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-      }
-      
-      .terminal-status {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      
-      .status-indicator {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: #00d4ff;
-        box-shadow: 0 0 8px #00d4ff;
-        animation: pulse 2s ease-in-out infinite;
-      }
-      
-      @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.6; transform: scale(0.9); }
-      }
-      
-      .status-text {
-        color: #00d4ff;
-        font-family: 'Courier New', monospace;
-        font-size: 0.75rem;
-        opacity: 0.7;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      
-      .terminal-output {
-        font-family: 'Courier New', Consolas, monospace;
-        color: #00d4ff;
-        font-size: 0.95rem;
-        line-height: 1.7;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        letter-spacing: 0.5px;
-        text-shadow: 0 0 3px rgba(0, 212, 255, 0.6), 0 0 6px rgba(0, 212, 255, 0.3);
-      }
-      
-      .terminal-output::after {
-        content: '█';
-        animation: blink 1s infinite;
-        margin-left: 2px;
-      }
-      
-      /* Text styling for categories and highlights */
-      .category-header {
-        color: #00ff88;
-        font-weight: bold;
-        text-shadow: 0 0 5px rgba(0, 255, 136, 0.7), 0 0 10px rgba(0, 255, 136, 0.3);
-      }
-      
-      .proper-noun {
-        color: #ffd700;
-        text-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
-      }
-      
-      .venue-name {
-        color: #a78bfa;
-        text-shadow: 0 0 4px rgba(167, 139, 250, 0.6);
-      }
-      
-      .system-note {
-        color: #ff8c42;
-        font-style: italic;
-        text-shadow: 0 0 4px rgba(255, 140, 66, 0.6);
-      }
-      
-      .prompt-symbol {
-        color: #00ff88;
-        font-weight: bold;
-        text-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
-      }
-      
-      .year-marker {
-        color: #00ff88;
-        font-weight: bold;
-        text-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
-      }
-      
-      /* Epic achievement highlight */
-      .achievement {
-        color: #ff3366;
-        font-weight: bold;
-        text-shadow: 0 0 6px rgba(255, 51, 102, 0.8), 0 0 12px rgba(255, 51, 102, 0.4);
-        animation: achievement-glow 3s ease-in-out infinite;
-      }
-      
-      @keyframes achievement-glow {
-        0%, 100% { 
-          text-shadow: 0 0 6px rgba(255, 51, 102, 0.8), 0 0 12px rgba(255, 51, 102, 0.4);
-        }
-        50% { 
-          text-shadow: 0 0 10px rgba(255, 51, 102, 1), 0 0 20px rgba(255, 51, 102, 0.6);
-        }
-      }
-      
-      @keyframes blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
-      }
-      
-      .terminal-scanline {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background: linear-gradient(
-          to bottom,
-          transparent 50%,
-          rgba(0, 212, 255, 0.03) 50%
-        );
-        background-size: 100% 4px;
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(0,255,200,0.05), transparent 35%),
+                    radial-gradient(circle at 80% 0%, rgba(120,200,255,0.05), transparent 35%),
+                    linear-gradient(180deg, rgba(0,255,180,0.03), rgba(0,120,180,0.02));
         pointer-events: none;
-        animation: scanline 10s linear infinite;
+        z-index: -2;
       }
       
-      @keyframes scanline {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(100%); }
+      .rune-rain {
+        position: fixed;
+        inset: 0;
+        background:
+          repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,180,0.08) 0px,
+            rgba(0,255,180,0.08) 2px,
+            transparent 6px,
+            transparent 24px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(0,120,180,0.05) 7px,
+            rgba(0,120,180,0.08) 8px,
+            transparent 12px
+          );
+        opacity: 0.22;
+        mix-blend-mode: screen;
+        animation: rainShift 12s linear infinite;
+        pointer-events: none;
+        z-index: -1;
       }
       
-      /* DJ Image Section */
-      .dj-image-section {
-        padding: 80px 20px 100px;
-        background-color: #000;
+      @keyframes rainShift {
+        0% { transform: translateY(0) translateX(0); }
+        100% { transform: translateY(24px) translateX(-6px); }
+      }
+      
+      /* Main DJ Section */
+      .dj-main-section {
+        padding: 100px 20px;
+        background-color: #050505;
         position: relative;
       }
       
-      .dj-image-container {
-        max-width: 1200px;
+      .dj-container {
+        max-width: 1600px;
         margin: 0 auto;
-        position: relative;
+      }
+      
+      /* Three-column layout: Image | Pitch | Reel */
+      .dj-content-grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1fr 0.95fr;
+        gap: 30px;
+        align-items: center;
+        margin-bottom: 70px;
       }
       
       .dj-image-wrapper {
         position: relative;
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        aspect-ratio: 3/4;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 35px rgba(0,200,255,0.25);
+        border: 2px solid rgba(0,200,255,0.4);
       }
       
       .dj-image {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
         display: block;
-        border-radius: 16px;
+        filter: saturate(0.9);
       }
       
       .dj-image-wrapper::before {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         background: linear-gradient(
+          135deg,
+          transparent 40%,
+          rgba(0,200,255,0.12) 50%,
+          transparent 60%
+        );
+        pointer-events: none;
+        z-index: 2;
+      }
+      
+      /* Central Content Panel */
+      .dj-pitch {
+        padding: 36px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
+        border: 1px solid rgba(0,200,255,0.3);
+        border-radius: 16px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,200,255,0.18);
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      
+      .dj-pitch::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.4) 0%,
-          transparent 20%,
-          transparent 80%,
-          rgba(0, 0, 0, 0.6) 100%
+          rgba(0,255,180,0.06) 0px,
+          rgba(0,255,180,0.06) 1px,
+          transparent 2px,
+          transparent 4px
         );
         pointer-events: none;
         z-index: 1;
       }
       
-      .dj-image-wrapper::after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: linear-gradient(45deg, 
-          transparent 40%,
-          rgba(0, 212, 255, 0.15) 50%,
-          transparent 60%
-        );
-        border-radius: 16px;
-        pointer-events: none;
+      .dj-pitch h2 {
+        font-family: 'Cinzel Decorative', serif;
+        color: #9fd8ff;
+        font-size: 1.8rem;
+        letter-spacing: 2.4px;
+        text-shadow: 0 0 12px rgba(0,200,255,0.7);
+        margin-bottom: 10px;
+        position: relative;
         z-index: 2;
       }
       
-      /* Responsive adjustments */
+      .dj-pitch p {
+        font-family: 'EB Garamond', serif;
+        color: #dff8ff;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        margin: 0 0 14px 0;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .dj-pitch p:last-of-type {
+        margin-bottom: 0;
+      }
+      
+      .dj-pitch b {
+        color: #00ff88;
+        text-shadow: 0 0 8px rgba(0,255,136,0.6);
+      }
+
+      .dj-pitch-actions {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        margin-top: 12px;
+      }
+      
+      .tour-highlight {
+        color: #ffd700;
+        text-shadow: 0 0 6px rgba(255,215,0,0.6);
+        font-weight: 600;
+      }
+      
+      /* Performance Reel Column */
+      .dj-reel-wrapper {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 35px rgba(0,200,255,0.25);
+        border: 2px solid rgba(0,200,255,0.4);
+      }
+      
+      .dj-reel-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      
+      /* Booking CTA */
+      .booking-cta {
+        text-align: center;
+        margin: 50px 0 80px 0;
+      }
+      
+      .booking-button {
+        display: inline-block;
+        color: #dff8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        padding: 14px 38px;
+        background: transparent;
+        border: 2px solid #00d4ff;
+        border-radius: 0;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .booking-button i {
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+      }
+      
+      .booking-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0,212,255,0.2), transparent);
+        transition: left 0.5s ease;
+        z-index: 0;
+      }
+      
+      .booking-button:hover {
+        background: linear-gradient(90deg, rgba(0,212,255,0.12), rgba(0,212,255,0.08));
+        box-shadow: 0 0 20px rgba(0,212,255,0.4), inset 0 0 10px rgba(0,212,255,0.1);
+        letter-spacing: 3px;
+      }
+      
+      .booking-button:hover i {
+        transform: translateX(4px);
+      }
+      
+      .booking-button:hover::before {
+        left: 100%;
+      }
+      
+      .booking-button:active {
+        transform: scale(0.98);
+      }
+      
+      /* SoundCloud Section */
+      .soundcloud-section {
+        padding: 80px 20px 100px;
+        background-color: #050505;
+        position: relative;
+      }
+      
+      .soundcloud-container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      
+      .soundcloud-title {
+        text-align: left;
+        font-family: 'Cinzel Decorative', serif;
+        color: #9fd8ff;
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+        text-shadow: 0 0 12px rgba(0,200,255,0.7);
+        margin-bottom: 28px;
+      }
+
+      .soundcloud-layout {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 28px;
+        align-items: start;
+      }
+      
+      .soundcloud-left {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .video-panel {
+        background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
+        border: 1px solid rgba(0,200,255,0.35);
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
+      }
+
+      .video-title {
+        font-family: 'Cinzel Decorative', serif;
+        color: #9fd8ff;
+        font-size: 1.25rem;
+        letter-spacing: 1.5px;
+        text-shadow: 0 0 10px rgba(0,200,255,0.6);
+        margin-bottom: 16px;
+      }
+
+      .video-embeds {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .video-embed-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid rgba(0,200,255,0.35);
+        background: rgba(0,0,0,0.4);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 18px rgba(0,200,255,0.18);
+      }
+
+      .video-embed-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .youtube-link {
+        display: inline-block;
+        margin-top: 4px;
+        color: #dff8ff;
+        font-family: 'Share Tech Mono', monospace;
+        letter-spacing: 1px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0,200,255,0.6);
+        padding-bottom: 2px;
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .youtube-link:hover {
+        color: #00d4ff;
+        border-color: rgba(0,200,255,1);
+      }
+      
+      .soundcloud-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .soundcloud-embed-wrapper {
+        background: linear-gradient(145deg, rgba(0,200,255,0.1), rgba(0,120,180,0.15));
+        border: 1px solid rgba(0,200,255,0.35);
+        border-radius: 14px;
+        padding: 16px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .soundcloud-embed-wrapper:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 35px rgba(0,200,255,0.3);
+      }
+      
+      .soundcloud-embed-wrapper iframe {
+        width: 100%;
+        height: 166px;
+        border: none;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 992px) {
+        .soundcloud-layout {
+          grid-template-columns: 1fr;
+        }
+        .soundcloud-title {
+          text-align: center;
+        }
+        .video-panel {
+          order: 2;
+        }
+        .soundcloud-left {
+          order: 1;
+        }
+      }
+      
+      /* Responsive */
+      @media (max-width: 1200px) {
+        .dj-content-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        
+        .dj-reel-wrapper {
+          display: none;
+        }
+      }
+      
       @media (max-width: 768px) {
-        .video-banner-section {
-          padding: 100px 0 40px;
+        .dj-main-section {
+          padding: 60px 15px;
         }
-        .video-banner {
-          border-radius: 4px;
+        
+        .dj-pitch {
+          padding: 28px;
         }
-        .dj-log-section {
-          padding: 60px 15px 80px;
+        
+        .dj-pitch h2 {
+          font-size: 1.3rem;
+          margin-bottom: 12px;
         }
-        .terminal-window {
-          padding: 20px;
-        }
-        .terminal-output {
+        
+        .dj-pitch p {
           font-size: 0.85rem;
-          line-height: 1.5;
+          margin-bottom: 10px;
         }
-        .dj-image-section {
-          padding: 60px 15px 80px;
+        
+        .booking-button {
+          font-size: 0.95rem;
+          padding: 12px 32px;
         }
-        .dj-image-wrapper {
-          border-radius: 12px;
+        
+        .soundcloud-container {
+          max-width: 100%;
         }
-        .dj-image {
-          border-radius: 12px;
+        
+        .soundcloud-title {
+          font-size: 1.3rem;
         }
       }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- header (copied from index.html) -->
     <header class="header-area">
         <div class="oneMusic-main-menu">
             <div class="classy-nav-container breakpoint-off">
@@ -372,52 +497,79 @@
         </div>
     </header>
 
-    <!-- DJ Banner Video Section -->
-    <section class="video-banner-section">
-      <div class="video-banner-container">
-        <video 
-          class="video-banner" 
-          autoplay 
-          muted 
-          loop 
-          playsinline
-          poster="/video/nopheros_djbanner.mp4">
-          <source src="/video/nopheros_djbanner.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </section>
+    <div class="rune-rain"></div>
 
-    <!-- DJ Terminal Log Section -->
-    <section class="dj-log-section" id="dj-log-section">
-      <div class="dj-log-container">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <div class="terminal-prompt">
-              <span class="terminal-icon">▶</span>
-              <div class="terminal-title">NOPHEROS_BROADCAST_SYSTEM</div>
+    <!-- DJ Main Content Section -->
+    <section class="dj-main-section">
+      <div class="dj-container">
+        <div class="dj-content-grid">
+          <!-- DJ Image Panel -->
+          <div class="dj-image-wrapper">
+            <img src="/img/bg-img/nopheros_ganny.jpg" alt="DJ Nopheros" class="dj-image">
+          </div>
+          
+          <!-- DJ Pitch - Center -->
+          <div class="dj-pitch">
+            <div>
+              <h2>DJ Nopheros</h2>
+              <p><b>Signal-boosting atmospheres built to move bodies and minds.</b> Curates cyberpunk, industrial, and cinematic sets with the precision of a systems architect.</p>
+
+              <p>Veteran of <b>Anarchy Online</b> and <b>The Matrix Online</b> scenes turned global club and festival storyteller. Crafts dynamic arcs that sync lighting, visuals, and crowd energy into a single narrative.</p>
+
+              <p><b>Tour velocity:</b> <span class="tour-highlight">Michigan → Boston → Serbia (2025)</span>. Support for <b>Stabbing Westward</b> and <b>Psyclon Nine</b>. Providence residencies and live syndication on <b>Everlook Broadcasting Co.</b></p>
             </div>
-            <div class="terminal-status">
-              <span class="status-indicator"></span>
-              <span class="status-text">LIVE</span>
+
+            <div class="dj-pitch-actions">
+              <a class="booking-button" href="https://nopheros.github.io/contact.html">
+                <span>> BOOKING</span>
+                <i class="fa fa-angle-double-right"></i>
+              </a>
             </div>
           </div>
-          <div class="terminal-output" id="dj-log-output"></div>
-          <div class="terminal-scanline"></div>
+          
+          <!-- Performance Reel -->
+          <div class="dj-reel-wrapper">
+            <img src="/video/nopheros_djbanner.gif" alt="DJ Nopheros Live Performance">
+          </div>
         </div>
+        
+        <!-- SoundCloud + YouTube Section -->
+        <section class="soundcloud-section">
+          <div class="soundcloud-container">
+            <div class="soundcloud-layout">
+              <div class="soundcloud-left">
+                <h2 class="soundcloud-title">SoundCloud</h2>
+                <div class="soundcloud-grid">
+                  <div class="soundcloud-embed-wrapper">
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kenneth-auffrey/dj-atrox-gehenna-podcast-march-2017&color=%230dd4ff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                  </div>
+                  <div class="soundcloud-embed-wrapper">
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kenneth-auffrey/promo-show-the-war-forge&color=%230dd4ff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                  </div>
+                  <div class="soundcloud-embed-wrapper">
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/kenneth-auffrey/soundcloud-setlist&color=%230dd4ff&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                  </div>
+                </div>
+              </div>
+              <div class="video-panel">
+                <h3 class="video-title">YouTube Spotlight</h3>
+                <div class="video-embeds">
+                  <div class="video-embed-wrapper">
+                    <iframe src="https://www.youtube.com/embed?listType=search&list=nopheros%20dj%20set" title="Nopheros DJ set" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                  <div class="video-embed-wrapper">
+                    <iframe src="https://www.youtube.com/embed?listType=search&list=nopheros%20live" title="Nopheros live" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </div>
+                <a class="youtube-link" href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener">Full channel →</a>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- DJ Image Section -->
-    <section class="dj-image-section">
-      <div class="dj-image-container">
-        <div class="dj-image-wrapper">
-          <img src="/img/bg-img/nopheros_ganny.jpg" alt="DJ Nopheros" class="dj-image">
-        </div>
-      </div>
-    </section>
-
-    <!-- footer (copied from index.html) -->
+    <!-- footer -->
     <footer class="footer-area">
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
@@ -441,272 +593,5 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/plugins/plugins.js"></script>
     <script src="js/active.js"></script>
-
-    <script>
-      const DJ_LOG_TEXT = `
-> INITIALIZING MEMORY DUMP  
-> SOURCE USER: NOPHEROS  
-> CLASSIFICATION: LIVE BROADCAST OPERATOR  
-> PROCESSING LONGFORM HISTORY  
-> PLEASE HOLD  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2003 // ORIGIN POINT]  
-  Logged into Anarchy Online for the first time  
-  Entered an in-game nightclub and felt something activate  
-  Learned the ritual of typing IP addresses into Winamp  
-  Heard GridStream Productions and recognized a path forming  
-  Experienced the first resonance of music inside a virtual world  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2006 // FIRST SIGNAL]  
-  Migrated into The Matrix Online which altered trajectory  
-  Found Radio Free Zion and saw what a distributed radio could be  
-  Built LYRA RADIO as DJ MALASTUS at age sixteen  
-  Broadcasted for The Devils Advocates guild during peak MxO activity  
-  Produced some of the earliest player driven DJ sets in the game  
-  When the server shutdown occurred the station collapsed with it  
-  First archival loss detected  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2010 // REAWAKENING]  
-  Purchased a Numark Mixtrack Pro with borrowed credit  
-  Learned physical DJing after starting online  
-  Debuted as DJ GRIDSTREAM in Providence and Lowell  
-  Played gritty industrial and rave sets across New England  
-  Entered rotation at fetish nights and warehouse events  
-  Developed early stage crowd control and beatmatching systems  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2011–2013 // VIRTUAL INSANITY ERA]  
-  Returned to Anarchy Online as DJ STEFANO for GridStream Productions  
-  Launched Virtual Insanity which blended industrial EBM nostalgia and MMO chaos  
-  Completed a 51 hour and 6 minute continuous broadcast without signal interruption  
-  Traveled to Grand Rapids Michigan to DJ and help host the first and only Anarchy Online convention  
-  System note: The dogs are in the enclosed pool area garage side door is open  
-  Recognized the line between virtual and physical DJ life becoming thinner  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2013–2018 // ATROX PROTOCOL]  
-  Rebooted identity to DJ ATROX OF PROVIDENCE  
-  Performed across New England including  
-       Club Hell  
-       DV8  
-       PVD Social Club  
-       Fete Music Hall  
-       The Dark Lady  
-       SideBar  
-       Manchester 65  
-       Alchemy  
-       EGO  
-       Dive Bar  
-       Firehouse 13  
-       FreQ  
-  Expanded set operations to Boston Salem Lowell and New Hampshire  
-  Joined UnScene Productions as resident DJ for longstanding Providence events  
-  Created two club nights Altar and Phantasm specializing in goth industrial and EBM  
-  Became primary support DJ for multiple concerts including  
-       Assemblage 23  
-       Angelspit  
-       Die Sektor  
-       Hanzel und Gretyl  
-       Psyclon Nine  
-       Stabbing Westward  
-       Skeletal Family  
-       Panic Lift  
-       Interface  
-       Big Time Kill  
-       The Rain Within  
-       Hexheart  
-       Bellerophon  
-       Powerman 5000  
-       Mari Kattman  
-  Played Spanksgiving at Club Hell and multiple Halloween shows across Providence  
-  Completed final cycle and entered retirement in 2018  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2024 // SIGNAL RETURNS]  
-  Detected dormant broadcast impulse returning online  
-  Researched MMO radio history and found most had vanished  
-  Located Everlook Broadcasting inside Turtle WoW  
-  Began initiative to reenter DJ work through a virtual world again  
-  Contact attempts directed at Dan Leto eventually succeeded  
-  On Halloween 2024 the concept for Pilgrim of the Signal materialized  
-  Identity restructuring complete and DJ NOPHEROS was formed  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[2025 // FULL BROADCAST ENABLED]  
-  Joined Everlook Broadcasting as broadcaster staff and systems operator  
-  Initiated the Pilgrim of the Signal program featuring recurring show arcs such as  
-       Smuggle the Signal  
-       Ashes of the Fader  
-       Back from the Brink  
-       Protect the Signal  
-       Easy Come Easy Go  
-       Smuggle the Signal covert operations  
-       The Shadowforge Seance series  
-       Redridge Heat  
-       The Ambershire Tapes  
-       The L Word  
-       Treehab recovery program  
-       Fiesta Fashionista  
-       Mists Over BashalAran  
-       Booty for Breakfast at the Bay  
-       Nopheros Day Off  
-       And numerous other logged transmissions repaired from Reddit data streams  
-  Performed the SonicBoomBox × Twitch Boston PAX East 2025 Afterparty  
-  Set duration logged as 21 to 01 hours  
-  System truth: You can feel the beat but the beat can feel you  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[TECHNICAL EVOLUTION // UNIFIED LOG]  
-  Transitioned from Pioneer DDJ-SX using Mixxx  
-  Moved into Rane Performer using Serato DJ Pro  
-  Integrated broadcast routing through BUTT for Everlook Broadcasting  
-  Continued iterative upgrades and optimization  
-  Current state reading: Learning every day  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[STYLE AND INSPIRATION // AUDIT]  
-  Influenced by Skinny Puppy VNV Nation Apoptygma Berzerk and early GSP sets  
-  Expanded through Rant Radio industrial archives  
-  Discovered DIFM which opened access to trance DnB house and trip hop  
-  Adapted style for younger club crowds using dubstep witchhouse trap and alt metal  
-  Modern inspiration derived from other DJs remix culture YouTube Twitch and live sets  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-[SIGNAL STORY EVENTS // ADDITIONAL NOTES]  
-  Smuggling the Signal operations into Orgrimmar and Undercity  
-  Elevator show identified as pure chaos  
-  China broadcast performed under firewall restriction conditions  
-  South Seas broadcast flagged as extremely honest and memorable  
-  System reminder: Time is not a line it is a pool and you are already swimming in every version of it  
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-> ARCHIVE STATUS: COMPLETE FOR PUBLIC VIEW  
-> CORRUPTION LEVEL: MINIMAL AND STYLISTIC  
-> BROADCAST READY  
-> STREAM CLOSED  
-`;
-
-      const outputEl = document.getElementById('dj-log-output');
-      const sectionEl = document.getElementById('dj-log-section');
-
-      let index = 0;
-      let hasStarted = false;
-
-      function typeLog() {
-        const step = 4;    // characters per tick
-        const speed = 6;   // ms per tick
-
-        function tick() {
-          index += step;
-          let content = DJ_LOG_TEXT.slice(0, index);
-          
-          // Apply styling to specific patterns
-          content = stylizeText(content);
-          outputEl.innerHTML = content;
-
-          if (index < DJ_LOG_TEXT.length) {
-            window.setTimeout(tick, speed);
-          }
-        }
-
-        tick();
-      }
-
-      function stylizeText(text) {
-        // Style epic achievements FIRST (before other styling)
-        const achievements = [
-          'Completed a 51 hour and 6 minute continuous broadcast without signal interruption',
-          'first and only Anarchy Online convention',
-          'Performed the SonicBoomBox × Twitch Boston PAX East 2025 Afterparty',
-          'Set duration logged as 21 to 01 hours',
-          'some of the earliest player driven DJ sets in the game',
-          'Became primary support DJ for multiple concerts',
-          'Created two club nights Altar and Phantasm',
-          'resident DJ for longstanding Providence events',
-          'Performed across New England'
-        ];
-        
-        achievements.forEach(achievement => {
-          const regex = new RegExp(`(${achievement.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-          text = text.replace(regex, '<span class="achievement">$1</span>');
-        });
-        
-        // Style prompt symbols (>)
-        text = text.replace(/^(>\s+[A-Z\s]+)$/gm, '<span class="prompt-symbol">$1</span>');
-        
-        // Style year markers [YEAR // TITLE]
-        text = text.replace(/\[(\d{4}(?:–\d{4})?)\s+\/\/\s+([^\]]+)\]/g, 
-          '<span class="year-marker">[$1 // $2]</span>');
-        
-        // Style category headers (lines ending with //)
-        text = text.replace(/\[(.*?)\s+\/\/\s+(.*?)\]/g, 
-          '<span class="category-header">[$1 // $2]</span>');
-        
-        // Style proper nouns and venues
-        const properNouns = [
-          'Anarchy Online', 'The Matrix Online', 'Radio Free Zion', 'GridStream Productions',
-          'LYRA RADIO', 'The Devils Advocates', 'Numark Mixtrack Pro', 'Virtual Insanity',
-          'Grand Rapids', 'Michigan', 'UnScene Productions', 'Everlook Broadcasting',
-          'Turtle WoW', 'Dan Leto', 'Pilgrim of the Signal', 'DJ NOPHEROS', 'DJ MALASTUS',
-          'DJ GRIDSTREAM', 'DJ ATROX OF PROVIDENCE', 'DJ STEFANO', 'Pioneer DDJ-SX',
-          'Rane Performer', 'Serato DJ Pro', 'Mixxx', 'BUTT', 'Winamp',
-          'Providence', 'New England', 'Boston', 'Salem', 'Lowell', 'New Hampshire',
-          'PAX East', 'Twitch Boston', 'SonicBoomBox', 'Reddit'
-        ];
-        
-        properNouns.forEach(noun => {
-          const regex = new RegExp(`(?<!<span[^>]*>)\\b(${noun})\\b(?![^<]*<\/span>)`, 'g');
-          text = text.replace(regex, '<span class="proper-noun">$1</span>');
-        });
-        
-        // Style venue names
-        const venues = [
-          'Club Hell', 'DV8', 'PVD Social Club', 'Fete Music Hall', 'The Dark Lady',
-          'SideBar', 'Manchester 65', 'Alchemy', 'EGO', 'Dive Bar', 'Firehouse 13',
-          'FreQ', 'Altar', 'Phantasm', 'Spanksgiving'
-        ];
-        
-        venues.forEach(venue => {
-          const regex = new RegExp(`(?<!<span[^>]*>)\\b(${venue})\\b(?![^<]*<\/span>)`, 'g');
-          text = text.replace(regex, '<span class="venue-name">$1</span>');
-        });
-        
-        // Style band/artist names
-        const artists = [
-          'Assemblage 23', 'Angelspit', 'Die Sektor', 'Hanzel und Gretyl',
-          'Psyclon Nine', 'Stabbing Westward', 'Skeletal Family', 'Panic Lift',
-          'Interface', 'Big Time Kill', 'The Rain Within', 'Hexheart',
-          'Bellerophon', 'Powerman 5000', 'Mari Kattman', 'Skinny Puppy',
-          'VNV Nation', 'Apoptygma Berzerk', 'Rant Radio', 'DIFM'
-        ];
-        
-        artists.forEach(artist => {
-          const regex = new RegExp(`(?<!<span[^>]*>)\\b(${artist})\\b(?![^<]*<\/span>)`, 'g');
-          text = text.replace(regex, '<span class="proper-noun">$1</span>');
-        });
-        
-        // Style system notes
-        text = text.replace(/(System note:|System truth:|System reminder:)(.*?)(?=\n|$)/gi,
-          '<span class="system-note">$1$2</span>');
-        
-        return text;
-      }
-
-      // Start typing when the section scrolls into view
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !hasStarted) {
-            hasStarted = true;
-            typeLog();
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.2 });
-
-      observer.observe(sectionEl);
-    </script>
 </body>
 </html>
