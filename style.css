@@ -557,7 +557,10 @@ img {
     content: ''; }
   .single-hero-slide .hero-slides-content {
     display: inline-block;
-    width: 100%; }
+    width: 100%;
+    position: relative;
+    z-index: 15;
+    pointer-events: auto; }
     .single-hero-slide .hero-slides-content h6 {
       font-size: 18px;
       color: #fff;
@@ -1937,6 +1940,7 @@ img {
   display: block;
   background: #000;
   opacity: 1;
+  pointer-events: none;
 }
 
 /* Optional: slightly stronger dark overlay for readability

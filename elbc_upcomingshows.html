@@ -11,7 +11,8 @@
     <title>Upcoming Everlook Broadcasting Co. Shows — DJ NOPHEROS</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
+    <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -23,9 +24,11 @@
       .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
       .calendar-wrap { display:flex; justify-content:center; }
       .calendar-embed { width:100%; max-width:1000px; height:800px; border:1px solid rgba(255,255,255,0.06); }
-      .tz-controls { display:flex; justify-content:center; gap:12px; align-items:center; margin-bottom:30px; flex-wrap:wrap; }
-      .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; }
-      .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; }
+      .tz-controls { display:inline-flex; justify-content:center; gap:0; align-items:center; margin-bottom:30px; flex-wrap:nowrap; }
+      .tz-controls > * { margin:0; }
+      .tz-controls label { margin-right:8px; }
+      .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; margin:0; }
+      .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; margin:0 0 0 8px; }
       @media (max-width: 991px){ .calendar-embed { height:700px; } }
       @media (max-width: 480px){ .calendar-embed { height:620px; } }
     </style>
@@ -78,7 +81,7 @@
                 <p>Live schedule for Everlook Broadcasting Company. If the calendar does not load, try opening it directly in a new tab.</p>
 
                 <div class="tz-controls" aria-hidden="false">
-                    <label for="tzSelect" style="color:#ddd; margin-right:8px;">Timezone:</label>
+                    <label for="tzSelect" style="color:#ddd;">Timezone:</label>
                     <select id="tzSelect" aria-label="Select timezone">
                         <option value="AUTO">Automatic (browser)</option>
                         <option value="UTC">UTC</option>
