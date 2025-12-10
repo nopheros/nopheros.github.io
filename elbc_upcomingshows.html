@@ -25,8 +25,9 @@
       .page-main { padding: 120px 0; text-align: center; }
       .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
       .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
-      .calendar-wrap { display:flex; justify-content:center; margin:0 auto; }
-      #calendar { width:100%; max-width:1000px; background:#111; border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:20px; }
+      .calendar-wrap { display:flex; justify-content:center; width:100%; }
+      .calendar-container { width:100%; max-width:1000px; margin:0 auto; }
+      #calendar { background:#111; border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:20px; }
       .tz-controls { display:inline-flex; justify-content:center; gap:0; align-items:center; margin-bottom:30px; flex-wrap:nowrap; }
       .tz-controls > * { margin:0; }
       .tz-controls label { margin-right:8px; }
@@ -42,11 +43,13 @@
       .fc-daygrid-day { color:#ddd; border-color:rgba(255,255,255,0.1); }
       .fc-daygrid-day-number { color:#ddd; }
       .fc-daygrid-day-frame { min-height:100px; }
-      .fc-event { background-color:#4a90e2; border-color:#3a7bc8; }
-      .fc-event-title { color:#fff; font-weight:600; }
+      .fc-event { background-color:#4a90e2; border-color:#3a7bc8; padding:2px 4px; }
+      .fc-event-title { color:#fff; font-weight:600; font-size:0.9rem; }
+      .fc-event-time { color:#e0e0e0; font-size:0.85rem; }
       .fc-event:hover { background-color:#5aa3f0; }
       .fc-toolbar { margin-bottom:20px; }
       .fc-toolbar-title { color:#ddd; font-size:1.5rem; }
+      .event-emoji { margin-right:4px; }
       #calendar-loading { color:#ddd; padding:40px; text-align:center; }
       #calendar-error { color:#ff6b6b; padding:40px; text-align:center; }
       @media (max-width: 991px){ #calendar { padding:15px; } }
@@ -120,9 +123,11 @@
                 </div>
 
                 <div class="calendar-wrap">
-                    <div id="calendar"></div>
-                    <div id="calendar-loading" style="display:none; width:100%; max-width:1000px;">Loading calendar events...</div>
-                    <div id="calendar-error" style="display:none; width:100%; max-width:1000px;"></div>
+                    <div class="calendar-container">
+                        <div id="calendar"></div>
+                        <div id="calendar-loading" style="display:none; width:100%; max-width:1000px;">Loading calendar events...</div>
+                        <div id="calendar-error" style="display:none; width:100%; max-width:1000px;"></div>
+                    </div>
                 </div>
 
       </div>
@@ -251,15 +256,29 @@
                 if(!response.ok) throw new Error(`API error: ${response.status}`);
 
                 const data = await response.json();
-                const events = (data.items || []).map(event => ({
-                  title: event.summary || 'Event',
-                  start: event.start.dateTime || event.start.date,
-                  end: event.end.dateTime || event.end.date,
-                  description: event.description || '',
-                  location: event.location || '',
-                  backgroundColor: '#4a90e2',
-                  borderColor: '#3a7bc8'
-                }));
+                const events = (data.items || []).map(event => {
+                  const title = event.summary || 'Event';
+                  // Choose emoji based on title
+                  let emoji = '📅';
+                  if(title.toLowerCase().includes('live dj') || title.toLowerCase().includes('dj')) emoji = '🎵';
+                  else if(title.toLowerCase().includes('show')) emoji = '🎙️';
+                  else if(title.toLowerCase().includes('broadcast')) emoji = '📻';
+                  
+                  return {
+                    title: `${emoji} ${title}`,
+                    start: event.start.dateTime || event.start.date,
+                    end: event.end.dateTime || event.end.date,
+                    description: event.description || '',
+                    location: event.location || '',
+                    backgroundColor: '#4a90e2',
+                    borderColor: '#3a7bc8',
+                    extendedProps: {
+                      originalTitle: title,
+                      description: event.description || '',
+                      location: event.location || ''
+                    }
+                  };
+                });
 
                 return events;
               } catch(err){
@@ -286,10 +305,22 @@
                     right: ''
                   },
                   height: 'auto',
+                  contentHeight: 'auto',
                   timeZone: savedTz,
                   events: events,
                   eventDisplay: 'block',
-                  contentHeight: 'auto'
+                  eventContent: function(arg) {
+                    const title = arg.event.title;
+                    let details = '';
+                    if(arg.event.extendedProps.location) {
+                      details += `<div style="font-size:0.8rem; opacity:0.9;">${arg.event.extendedProps.location}</div>`;
+                    }
+                    if(arg.event.start && arg.event.start.toLocaleTimeString) {
+                      const time = arg.event.start.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
+                      details += `<div style="font-size:0.8rem; opacity:0.85;">${time}</div>`;
+                    }
+                    return { html: `<strong>${title}</strong>${details}` };
+                  }
                 });
 
                 calendar.render();
