@@ -17,20 +17,40 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css" rel="stylesheet">
+
     <style>
       html, body { background-color: #000 !important; color: #fff; }
       .page-main { padding: 120px 0; text-align: center; }
       .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
       .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
-      .calendar-wrap { display:flex; justify-content:center; }
-      .calendar-embed { width:100%; max-width:1000px; height:800px; border:1px solid rgba(255,255,255,0.06); }
+      .calendar-wrap { display:flex; justify-content:center; margin:0 auto; }
+      #calendar { width:100%; max-width:1000px; background:#111; border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:20px; }
       .tz-controls { display:inline-flex; justify-content:center; gap:0; align-items:center; margin-bottom:30px; flex-wrap:nowrap; }
       .tz-controls > * { margin:0; }
       .tz-controls label { margin-right:8px; }
       .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; margin:0; }
       .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; margin:0 0 0 8px; }
-      @media (max-width: 991px){ .calendar-embed { height:700px; } }
-      @media (max-width: 480px){ .calendar-embed { height:620px; } }
+      /* FullCalendar dark theme overrides */
+      .fc { font-family: "Archivo Narrow", sans-serif; }
+      .fc-button-primary { background-color:#333; border-color:#555; }
+      .fc-button-primary:hover { background-color:#444; }
+      .fc-button-primary.fc-button-active { background-color:#555; }
+      .fc-daygrid-day.fc-day-today { background-color:rgba(255,255,255,0.05); }
+      .fc-col-header-cell { color:#ddd; border-color:rgba(255,255,255,0.1); }
+      .fc-daygrid-day { color:#ddd; border-color:rgba(255,255,255,0.1); }
+      .fc-daygrid-day-number { color:#ddd; }
+      .fc-daygrid-day-frame { min-height:100px; }
+      .fc-event { background-color:#4a90e2; border-color:#3a7bc8; }
+      .fc-event-title { color:#fff; font-weight:600; }
+      .fc-event:hover { background-color:#5aa3f0; }
+      .fc-toolbar { margin-bottom:20px; }
+      .fc-toolbar-title { color:#ddd; font-size:1.5rem; }
+      #calendar-loading { color:#ddd; padding:40px; text-align:center; }
+      #calendar-error { color:#ff6b6b; padding:40px; text-align:center; }
+      @media (max-width: 991px){ #calendar { padding:15px; } }
+      @media (max-width: 480px){ #calendar { padding:10px; } }
     </style>
 </head>
 
@@ -100,7 +120,9 @@
                 </div>
 
                 <div class="calendar-wrap">
-                    <iframe class="calendar-embed" src="https://calendar.google.com/calendar/embed?src=3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5%40group.calendar.google.com&ctz=UTC&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" style="border:0" frameborder="0" scrolling="no" aria-label="Everlook Broadcasting Calendar"></iframe>
+                    <div id="calendar"></div>
+                    <div id="calendar-loading" style="display:none; width:100%; max-width:1000px;">Loading calendar events...</div>
+                    <div id="calendar-error" style="display:none; width:100%; max-width:1000px;"></div>
                 </div>
 
       </div>
@@ -134,85 +156,149 @@
         <script src="js/plugins/plugins.js"></script>
         <script src="js/active.js"></script>
 
+        <!-- FullCalendar JS -->
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+
         <script>
-            (function(){
-                const iframe = document.querySelector('.calendar-embed');
-                const tzSelect = document.getElementById('tzSelect');
-                const tzOther = document.getElementById('tzOther');
-                const openBtn = document.getElementById('openCalendar');
+          (function(){
+            // Google Calendar API config
+            const CALENDAR_ID = '3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5@group.calendar.google.com';
+            const API_KEY = 'AIzaSyBPE4Q6bZ0cqfGw02aIt0Tx_tAX29om7p4';
+            const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/u/2?cid=M2NhMzMxM2FmMDMxZDIyYmIyMjg1OTk1NDgxOTM5NjU2N2QyMTc5MjUxMGU5YzI2MTUxZmRiZmVlODAzZmZiNUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t';
 
-                function detectTZ(){
-                    try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; }catch(e){ return 'UTC'; }
+            const tzSelect = document.getElementById('tzSelect');
+            const tzOther = document.getElementById('tzOther');
+            const openBtn = document.getElementById('openCalendar');
+            const calendarEl = document.getElementById('calendar');
+            const loadingEl = document.getElementById('calendar-loading');
+            const errorEl = document.getElementById('calendar-error');
+
+            let calendar = null;
+
+            function detectTZ(){
+              try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; }catch(e){ return 'UTC'; }
+            }
+
+            function getSavedTz(){ return localStorage.getItem('elbc_tz'); }
+
+            function applyTimezone(tz){
+              if(calendar){
+                calendar.setOption('timeZone', tz);
+              }
+              localStorage.setItem('elbc_tz', tz);
+            }
+
+            function applySelection(value){
+              if(value === 'AUTO'){
+                tzOther.style.display = 'none';
+                const tz = detectTZ();
+                applyTimezone(tz);
+                localStorage.removeItem('elbc_tz');
+              } else if(value === 'OTHER'){
+                tzOther.style.display = '';
+                tzOther.focus();
+                const custom = tzOther.value.trim() || detectTZ();
+                applyTimezone(custom);
+              } else {
+                tzOther.style.display = 'none';
+                applyTimezone(value);
+              }
+              openBtn.onclick = () => window.open(GOOGLE_CALENDAR_URL, '_blank');
+            }
+
+            // Initialize timezone selector
+            (function initTZ(){
+              const saved = getSavedTz();
+              const autoTz = detectTZ();
+              if(saved){
+                const found = Array.from(tzSelect.options).some(opt => opt.value === saved);
+                if(found){ 
+                  tzSelect.value = saved; 
+                  tzOther.style.display = 'none'; 
+                } else { 
+                  tzSelect.value = 'OTHER'; 
+                  tzOther.style.display = ''; 
+                  tzOther.value = saved; 
                 }
+              } else {
+                tzSelect.value = 'AUTO'; 
+                tzOther.style.display = 'none'; 
+              }
 
-                function getSavedTz(){ return localStorage.getItem('elbc_tz'); }
+              tzSelect.addEventListener('change', (e) => applySelection(e.target.value));
+              tzOther.addEventListener('change', () => {
+                const v = tzOther.value.trim() || detectTZ();
+                applyTimezone(v);
+              });
 
-                function setIframeTz(tz){
-                    if(!iframe) return;
-                    try{
-                        const url = new URL(iframe.src);
-                        url.searchParams.set('ctz', tz);
-                        iframe.src = url.toString();
-                    }catch(e){
-                        // fallback: replace ctz parameter manually
-                        iframe.src = iframe.src.replace(/([&?]ctz=)[^&]*/,'$1'+encodeURIComponent(tz));
-                    }
-                }
-
-                function updateOpenHref(){
-                    if(!openBtn || !iframe) return;
-                    openBtn.onclick = function(){ window.open(iframe.src.replace(/&amp;/g,'&'), '_blank'); };
-                }
-
-                function applySelection(value){
-                    if(value === 'AUTO'){
-                        tzOther.style.display = 'none';
-                        const tz = detectTZ();
-                        setIframeTz(tz);
-                        localStorage.removeItem('elbc_tz');
-                    } else if(value === 'OTHER'){
-                        tzOther.style.display = '';
-                        tzOther.focus();
-                        const custom = tzOther.value.trim() || detectTZ();
-                        setIframeTz(custom);
-                        localStorage.setItem('elbc_tz', custom);
-                    } else {
-                        tzOther.style.display = 'none';
-                        setIframeTz(value);
-                        localStorage.setItem('elbc_tz', value);
-                    }
-                    updateOpenHref();
-                }
-
-                // initialize
-                (function init(){
-                    const saved = getSavedTz();
-                    const autoTz = detectTZ();
-                    if(saved){
-                        // if saved matches one of options, select it
-                        const found = Array.from(tzSelect.options).some(opt => opt.value === saved);
-                        if(found){ tzSelect.value = saved; tzOther.style.display = 'none'; setIframeTz(saved); }
-                        else { tzSelect.value = 'OTHER'; tzOther.style.display = ''; tzOther.value = saved; setIframeTz(saved); }
-                    } else {
-                        // default to automatic
-                        tzSelect.value = 'AUTO'; tzOther.style.display = 'none'; setIframeTz(autoTz);
-                    }
-
-                    tzSelect.addEventListener('change', function(e){
-                        applySelection(e.target.value);
-                    });
-
-                    tzOther.addEventListener('change', function(){
-                        const v = tzOther.value.trim() || detectTZ();
-                        localStorage.setItem('elbc_tz', v);
-                        setIframeTz(v);
-                        updateOpenHref();
-                    });
-
-                    updateOpenHref();
-                })();
-
+              openBtn.onclick = () => window.open(GOOGLE_CALENDAR_URL, '_blank');
             })();
+
+            // Fetch events from Google Calendar API
+            async function fetchCalendarEvents(){
+              try{
+                loadingEl.style.display = 'block';
+                errorEl.style.display = 'none';
+                calendarEl.style.display = 'none';
+
+                // Fetch next 90 days of events
+                const now = new Date();
+                const end = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+
+                const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&timeMax=${end.toISOString()}&singleEvents=true&orderBy=startTime`;
+
+                const response = await fetch(url);
+                if(!response.ok) throw new Error(`API error: ${response.status}`);
+
+                const data = await response.json();
+                const events = (data.items || []).map(event => ({
+                  title: event.summary || 'Event',
+                  start: event.start.dateTime || event.start.date,
+                  end: event.end.dateTime || event.end.date,
+                  description: event.description || '',
+                  location: event.location || '',
+                  backgroundColor: '#4a90e2',
+                  borderColor: '#3a7bc8'
+                }));
+
+                return events;
+              } catch(err){
+                console.error('Error fetching calendar:', err);
+                errorEl.textContent = `Error loading calendar: ${err.message}. Make sure the calendar is public.`;
+                errorEl.style.display = 'block';
+                loadingEl.style.display = 'none';
+                return [];
+              }
+            }
+
+            // Initialize FullCalendar
+            document.addEventListener('DOMContentLoaded', async () => {
+              const events = await fetchCalendarEvents();
+
+              if(events.length > 0 || !errorEl.style.display){
+                const savedTz = getSavedTz() || detectTZ();
+
+                calendar = new FullCalendar.Calendar(calendarEl, {
+                  initialView: 'dayGridMonth',
+                  headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                  },
+                  height: 'auto',
+                  timeZone: savedTz,
+                  events: events,
+                  eventDisplay: 'block',
+                  contentHeight: 'auto'
+                });
+
+                calendar.render();
+                loadingEl.style.display = 'none';
+                calendarEl.style.display = 'block';
+              }
+            });
+
+          })();
         </script>
 </body>
 
