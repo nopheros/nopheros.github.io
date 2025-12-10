@@ -379,7 +379,8 @@ img {
         text-shadow: 0 0 6px rgba(0, 212, 255, 0.5);
         border-bottom: 1px solid rgba(0, 212, 255, 0.2) !important;
         padding: 10px 16px !important;
-        text-transform: capitalize; }
+        text-transform: capitalize;
+        text-align: center; }
         .header-area .oneMusic-main-menu .classy-navbar .classynav ul li ul li a:hover, .header-area .oneMusic-main-menu .classy-navbar .classynav ul li ul li a:focus {
           color: #9fd8ff;
           text-shadow: 0 0 10px rgba(0, 212, 255, 0.9), 0 0 15px rgba(0, 212, 255, 0.6);
