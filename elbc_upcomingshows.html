@@ -166,9 +166,8 @@
 
         <script>
           (function(){
-            // Google Calendar API config
-            const CALENDAR_ID = '3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5@group.calendar.google.com';
-            const API_KEY = 'AIzaSyBPE4Q6bZ0cqfGw02aIt0Tx_tAX29om7p4';
+            // Google Calendar public iCal feed URL (no API key needed, no CORS issues)
+            const ICAL_URL = 'https://calendar.google.com/calendar/ical/3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5%40group.calendar.google.com/public/basic.ics';
             const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/u/2?cid=M2NhMzMxM2FmMDMxZDIyYmIyMjg1OTk1NDgxOTM5NjU2N2QyMTc5MjUxMGU5YzI2MTUxZmRiZmVlODAzZmZiNUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t';
 
             const tzSelect = document.getElementById('tzSelect');
@@ -239,54 +238,93 @@
               openBtn.onclick = () => window.open(GOOGLE_CALENDAR_URL, '_blank');
             })();
 
-            // Fetch events from Google Calendar API
-            async function fetchCalendarEvents(){
+            // Parse iCal format and extract events
+            async function parseICalEvents(){
               try{
                 loadingEl.style.display = 'block';
                 errorEl.style.display = 'none';
                 calendarEl.style.display = 'none';
 
-                // Fetch next 90 days of events
-                const now = new Date();
-                const end = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+                const response = await fetch(ICAL_URL);
+                if(!response.ok) throw new Error(`Failed to fetch calendar: ${response.status}`);
 
-                const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&timeMax=${end.toISOString()}&singleEvents=true&orderBy=startTime`;
-
-                const response = await fetch(url);
-                if(!response.ok) throw new Error(`API error: ${response.status}`);
-
-                const data = await response.json();
-                console.log('Calendar API response:', data);
-                const events = (data.items || []).map(event => {
-                  const title = event.summary || 'Event';
-                  console.log('Processing event:', title);
-                  // Choose emoji based on title
-                  let emoji = '📅';
-                  if(title.toLowerCase().includes('live dj') || title.toLowerCase().includes('dj')) emoji = '🎵';
-                  else if(title.toLowerCase().includes('show')) emoji = '🎙️';
-                  else if(title.toLowerCase().includes('broadcast')) emoji = '📻';
+                const icalText = await response.text();
+                console.log('iCal data retrieved, length:', icalText.length);
+                
+                // Parse iCal events
+                const events = [];
+                const eventRegex = /BEGIN:VEVENT([\s\S]*?)END:VEVENT/g;
+                let match;
+                
+                while((match = eventRegex.exec(icalText)) !== null){
+                  const eventText = match[1];
                   
-                  return {
-                    title: `${emoji} ${title}`,
-                    start: event.start.dateTime || event.start.date,
-                    end: event.end.dateTime || event.end.date,
-                    description: event.description || '',
-                    location: event.location || '',
-                    backgroundColor: '#4a90e2',
-                    borderColor: '#3a7bc8',
-                    extendedProps: {
-                      originalTitle: title,
-                      description: event.description || '',
-                      location: event.location || ''
-                    }
-                  };
-                });
-                console.log('Processed events:', events);
-
+                  // Extract title/summary
+                  const summaryMatch = eventText.match(/SUMMARY:(.+?)(?:\r?\n|$)/);
+                  const title = summaryMatch ? summaryMatch[1].trim() : 'Event';
+                  
+                  // Extract start date
+                  const startMatch = eventText.match(/DTSTART(?:;[^:]*)?:(.+?)(?:\r?\n|$)/);
+                  const startStr = startMatch ? startMatch[1].trim() : null;
+                  
+                  // Extract end date
+                  const endMatch = eventText.match(/DTEND(?:;[^:]*)?:(.+?)(?:\r?\n|$)/);
+                  const endStr = endMatch ? endMatch[1].trim() : null;
+                  
+                  // Extract location
+                  const locationMatch = eventText.match(/LOCATION:(.+?)(?:\r?\n|$)/);
+                  const location = locationMatch ? locationMatch[1].trim() : '';
+                  
+                  if(startStr){
+                    // Parse iCal date format (YYYYMMDD or YYYYMMDDTHHMMSS or YYYYMMDDTHHMMSSZ)
+                    const parseICalDate = (dateStr) => {
+                      if(!dateStr) return null;
+                      if(dateStr.length === 8) {
+                        // All-day event: YYYYMMDD
+                        return dateStr.substring(0, 4) + '-' + dateStr.substring(4, 6) + '-' + dateStr.substring(6, 8);
+                      } else {
+                        // Timed event: YYYYMMDDTHHmmss or YYYYMMDDTHHmmssZ
+                        const y = dateStr.substring(0, 4);
+                        const m = dateStr.substring(4, 6);
+                        const d = dateStr.substring(6, 8);
+                        const t = dateStr.substring(9, 15);
+                        const h = t.substring(0, 2);
+                        const min = t.substring(2, 4);
+                        const s = t.substring(4, 6);
+                        return `${y}-${m}-${d}T${h}:${min}:${s}`;
+                      }
+                    };
+                    
+                    const start = parseICalDate(startStr);
+                    const end = parseICalDate(endStr) || start;
+                    
+                    // Choose emoji based on title
+                    let emoji = '📅';
+                    if(title.toLowerCase().includes('live dj') || title.toLowerCase().includes('dj')) emoji = '🎵';
+                    else if(title.toLowerCase().includes('show')) emoji = '🎙️';
+                    else if(title.toLowerCase().includes('broadcast')) emoji = '📻';
+                    
+                    events.push({
+                      title: `${emoji} ${title}`,
+                      start: start,
+                      end: end,
+                      backgroundColor: '#4a90e2',
+                      borderColor: '#3a7bc8',
+                      extendedProps: {
+                        originalTitle: title,
+                        location: location
+                      }
+                    });
+                    
+                    console.log('Parsed event:', title, 'Start:', start);
+                  }
+                }
+                
+                console.log('Total events parsed:', events.length);
                 return events;
               } catch(err){
-                console.error('Error fetching calendar:', err);
-                errorEl.textContent = `Error loading calendar: ${err.message}. Make sure the calendar is public.`;
+                console.error('Error parsing iCal:', err);
+                errorEl.textContent = `Error loading calendar: ${err.message}`;
                 errorEl.style.display = 'block';
                 loadingEl.style.display = 'none';
                 return [];
@@ -295,7 +333,7 @@
 
             // Initialize FullCalendar
             document.addEventListener('DOMContentLoaded', async () => {
-              const events = await fetchCalendarEvents();
+              const events = await parseICalEvents();
 
               if(events.length > 0 || !errorEl.style.display){
                 const savedTz = getSavedTz() || detectTZ();
