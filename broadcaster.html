@@ -18,11 +18,322 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-      html, body { background-color: #000 !important; color: #fff; }
-      .page-main { padding: 120px 0; text-align: center; }
-      .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
-      .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto; line-height:1.8; }
+      html, body { background-color: #050505 !important; color: #dff8ff; }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(0,255,200,0.05), transparent 35%),
+                    radial-gradient(circle at 80% 0%, rgba(120,200,255,0.05), transparent 35%),
+                    linear-gradient(180deg, rgba(0,255,180,0.03), rgba(0,120,180,0.02));
+        pointer-events: none;
+        z-index: -2;
+      }
+      /* Rune rain overlay */
+      .rune-rain {
+        position: fixed;
+        inset: 0;
+        background:
+          repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,180,0.08) 0px,
+            rgba(0,255,180,0.08) 2px,
+            transparent 6px,
+            transparent 24px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(0,120,180,0.05) 7px,
+            rgba(0,120,180,0.08) 8px,
+            transparent 12px
+          );
+        opacity: 0.22;
+        mix-blend-mode: screen;
+        animation: rainShift 12s linear infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      @keyframes rainShift {
+        0% { transform: translateY(0) translateX(0); }
+        100% { transform: translateY(24px) translateX(-6px); }
+      }
+      .page-main { padding: 110px 0 60px; text-align: center; position: relative; }
+      .page-main h1 {
+        color: #9fd8ff;
+        letter-spacing: 5px;
+        font-family: 'Share Tech Mono', 'Cinzel Decorative', serif;
+        font-weight: 700;
+        font-size: 1rem;
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
+        margin-bottom: 10px;
+      }
+      .hero-title {
+        color: #dff8ff;
+        font-family: 'Cinzel Decorative', serif;
+        font-weight: 700;
+        font-size: 3rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 18px rgba(0, 200, 255, 0.85), 0 0 30px rgba(0, 140, 200, 0.4);
+        margin-bottom: 6px;
+      }
+      .hero-sub {
+        color: #9fd8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        text-shadow: 0 0 14px rgba(0, 255, 220, 0.8), 0 0 24px rgba(0, 120, 180, 0.45);
+        margin-bottom: 26px;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.22), rgba(0,120,160,0.28));
+        border: 1px solid rgba(0,200,255,0.38);
+        color: #dff8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 16px rgba(0,200,255,0.22);
+        margin-bottom: 12px;
+      }
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10ff9e;
+        box-shadow: 0 0 12px #10ff9e;
+        animation: pulseDot 1.4s ease-in-out infinite;
+      }
+      .status-text { letter-spacing: 1px; }
+      .status-offline .status-dot { background: #3a5560; box-shadow: 0 0 8px #3a5560; animation: none; }
+      .status-offline { opacity: 0.85; }
+      @keyframes pulseDot {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(0.8); }
+      }
+
+      .cta-row {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+      }
+      .cta-book {
+        display: inline-block;
+        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
+        color: #001018;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.05rem;
+        letter-spacing: 1px;
+        padding: 12px 26px;
+        border-radius: 10px;
+        box-shadow: 0 6px 22px rgba(0, 200, 255, 0.32);
+        text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .cta-book:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0, 200, 255, 0.42); }
+      .section-shell {
+        background: linear-gradient(145deg, #0c0c0c, #0a1116);
+        border: 1px solid rgba(0, 200, 255, 0.28);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
+        border-radius: 18px;
+        padding: 28px 22px;
+        margin: 0 auto 46px auto;
+        max-width: 860px;
+        position: relative;
+        overflow: hidden;
+      }
+      .section-shell::after {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        border-radius: 16px;
+        border: 1px solid rgba(159, 216, 255, 0.12);
+        pointer-events: none;
+      }
+      .scanline {
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 255, 200, 0.06),
+          rgba(0, 255, 200, 0.06) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+        mix-blend-mode: screen;
+        pointer-events: none;
+        opacity: 0.35;
+      }
+      .twitch-embed { width: 100%; height: 400px; border: none; border-radius: 12px; }
+      .twitch-btn {
+        display: inline-block;
+        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
+        color: #001018;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.15rem;
+        letter-spacing: 1px;
+        padding: 14px 32px;
+        border-radius: 10px;
+        box-shadow: 0 6px 24px rgba(0, 200, 255, 0.35);
+        text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .twitch-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 200, 255, 0.45); }
+      .gallery-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+      .gallery-placeholder {
+        flex: 1 1 320px;
+        max-width: 380px;
+        height: 220px;
+        border-radius: 14px;
+        border: 1px dashed rgba(159, 216, 255, 0.6);
+        background: linear-gradient(135deg, rgba(0, 200, 255, 0.08), rgba(0, 80, 140, 0.25));
+        color: #9fd8ff;
+        font-family: 'Share Tech Mono', monospace;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        box-shadow: inset 0 0 12px rgba(0, 200, 255, 0.18);
+      }
+      .discord-cta {
+        flex: 1 1 320px;
+        max-width: 380px;
+        height: 220px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(0, 200, 255, 0.16), rgba(60, 10, 40, 0.6));
+        color: #dff8ff;
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        text-decoration: none;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.55), 0 0 22px rgba(0, 200, 255, 0.22);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.2s ease;
+      }
+      .discord-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.65), 0 0 28px rgba(0, 200, 255, 0.3);
+        filter: saturate(1.1);
+      }
+      .cta-title { font-size: 1.2rem; letter-spacing: 1px; text-shadow: 0 0 12px rgba(0, 200, 255, 0.7); }
+      .cta-sub { font-size: 0.95rem; font-family: 'Share Tech Mono', monospace; color: #9fd8ff; opacity: 0.85; }
+
+      /* Logo strip */
+      .logo-strip {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        margin: 18px auto 4px auto;
+        flex-wrap: wrap;
+      }
+      .logo-badge {
+        background: linear-gradient(145deg, rgba(0,200,255,0.12), rgba(0,120,180,0.2));
+        border: 1px solid rgba(0,200,255,0.28);
+        border-radius: 14px;
+        padding: 10px 14px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.55), 0 0 18px rgba(0,200,255,0.18);
+        min-width: 140px;
+        min-height: 70px;
+        display: grid;
+        place-items: center;
+      }
+      .logo-badge img { max-height: 60px; max-width: 160px; display: block; }
+
+      /* Layout: desktop two-column */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 24px;
+        align-items: start;
+        margin-top: 20px;
+      }
+      @media (max-width: 992px) {
+        .content-grid { display: block; }
+        .logo-strip { gap: 14px; }
+      }
+      .scroll-wrapper {
+        position: relative;
+        margin: 40px auto 60px auto;
+        max-width: 920px;
+        padding: 28px;
+      }
+      .scroll {
+        position: relative;
+        background: radial-gradient(circle at 20% 20%, #f3e3c2, #e1c79b 60%, #c9a771 95%);
+        color: #2f2413;
+        border-radius: 18px;
+        padding: 56px 38px 48px 38px;
+        box-shadow: 0 10px 50px rgba(0,0,0,0.55), 0 0 24px rgba(0, 200, 255, 0.15);
+        font-family: 'EB Garamond', serif;
+        line-height: 1.72;
+      }
+      .scroll::before, .scroll::after {
+        content: '';
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        height: 32px;
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.05));
+        box-shadow: inset 0 0 18px rgba(0,0,0,0.35);
+      }
+      .scroll::before { top: -18px; }
+      .scroll::after { bottom: -18px; }
+      .scroll h2 {
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #0b3f5f;
+        text-shadow: 0 1px 0 #f3e3c2, 0 0 18px rgba(0, 120, 180, 0.45);
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+      }
+      .scroll b { color: #0f4e73; }
+      .schedule-section {
+        background: linear-gradient(145deg, #0c0c0c, #0a1116);
+        border: 1px solid rgba(0, 200, 255, 0.28);
+        border-radius: 18px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
+        padding: 26px 20px;
+        margin: 0 auto 40px auto;
+        max-width: 820px;
+      }
+      .schedule-section h2 {
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #9fd8ff;
+        letter-spacing: 3px;
+        margin-bottom: 16px;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
+      }
+      .schedule-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        color: #dff8ff;
+        font-family: 'EB Garamond', serif;
+        font-size: 1.15rem;
+      }
+      .schedule-list li {
+        margin-bottom: 12px;
+        padding-left: 12px;
+        border-left: 3px solid rgba(0, 200, 255, 0.4);
+      }
+      @media (max-width: 820px) {
+        .section-shell { max-width: 94vw; }
+        .scroll-wrapper { padding: 18px; }
+        .scroll { padding: 44px 24px 36px 24px; }
+        .gallery-row { gap: 12px; }
+        .twitch-embed { height: 320px; }
+      }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -66,10 +377,84 @@
         </div>
     </header>
 
+    <div class="rune-rain"></div>
     <main class="page-main">
       <div class="container">
         <h1>BROADCASTER</h1>
-        <p>Placeholder content for Broadcaster services — station programming, hosting, audio production, and sample shows. Replace with details and audio embeds as needed.</p>
+        <div class="hero-title">PILGRIM OF THE SIGNAL</div>
+        <div class="hero-sub">SIGNAL PILGRIM NOPHEROS</div>
+        <div id="live-status" class="status-badge status-offline">
+          <span class="status-dot"></span>
+          <span class="status-text">OFFLINE — FOLLOW FOR LIVE ALERTS</span>
+        </div>
+        <div class="cta-row">
+          <a class="cta-book" href="https://nopheros.github.io/contact.html">Book Nopheros</a>
+        </div>
+
+        <div class="logo-strip">
+          <div class="logo-badge">
+            <img src="/img/bg-img/turtle-wow-logo.png" alt="Turtle WoW Logo" onerror="this.style.opacity=0.35; this.alt='Turtle WoW logo placeholder';">
+          </div>
+          <div class="logo-badge">
+            <img src="/img/bg-img/everlook-logo.png" alt="Everlook Broadcasting Logo" onerror="this.style.opacity=0.35; this.alt='Everlook Broadcasting logo placeholder';">
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div>
+            <!-- TWITCH SECTION -->
+            <section class="section-shell">
+              <div class="scanline"></div>
+              <div id="twitch-embed-container">
+                <!-- Twitch embed or button will be injected here -->
+              </div>
+            </section>
+
+            <!-- GALLERY/VIDEO SECTION -->
+            <section class="section-shell">
+              <div class="scanline"></div>
+              <div class="gallery-row">
+                <div class="gallery-placeholder">[ Video or Image Placeholder 1 ]</div>
+                <div class="gallery-placeholder">[ Video or Image Placeholder 2 ]</div>
+              </div>
+            </section>
+
+            <!-- DISCORD CTA PANEL -->
+            <section class="section-shell">
+              <div class="scanline"></div>
+              <div class="gallery-row">
+                <a class="discord-cta" href="https://discord.gg/8CnBtGVQJr" target="_blank" rel="noopener">
+                  <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros Glitch Logo" style="max-height:80px; margin-bottom:10px;">
+                  <span class="cta-title">Go Down the Rabbit Hole</span>
+                  <span class="cta-sub">Join the Signal on Discord</span>
+                </a>
+              </div>
+            </section>
+          </div>
+
+          <div>
+            <!-- SCROLL: EVERLOOK BROADCASTING -->
+            <div class="scroll-wrapper">
+              <div class="scroll">
+                <h2>Everlook Broadcasting Co. &amp; Turtle WoW</h2>
+                <p>Nopheros, an architect of atmosphere. A Digital Sherpa traveling the virtual hills, curating music, knowledge, and an insatiable creativity. A DJ that walks both the Real and Digital.<br><br>
+                Starting in the virtual worlds of <b>Anarchy Online</b>, <b>The Matrix Online</b>, and <b>World of Warcraft</b>, this DJ crossed realms, finding sanctuary in Providence, Rhode Island and Boston, Massachusetts at night clubs such as Club Hell, Alchemy, Ego, Xmortis, Darq, Jaded, Kink, and more.<br><br>
+                Combining these realms the deck became a storytelling canvas. Nopheros weaves textures of rhythm and emotion, guiding the crowd through waves of tension and release. By the end of the night the audience leaves holding more than memories. They carry an experience and a story. That journey starts with booking DJ Nopheros.<br><br>
+                <b>Everlook Broadcasting Co.</b> is the premier radio and event platform for <b>Turtle WoW</b>, bringing live music, talk shows, and in-game events to the world of Azeroth. As a broadcaster, Nopheros hosts <b>Pilgrim of the Signal</b> and other unique shows, blending MMO culture with real DJ energy. Tune in for bi-weekly live shows, special event broadcasts, and more adventures from the wildest corners of Azeroth.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCHEDULE SECTION -->
+        <section class="schedule-section">
+          <h2>Upcoming Schedule</h2>
+          <ul class="schedule-list">
+            <li><b>Pilgrim of the Signal</b> — Bi-weekly Wednesdays, 23:00 Server Time (Everlook Broadcasting / Turtle WoW)</li>
+            <li><b>Live on Twitch</b> — Spontaneous DJ sets, music production, and MMO radio (Follow for notifications!)</li>
+            <li><b>Special Events</b> — See Discord or Twitter for pop-up shows and collaborations</li>
+          </ul>
+        </section>
       </div>
     </main>
 
@@ -96,5 +481,31 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/plugins/plugins.js"></script>
     <script src="js/active.js"></script>
+    <script>
+      // Twitch embed logic
+      function checkTwitchLive(channel, callback) {
+        // Use Twitch Helix API or a public endpoint. For demo, always show button.
+        // Replace with real API call if you have a client ID/token.
+        callback(false); // Always offline for now
+      }
+      function renderTwitchSection(isLive) {
+        const container = document.getElementById('twitch-embed-container');
+        const statusEl = document.getElementById('live-status');
+        if (isLive) {
+          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
+          if (statusEl) {
+            statusEl.classList.remove('status-offline');
+            statusEl.querySelector('.status-text').textContent = 'LIVE NOW — WATCH THE SIGNAL';
+          }
+        } else {
+          container.innerHTML = `<a class="twitch-btn" href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener">Watch Live on Twitch</a>`;
+          if (statusEl) {
+            statusEl.classList.add('status-offline');
+            statusEl.querySelector('.status-text').textContent = 'OFFLINE — FOLLOW FOR LIVE ALERTS';
+          }
+        }
+      }
+      checkTwitchLive('nopheros', renderTwitchSection);
+    </script>
 </body>
 </html>
