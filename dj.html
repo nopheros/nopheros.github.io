@@ -81,7 +81,9 @@
       .dj-content-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
+        /* Use a responsive column-gap to prevent visual overlap at mid-widths */
+        column-gap: clamp(36px, 3.5vw, 64px);
+        row-gap: 40px;
         align-items: stretch;
         margin-bottom: 70px;
       }
@@ -127,7 +129,7 @@
         background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
         border: 1px solid rgba(0,200,255,0.3);
         border-radius: 16px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.55), 0 0 22px rgba(0,200,255,0.16);
+        box-shadow: 0 10px 22px rgba(0,0,0,0.50), 0 0 18px rgba(0,200,255,0.14);
         position: relative;
         overflow: hidden;
         height: 100%;
@@ -135,6 +137,7 @@
         flex-direction: column;
         gap: 22px;
         box-sizing: border-box;
+        z-index: 1;
       }
       
       .dj-pitch::before {
@@ -453,11 +456,25 @@
       @media (max-width: 1200px) {
         .dj-content-grid {
           grid-template-columns: 1fr;
-          gap: 40px;
+          row-gap: 40px;
+          column-gap: 40px;
         }
         
         .dj-reel-wrapper {
           display: none;
+        }
+      }
+
+      /* Targeted mid-width tweak to fully eliminate any perceived overlap */
+      @media (min-width: 1200px) and (max-width: 1650px) {
+        .dj-pitch {
+          /* slightly softer glow to avoid bleeding into neighbors */
+          box-shadow: 0 8px 20px rgba(0,0,0,0.48), 0 0 14px rgba(0,200,255,0.12);
+        }
+        .dj-image-wrapper,
+        .dj-reel-wrapper {
+          /* tame side panel glow at these widths */
+          box-shadow: 0 12px 30px rgba(0,0,0,0.58), 0 0 18px rgba(0,200,255,0.16);
         }
       }
       
