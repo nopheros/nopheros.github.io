@@ -316,7 +316,7 @@
       .soundcloud-layout {
         display: grid;
         grid-template-columns: 1.4fr 1fr;
-        gap: 28px;
+        gap: 32px;
         align-items: start;
       }
       
@@ -345,6 +345,7 @@
         padding: 20px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
         width: 100%;
+        min-height: 520px;
       }
 
       .video-title,
@@ -362,18 +363,19 @@
       .video-embeds {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 22px;
       }
 
       .video-embed-wrapper {
         position: relative;
-        padding-bottom: 60%;
+        padding-bottom: 56.25%;
         height: 0;
         overflow: hidden;
         border-radius: 10px;
         border: 1px solid rgba(0,200,255,0.35);
         background: rgba(0,0,0,0.4);
         box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 18px rgba(0,200,255,0.18);
+        min-height: 260px;
       }
 
       .video-embed-wrapper iframe {
