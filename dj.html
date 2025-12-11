@@ -82,8 +82,12 @@
         display: grid;
         grid-template-columns: 0.95fr 1fr 0.95fr;
         gap: 30px;
-        align-items: center;
+        align-items: stretch;
         margin-bottom: 70px;
+      }
+
+      .dj-content-grid > * {
+        min-height: 640px;
       }
       
       .dj-image-wrapper {
@@ -150,12 +154,14 @@
       .dj-pitch h2 {
         font-family: 'Cinzel Decorative', serif;
         color: #9fd8ff;
-        font-size: 1.8rem;
-        letter-spacing: 2.4px;
-        text-shadow: 0 0 12px rgba(0,200,255,0.7);
-        margin-bottom: 10px;
+        font-size: 2.1rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 14px rgba(0,200,255,0.9);
+        margin-bottom: 12px;
         position: relative;
         z-index: 2;
+        text-transform: uppercase;
+        text-align: center;
       }
       
       .dj-pitch p {
@@ -182,7 +188,14 @@
         z-index: 2;
         display: flex;
         justify-content: center;
-        margin-top: 18px;
+        margin-top: 22px;
+      }
+
+      .dj-pitch-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
       }
       
       .tour-highlight {
@@ -199,6 +212,9 @@
         aspect-ratio: 3/4;
         box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 35px rgba(0,200,255,0.25);
         border: 2px solid rgba(0,200,255,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       
       .dj-reel-wrapper img {
@@ -290,10 +306,11 @@
         text-align: center;
         font-family: 'Cinzel Decorative', serif;
         color: #9fd8ff;
-        font-size: 1.6rem;
-        letter-spacing: 2px;
-        text-shadow: 0 0 12px rgba(0,200,255,0.7);
+        font-size: 2.1rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 14px rgba(0,200,255,0.9);
         margin-bottom: 16px;
+        text-transform: uppercase;
       }
 
       .soundcloud-layout {
@@ -309,6 +326,7 @@
         gap: 12px;
         align-items: center;
         width: 100%;
+        text-align: center;
       }
 
       .video-panel-wrapper {
@@ -317,13 +335,14 @@
         gap: 12px;
         align-items: center;
         width: 100%;
+        text-align: center;
       }
 
       .video-panel {
         background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
         border: 1px solid rgba(0,200,255,0.35);
         border-radius: 14px;
-        padding: 18px;
+        padding: 20px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
       }
 
@@ -331,11 +350,12 @@
       .youtube-title {
         font-family: 'Cinzel Decorative', serif;
         color: #9fd8ff;
-        font-size: 1.25rem;
-        letter-spacing: 1.5px;
-        text-shadow: 0 0 10px rgba(0,200,255,0.6);
-        margin-bottom: 4px;
+        font-size: 2.1rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 14px rgba(0,200,255,0.9);
+        margin-bottom: 6px;
         text-align: center;
+        text-transform: uppercase;
       }
 
       .video-embeds {
@@ -346,7 +366,7 @@
 
       .video-embed-wrapper {
         position: relative;
-        padding-bottom: 56.25%;
+        padding-bottom: 70%;
         height: 0;
         overflow: hidden;
         border-radius: 10px;
@@ -384,16 +404,18 @@
       .soundcloud-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 22px;
+        width: 100%;
       }
       
       .soundcloud-embed-wrapper {
         background: linear-gradient(145deg, rgba(0,200,255,0.1), rgba(0,120,180,0.15));
         border: 1px solid rgba(0,200,255,0.35);
         border-radius: 14px;
-        padding: 16px;
+        padding: 18px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
       }
       
       .soundcloud-embed-wrapper:hover {
@@ -403,7 +425,7 @@
       
       .soundcloud-embed-wrapper iframe {
         width: 100%;
-        height: 166px;
+        height: 200px;
         border: none;
         border-radius: 10px;
       }
@@ -530,8 +552,8 @@
           
           <!-- DJ Pitch - Center -->
           <div class="dj-pitch">
-            <div>
-              <h2>Booking DJ Nopheros</h2>
+            <div class="dj-pitch-content">
+              <h2>Booking<br>DJ Nopheros</h2>
               <p><b>Signal-boosting atmospheres built to move bodies and minds.</b> Nopheros curates industrial, darkwave, future synth, heavy bass, and cinematic electronic sets with the precision of a systems architect and the intention of a storyteller.</p>
 
               <p>Forged in the virtual landscapes of <b>Anarchy Online</b>, <b>The Matrix Online</b>, and <b>World of Warcraft</b>, Nopheros carried his craft into The Real inside nightclubs across Providence and Boston where each set unfolds like a composed journey. His dynamic arcs fuse lighting, visuals, pacing, and crowd energy into singular performances that grow richer with each transition.</p>
