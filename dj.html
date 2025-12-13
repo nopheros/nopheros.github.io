@@ -77,50 +77,35 @@
         margin: 0 auto;
       }
       
-      /* Three-column layout: Image | Pitch | Reel */
+      /* Two-column layout: Pitch | Reel */
       .dj-content-grid {
         display: grid;
-        grid-template-columns: 0.7fr 1fr 1fr;
-        /* Use a responsive column-gap to prevent visual overlap at mid-widths */
-        column-gap: clamp(36px, 3.5vw, 64px);
+        grid-template-columns: 1fr 1fr;
+        column-gap: 32px;
         row-gap: 40px;
         align-items: stretch;
         margin-bottom: 70px;
+        isolation: isolate;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .dj-content-grid > * {
         min-height: 640px;
+        box-sizing: border-box;
       }
       
       .dj-image-wrapper {
-        position: relative;
-        border-radius: 16px;
-        overflow: hidden;
-        aspect-ratio: 3/4;
-        box-shadow: 0 14px 34px rgba(0,0,0,0.6), 0 0 24px rgba(0,200,255,0.2);
-        border: 2px solid rgba(0,200,255,0.4);
+        display: none;
       }
       
       .dj-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        filter: saturate(0.9);
+        display: none;
       }
       
       .dj-image-wrapper::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          135deg,
-          transparent 40%,
-          rgba(0,200,255,0.12) 50%,
-          transparent 60%
-        );
-        pointer-events: none;
-        z-index: 2;
+        display: none;
       }
       
       /* Central Content Panel */
@@ -129,7 +114,7 @@
         background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
         border: 1px solid rgba(0,200,255,0.3);
         border-radius: 16px;
-        box-shadow: 0 10px 22px rgba(0,0,0,0.50), 0 0 18px rgba(0,200,255,0.14);
+        box-shadow: 0 10px 22px rgba(0,0,0,0.50), 0 0 12px rgba(0,200,255,0.1);
         position: relative;
         overflow: hidden;
         height: 100%;
@@ -214,11 +199,12 @@
         border-radius: 16px;
         overflow: hidden;
         aspect-ratio: 3/4;
-        box-shadow: 0 14px 34px rgba(0,0,0,0.6), 0 0 24px rgba(0,200,255,0.2);
+        box-shadow: 0 14px 34px rgba(0,0,0,0.6), 0 0 16px rgba(0,200,255,0.15);
         border: 2px solid rgba(0,200,255,0.4);
         display: flex;
         align-items: center;
         justify-content: center;
+        box-sizing: border-box;
       }
       
       .dj-reel-wrapper img {
@@ -304,6 +290,8 @@
       .soundcloud-container {
         max-width: 1100px;
         margin: 0 auto;
+        box-sizing: border-box;
+        width: 100%;
       }
       
       .soundcloud-title {
@@ -320,8 +308,9 @@
       .soundcloud-layout {
         display: grid;
         grid-template-columns: 1.4fr 1fr;
-        gap: 32px;
+        gap: 40px;
         align-items: start;
+        isolation: isolate;
       }
       
       .soundcloud-left {
@@ -331,6 +320,7 @@
         align-items: center;
         width: 100%;
         text-align: center;
+        box-sizing: border-box;
       }
 
       .video-panel-wrapper {
@@ -340,6 +330,7 @@
         align-items: center;
         width: 100%;
         text-align: center;
+        box-sizing: border-box;
       }
 
       .video-panel {
@@ -347,9 +338,10 @@
         border: 1px solid rgba(0,200,255,0.35);
         border-radius: 14px;
         padding: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.65), 0 0 20px rgba(0,200,255,0.15);
         width: 100%;
         min-height: 520px;
+        box-sizing: border-box;
       }
 
       .video-title,
@@ -420,14 +412,15 @@
         border: 1px solid rgba(0,200,255,0.35);
         border-radius: 14px;
         padding: 18px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.65), 0 0 28px rgba(0,200,255,0.2);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.65), 0 0 20px rgba(0,200,255,0.15);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         width: 100%;
+        box-sizing: border-box;
       }
       
       .soundcloud-embed-wrapper:hover {
         transform: translateY(-6px);
-        box-shadow: 0 20px 45px rgba(0,0,0,0.75), 0 0 35px rgba(0,200,255,0.3);
+        box-shadow: 0 18px 38px rgba(0,0,0,0.75), 0 0 28px rgba(0,200,255,0.25);
       }
       
       .soundcloud-embed-wrapper iframe {
@@ -440,6 +433,7 @@
       @media (max-width: 992px) {
         .soundcloud-layout {
           grid-template-columns: 1fr;
+          gap: 48px;
         }
         .soundcloud-title {
           text-align: center;
@@ -453,28 +447,22 @@
       }
       
       /* Responsive */
-      @media (max-width: 1200px) {
+      @media (max-width: 992px) {
         .dj-content-grid {
           grid-template-columns: 1fr;
           row-gap: 40px;
-          column-gap: 40px;
+          column-gap: 0;
         }
         
         .dj-reel-wrapper {
-          display: none;
+          aspect-ratio: 16/9;
         }
       }
 
-      /* Targeted mid-width tweak to fully eliminate any perceived overlap */
-      @media (min-width: 1200px) and (max-width: 1650px) {
-        .dj-pitch {
-          /* slightly softer glow to avoid bleeding into neighbors */
-          box-shadow: 0 8px 20px rgba(0,0,0,0.48), 0 0 14px rgba(0,200,255,0.12);
-        }
-        .dj-image-wrapper,
-        .dj-reel-wrapper {
-          /* tame side panel glow at these widths */
-          box-shadow: 0 12px 30px rgba(0,0,0,0.58), 0 0 18px rgba(0,200,255,0.16);
+      /* Targeted mid-width adjustments */
+      @media (min-width: 993px) and (max-width: 1200px) {
+        .dj-content-grid {
+          column-gap: 28px;
         }
       }
       
