@@ -18,12 +18,213 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        html, body { background-color: #000 !important; color: #fff; }
-        .page-main { padding: 120px 0; text-align: center; }
-        .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
-        .page-main .brb-placeholder { margin-top: 40px; display: flex; justify-content: center; }
-        .page-main .brb-placeholder img { max-width: 420px; width: 100%; height: auto; border-radius: 6px; }
+        html, body { 
+            background: linear-gradient(135deg, #1a1410 0%, #2d1810 50%, #1a1410 100%); 
+            color: #e8dcc4; 
+            font-family: 'Crimson Text', 'Georgia', serif;
+        }
+        
+        .page-main { 
+            padding: 80px 20px; 
+            text-align: center; 
+        }
+        
+        .page-main h1 { 
+            color: #f4e4c1; 
+            letter-spacing: 8px; 
+            font-family: "Cinzel", "Playfair Display", serif; 
+            font-weight: 700;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 50px;
+        }
+        
+        /* Book Showcase Container */
+        .book-showcase {
+            max-width: 1100px;
+            margin: 0 auto 60px auto;
+            background: linear-gradient(145deg, rgba(139, 90, 43, 0.15), rgba(101, 67, 33, 0.2));
+            border: 2px solid rgba(180, 140, 90, 0.4);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .book-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(180, 140, 90, 0.03) 2px,
+                    rgba(180, 140, 90, 0.03) 4px
+                );
+            pointer-events: none;
+            border-radius: 8px;
+        }
+        
+        /* Book Layout Grid */
+        .book-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 40px;
+            align-items: start;
+            text-align: left;
+        }
+        
+        /* Book Cover */
+        .book-cover {
+            position: relative;
+        }
+        
+        .book-cover a {
+            display: block;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .book-cover a:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            border: 3px solid rgba(180, 140, 90, 0.6);
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Book Description */
+        .book-description {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .book-description .tagline {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #d4b896;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .book-description .quote {
+            background: rgba(101, 67, 33, 0.25);
+            border-left: 4px solid rgba(180, 140, 90, 0.6);
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #e8dcc4;
+            line-height: 1.7;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .book-description .quote .author {
+            display: block;
+            margin-top: 10px;
+            font-style: normal;
+            font-size: 0.9rem;
+            color: #b48c5a;
+            font-weight: 600;
+        }
+        
+        .book-description .main-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e8dcc4;
+            margin-top: 30px;
+        }
+        
+        /* Want More Button */
+        .want-more-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .want-more-btn {
+            display: inline-block;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, #8b5a2b 0%, #654321 100%);
+            color: #f4e4c1;
+            font-family: "Cinzel", serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border: 2px solid rgba(180, 140, 90, 0.6);
+            border-radius: 4px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .want-more-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(244, 228, 193, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .want-more-btn:hover {
+            background: linear-gradient(135deg, #a66d35 0%, #7a5328 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+        
+        .want-more-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .book-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+            
+            .book-cover {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .book-description {
+                text-align: left;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-main h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+            
+            .book-showcase {
+                padding: 25px;
+            }
+            
+            .book-description .tagline {
+                font-size: 1.1rem;
+            }
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -62,7 +263,7 @@
                                             <li><a href="/elbc_upcomingshows.html">upcoming shows</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="https://nopheros.github.io/contact.html">Bookings</a></li>
+                                    <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,10 +275,52 @@
 
     <main class="page-main">
       <div class="container">
-                <h1>WRITER</h1>
-                <div class="brb-placeholder">
-                    <img src="/img/bg-img/brb.jpg" alt="Under construction" loading="lazy">
-                </div>
+        <h1>WRITER</h1>
+        
+        <!-- Manaburn Book Showcase -->
+        <div class="book-showcase">
+          <div class="book-layout">
+            <!-- Book Cover (Left) -->
+            <div class="book-cover">
+              <a href="https://www.royalroad.com/fiction/75207/manaburn" target="_blank" rel="noopener">
+                <img src="img/bg-img/Manaburn.png" alt="Manaburn by Robin Graves" loading="lazy">
+              </a>
+            </div>
+            
+            <!-- Book Description (Right) -->
+            <div class="book-description">
+              <p class="tagline">The start to a thrilling adventure that everyone has been clamoring for.</p>
+              
+              <div class="quote">
+                "My marriage was about to fall apart until I read the first chapter of 'Manaburn' and now everything makes sense!"
+                <span class="author">— Thomas Kitchen, Dulles Airport Weekly</span>
+              </div>
+              
+              <div class="quote">
+                "The book is sweet like a rose. Fierce like a hot and ready pizza. And loving like a McDonalds with a working McFlurry machine."
+                <span class="author">— Gretchen Pilsner, Stop & Shop Deli</span>
+              </div>
+              
+              <div class="quote">
+                "Uh, yeah, you wanna take a left at the second set of lights. Go past Dunks and it'll be on your right."
+                <span class="author">— Peter Tapioca, local citizen being asked about where the nearest check cashing bodega is</span>
+              </div>
+              
+              <p class="main-text">
+                'Manaburn' is a very self-aware, 4th wall breaking, series. It takes the usual isekai genre and commentates on a lot of the usual tropes. The main character will be as strong as a god by the end of it but also as weak as mouse. The main character is also wicked hot and has a lot of xie xie.
+              </p>
+              
+              <p class="main-text">
+                I hope you laugh as much as I did when I wrote this and I hope to continue to make you laugh!
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Want More Button -->
+        <div class="want-more-section">
+          <a href="https://romeblue7.wordpress.com/" target="_blank" rel="noopener" class="want-more-btn">Want More?</a>
+        </div>
       </div>
     </main>
 

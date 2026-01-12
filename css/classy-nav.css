@@ -115,7 +115,10 @@ img {
   .classynav ul li ul li {
     display: block; }
     .classynav ul li ul li a {
-      padding: 0 20px; }
+      padding: 12px 20px;
+      text-align: center;
+      height: auto;
+      line-height: normal; }
   .classynav ul li a {
     padding: 0 12px;
     display: block;
