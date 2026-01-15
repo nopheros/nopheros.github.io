@@ -416,6 +416,45 @@
       @media (max-width: 992px) {
         .schedule-float { display: none; }
       }
+      /* Shows Section with Background Mosaic */
+      .shows-section-wrapper {
+        position: relative;
+        padding: 40px 0 60px 0;
+        margin: 30px 0;
+        overflow: hidden;
+      }
+      .shows-section-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: -50px;
+        background-image: 
+          url('/img/bg-img/flyer_accident.png'),
+          url('/img/bg-img/flyer_china.jpg'),
+          url('/img/bg-img/flyer_dayoff.png'),
+          url('/img/bg-img/flyer_karazhan.png'),
+          url('/img/bg-img/flyer_labuburave.png'),
+          url('/img/bg-img/flyer_metalshow.png'),
+          url('/img/bg-img/flyer_raidrave.png'),
+          url('/img/bg-img/flyer_sa.png'),
+          url('/img/bg-img/flyer_tapes.png'),
+          url('/img/bg-img/flyer_tram.png'),
+          url('/img/bg-img/flyer_wood.png'),
+          url('/img/bg-img/flyer_zippo.png');
+        background-size: 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto;
+        background-position: 
+          5% 10%, 25% 5%, 45% 15%, 65% 8%, 85% 12%,
+          10% 85%, 30% 90%, 50% 88%, 70% 92%, 90% 87%,
+          15% 50%, 75% 48%;
+        background-repeat: no-repeat;
+        opacity: 0.08;
+        filter: blur(2px) grayscale(0.3);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .shows-section-wrapper > * {
+        position: relative;
+        z-index: 1;
+      }
       /* Show Card Layout */
       .show-cards-container {
         display: grid;
@@ -626,6 +665,14 @@
         letter-spacing: 1px;
         text-transform: uppercase;
       }
+      .turtle-wow-label {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 0.75rem;
+        color: #ffd700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+      }
       @media (max-width: 640px) {
         .show-cards-container {
           grid-template-columns: 1fr;
@@ -717,8 +764,10 @@
           <div class="schedule-hero-sub">TUNE IN FOR THE SIGNAL</div>
         </section>
 
-        <!-- FLAGSHIP SHOWS WITH FLYERS -->
-        <div class="show-cards-container">
+        <!-- SHOWS SECTION WITH BACKGROUND MOSAIC -->
+        <div class="shows-section-wrapper">
+          <!-- FLAGSHIP SHOWS WITH FLYERS -->
+          <div class="show-cards-container">
           <div class="show-card">
             <div class="show-card-flyer">
               <img src="/img/bg-img/squirrel.jpg" alt="Treehab with DJ Nopheros">
@@ -759,10 +808,12 @@
             <div class="branding-belt-label">Watch Live</div>
           </a>
           <a href="https://turtlewow.org/radio" target="_blank" rel="noopener" class="branding-belt-item">
-            <img src="/img/core-img/elbc_logo.png" alt="TurtleCraft Radio" style="max-height: 45px;">
-            <div class="branding-belt-label">Turtle WoW Radio</div>
+            <img src="https://turtlecraft.gg/build/assets/logo_shadow-DlJUma57.png" alt="Turtle WoW Radio" style="max-height: 50px;">
+            <div class="turtle-wow-label">Turtle WoW Radio</div>
           </a>
         </div>
+        </div>
+        <!-- END SHOWS SECTION WRAPPER -->
 
         <!-- TWITCH SECTION -->
         <div id="twitch-embed-container" style="margin: 50px auto 40px auto; text-align:center; max-width: 900px;"></div>
@@ -776,58 +827,6 @@
             Starting in the virtual worlds of <b>Anarchy Online</b>, <b>The Matrix Online</b>, and <b>World of Warcraft</b>, this DJ crossed realms, finding sanctuary in Providence, Rhode Island and Boston, Massachusetts at night clubs such as Club Hell, Alchemy, Ego, Xmortis, Darq, Jaded, Kink, and more.<br><br>
             Combining these realms the deck became a storytelling canvas. Nopheros weaves textures of rhythm and emotion, guiding the crowd through waves of tension and release. By the end of the night the audience leaves holding more than memories. They carry an experience and a story. That journey starts with booking DJ Nopheros.<br><br>
             <b>Everlook Broadcasting Co.</b> is the premier radio and event platform for <b>Turtle WoW</b>, bringing live music, talk shows, and in-game events to the world of Azeroth. As a broadcaster, Nopheros hosts <b>Pilgrim of the Signal</b> and other unique shows, blending MMO culture with real DJ energy. Tune in for bi-weekly live shows, special event broadcasts, and more adventures from the wildest corners of Azeroth.</p>
-          </div>
-        </div>
-
-        <!-- PAST SHOWS COLLAGE GALLERY -->
-        <div class="collage-gallery-section">
-          <h2 class="collage-title">PAST EPISODES & SPECIAL BROADCASTS</h2>
-          <div class="collage-grid">
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_accident.png" alt="Accident Episode">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_china.jpg" alt="China Broadcast">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_corpo.png" alt="Corporate Event">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_dayoff.png" alt="Nopheros Day Off">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Fashion Fiesta">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_general.png" alt="General Broadcast">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_karazhan.png" alt="Karazhan Episode">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_labuburave.png" alt="Labubu Rave">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_metalshow.png" alt="Metal Show">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_raidrave.png" alt="Raid Rave">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_sa.png" alt="South Seas Episode">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_tapes.png" alt="Ambershire Tapes">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_tram.png" alt="Tram Episode">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_wood.png" alt="Wood Event">
-            </div>
-            <div class="collage-item">
-              <img src="/img/bg-img/flyer_zippo.png" alt="Zippo Event">
-            </div>
           </div>
         </div>
       </div>
