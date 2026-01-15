@@ -728,6 +728,60 @@
       .flyer-modal-close:hover {
         color: #0ff;
       }
+      /* Offline Twitch Section */
+      .offline-section {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.1), rgba(0,80,140,0.15));
+        border: 2px solid rgba(0,200,255,0.3);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(0,200,255,0.15);
+      }
+      .offline-section h3 {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 1.5rem;
+        color: #dff8ff;
+        letter-spacing: 2px;
+        text-shadow: 0 0 12px rgba(0,200,255,0.6);
+        margin-bottom: 12px;
+      }
+      .offline-section p {
+        font-family: 'EB Garamond', serif;
+        font-size: 1rem;
+        color: #9fd8ff;
+        margin-bottom: 28px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+      .offline-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .offline-link-btn {
+        padding: 14px 28px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.25), rgba(0,120,160,0.35));
+        border: 2px solid rgba(0,200,255,0.5);
+        border-radius: 12px;
+        color: #dff8ff;
+        text-decoration: none;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(0,200,255,0.2);
+        text-transform: uppercase;
+      }
+      .offline-link-btn:hover {
+        transform: translateY(-3px);
+        background: linear-gradient(145deg, rgba(0,200,255,0.35), rgba(0,120,160,0.45));
+        border-color: rgba(0,200,255,0.7);
+        box-shadow: 0 8px 25px rgba(0,200,255,0.4);
+        color: #0ff;
+      }
       @media (max-width: 640px) {
         .show-cards-container {
           grid-template-columns: 1fr;
@@ -985,7 +1039,16 @@
             statusEl.querySelector('.status-text').textContent = 'LIVE NOW — WATCH THE SIGNAL';
           }
         } else {
-          container.innerHTML = '';
+          container.innerHTML = `
+            <div class="offline-section">
+              <h3>SIGNAL INTERRUPTED</h3>
+              <p>The broadcast is currently offline. Check back for live shows or explore past streams and recordings.</p>
+              <div class="offline-links">
+                <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
+                <a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener" class="offline-link-btn">Watch VODs</a>
+              </div>
+            </div>
+          `;
           if (statusEl) {
             statusEl.classList.add('status-offline');
             statusEl.querySelector('.status-text').textContent = 'OFFLINE — FOLLOW FOR LIVE ALERTS';
