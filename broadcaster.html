@@ -985,10 +985,7 @@
             statusEl.querySelector('.status-text').textContent = 'LIVE NOW — WATCH THE SIGNAL';
           }
         } else {
-          container.innerHTML = `<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-            <a class="twitch-btn" href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener">Go to Twitch Channel</a>
-            <a class="twitch-btn" href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener">Watch Past Streams</a>
-          </div>`;
+          container.innerHTML = '';
           if (statusEl) {
             statusEl.classList.add('status-offline');
             statusEl.querySelector('.status-text').textContent = 'OFFLINE — FOLLOW FOR LIVE ALERTS';
