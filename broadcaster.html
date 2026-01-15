@@ -451,9 +451,6 @@
         max-width: 1100px;
         align-items: start;
       }
-      .show-card:nth-child(2) {
-        aspect-ratio: 0.85;
-      }
       .show-card:nth-child(1) {
         grid-column: 1;
       }
@@ -548,10 +545,22 @@
         align-items: center;
         gap: 8px;
       }
+      .logo-item.logo-link {
+        text-decoration: none;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+      .logo-item.logo-link:hover {
+        transform: scale(1.08);
+      }
       .logo-item img {
         max-height: 90px;
         width: auto;
         filter: drop-shadow(0 0 8px rgba(0,200,255,0.4));
+        transition: filter 0.3s ease;
+      }
+      .logo-item.logo-link:hover img {
+        filter: drop-shadow(0 0 16px rgba(0,200,255,0.8)) brightness(1.2);
       }
       .logo-item:nth-child(2) img {
         max-height: 110px;
@@ -874,6 +883,14 @@
               <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros Logo">
               <div class="logo-label">DJ Nopheros</div>
             </div>
+            <a href="https://turtlecraft.gg" target="_blank" rel="noopener" class="logo-item logo-link">
+              <img src="/img/bg-img/moa_flyer.png" alt="Mysteries of Azeroth">
+              <div class="logo-label">Mysteries of Azeroth</div>
+            </a>
+            <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="logo-item logo-link">
+              <img src="/img/core-img/twitch_logo.ico" alt="Twitch">
+              <div class="logo-label">Twitch</div>
+            </a>
           </div>
           <div class="schedule-hero-title">ROTATING SHOWS</div>
           <div class="schedule-hero-sub">TUNE IN FOR THE SIGNAL</div>
