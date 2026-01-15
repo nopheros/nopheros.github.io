@@ -419,10 +419,10 @@
       /* Show Card Layout */
       .show-cards-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-        gap: 28px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
         margin: 40px auto;
-        max-width: 1000px;
+        max-width: 900px;
       }
       .show-card {
         position: relative;
@@ -432,6 +432,9 @@
         overflow: hidden;
         box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(0,200,255,0.2);
         transition: all 0.3s ease;
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
       }
       .show-card:hover {
         transform: translateY(-8px);
@@ -440,7 +443,7 @@
       }
       .show-card-flyer {
         width: 100%;
-        height: 280px;
+        flex: 1;
         background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
         display: flex;
         align-items: center;
@@ -583,9 +586,52 @@
         display: block;
         filter: drop-shadow(0 0 8px rgba(0,200,255,0.25));
       }
+      /* Branding Belt */
+      .branding-belt {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin: 50px auto 60px auto;
+        padding: 24px;
+        max-width: 900px;
+        background: linear-gradient(90deg, rgba(0,200,255,0.05), rgba(0,120,180,0.12), rgba(0,200,255,0.05));
+        border-top: 1px solid rgba(0,200,255,0.25);
+        border-bottom: 1px solid rgba(0,200,255,0.25);
+        flex-wrap: wrap;
+      }
+      .branding-belt-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .branding-belt-item:hover {
+        transform: translateY(-3px);
+      }
+      .branding-belt-item img {
+        max-height: 50px;
+        filter: drop-shadow(0 0 8px rgba(0,200,255,0.4));
+        transition: filter 0.2s ease;
+      }
+      .branding-belt-item:hover img {
+        filter: drop-shadow(0 0 14px rgba(0,200,255,0.7));
+      }
+      .branding-belt-label {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.7rem;
+        color: #9fd8ff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
       @media (max-width: 640px) {
         .show-cards-container {
           grid-template-columns: 1fr;
+        }
+        .branding-belt {
+          gap: 24px;
         }
         .schedule-hero-logos {
           gap: 16px;
@@ -673,14 +719,14 @@
 
         <!-- FLAGSHIP SHOWS WITH FLYERS -->
         <div class="show-cards-container">
-          <div class="show-card" style="grid-column: span 2;">
-            <div class="show-card-flyer" style="height: 400px;">
+          <div class="show-card">
+            <div class="show-card-flyer">
               <img src="/img/bg-img/squirrel.jpg" alt="Treehab with DJ Nopheros">
             </div>
             <div class="show-card-info">
               <div class="show-card-title">Treehab</div>
               <div class="show-card-day">Every Monday — 11:00 AM EST</div>
-              <div class="show-card-desc">Recovery and renewal through music. Treehab brings lush soundscapes and healing frequencies for those seeking restoration.</div>
+              <div class="show-card-desc">Recovery and renewal through music. Ambient soundscapes and healing frequencies for Monday restoration.</div>
             </div>
             <div class="show-card-footer">▌ STREAMING LIVE</div>
           </div>
@@ -692,10 +738,30 @@
             <div class="show-card-info">
               <div class="show-card-title">Pilgrim of the Signal</div>
               <div class="show-card-day">Every Friday — 12:00 PM EST</div>
-              <div class="show-card-desc">Journey through the digital landscape with the Pilgrim. Signal transmissions blend deep cuts and atmospheric journeys across Azeroth and beyond.</div>
+              <div class="show-card-desc">Journey through Azeroth with deep cuts and atmospheric transmissions. MMO culture meets real DJ energy.</div>
             </div>
             <div class="show-card-footer">▌ STREAMING LIVE</div>
           </div>
+        </div>
+
+        <!-- BRANDING BELT -->
+        <div class="branding-belt">
+          <div class="branding-belt-item">
+            <img src="/img/bg-img/elbc_logo.png" alt="Everlook Broadcasting Co">
+            <div class="branding-belt-label">Everlook Broadcasting</div>
+          </div>
+          <div class="branding-belt-item">
+            <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros">
+            <div class="branding-belt-label">DJ Nopheros</div>
+          </div>
+          <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="branding-belt-item">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Twitch_Glitch_Logo_Purple.svg" alt="Twitch" style="max-height: 45px;">
+            <div class="branding-belt-label">Watch Live</div>
+          </a>
+          <a href="https://turtlewow.org/radio" target="_blank" rel="noopener" class="branding-belt-item">
+            <img src="/img/core-img/elbc_logo.png" alt="TurtleCraft Radio" style="max-height: 45px;">
+            <div class="branding-belt-label">Turtle WoW Radio</div>
+          </a>
         </div>
 
         <!-- TWITCH SECTION -->
