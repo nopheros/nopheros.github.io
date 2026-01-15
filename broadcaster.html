@@ -1036,22 +1036,22 @@
           container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
           if (statusEl) {
             statusEl.classList.remove('status-offline');
-            statusEl.querySelector('.status-text').textContent = 'LIVE NOW — WATCH THE SIGNAL';
+            statusEl.innerHTML = `<span class="status-dot"></span><span class="status-text">LIVE NOW — WATCH THE SIGNAL</span>`;
           }
         } else {
-          container.innerHTML = `
-            <div class="offline-section">
-              <h3>SIGNAL INTERRUPTED</h3>
-              <p>The broadcast is currently offline. Check back for live shows or explore past streams and recordings.</p>
-              <div class="offline-links">
-                <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
-                <a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener" class="offline-link-btn">Watch VODs</a>
-              </div>
-            </div>
-          `;
+          container.innerHTML = '';
           if (statusEl) {
             statusEl.classList.add('status-offline');
-            statusEl.querySelector('.status-text').textContent = 'OFFLINE — FOLLOW FOR LIVE ALERTS';
+            statusEl.innerHTML = `
+              <div class="offline-section" style="max-width: none; margin: 0; padding: 30px; border-radius: 12px;">
+                <h3 style="margin-bottom: 16px;">SIGNAL INTERRUPTED</h3>
+                <p style="margin-bottom: 20px;">The broadcast is currently offline. Check back for live shows or explore past streams and recordings.</p>
+                <div class="offline-links">
+                  <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
+                  <a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener" class="offline-link-btn">Watch VODs</a>
+                </div>
+              </div>
+            `;
           }
         }
       }
