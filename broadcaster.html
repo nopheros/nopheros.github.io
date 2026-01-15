@@ -482,7 +482,7 @@
       }
       .show-card-flyer {
         width: 100%;
-        flex: 1;
+        flex: 1.2;
         background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
         display: flex;
         align-items: center;
@@ -492,7 +492,7 @@
       .show-card-flyer img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
         transition: transform 0.3s ease;
       }
@@ -553,11 +553,12 @@
         gap: 8px;
       }
       .logo-item img {
-        max-height: 80px;
+        max-height: 90px;
+        width: auto;
         filter: drop-shadow(0 0 8px rgba(0,200,255,0.4));
       }
       .logo-item:nth-child(2) img {
-        max-height: 100px;
+        max-height: 110px;
       }
       .logo-label {
         font-family: 'Share Tech Mono', monospace;
@@ -625,53 +626,49 @@
         display: block;
         filter: drop-shadow(0 0 8px rgba(0,200,255,0.25));
       }
-      /* Branding Belt */
+      /* Branding Belt - Auto-scrolling Flyer Carousel */
       .branding-belt {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
+        position: relative;
         margin: 50px auto 60px auto;
-        padding: 24px;
-        max-width: 900px;
-        background: linear-gradient(90deg, rgba(0,200,255,0.05), rgba(0,120,180,0.12), rgba(0,200,255,0.05));
-        border-top: 1px solid rgba(0,200,255,0.25);
-        border-bottom: 1px solid rgba(0,200,255,0.25);
-        flex-wrap: wrap;
+        width: 100%;
+        height: 120px;
+        background: linear-gradient(90deg, rgba(0,200,255,0.18), rgba(0,255,220,0.25), rgba(0,200,255,0.18));
+        border-top: 2px solid rgba(0,200,255,0.5);
+        border-bottom: 2px solid rgba(0,200,255,0.5);
+        overflow: hidden;
+        box-shadow: 0 0 30px rgba(0,200,255,0.3), inset 0 0 20px rgba(0,200,255,0.1);
       }
-      .branding-belt-item {
+      .branding-belt::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          rgba(0,200,255,0.1) 2px,
+          transparent 4px,
+          transparent 50px
+        );
+        pointer-events: none;
+      }
+      .belt-scroll {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        transition: all 0.2s ease;
+        height: 100%;
+        animation: scrollBelt 40s linear infinite;
+        gap: 60px;
+        padding: 0 30px;
       }
-      .branding-belt-item:hover {
-        transform: translateY(-3px);
+      @keyframes scrollBelt {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
-      .branding-belt-item img {
-        max-height: 50px;
-        filter: drop-shadow(0 0 8px rgba(0,200,255,0.4));
-        transition: filter 0.2s ease;
-      }
-      .branding-belt-item:hover img {
-        filter: drop-shadow(0 0 14px rgba(0,200,255,0.7));
-      }
-      .branding-belt-label {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.7rem;
-        color: #9fd8ff;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-      .turtle-wow-label {
-        font-family: 'Cinzel Decorative', serif;
-        font-size: 0.75rem;
-        color: #ffd700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+      .belt-scroll img {
+        height: 90px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 0 12px rgba(0,200,255,0.6)) brightness(1.1);
+        flex-shrink: 0;
       }
       @media (max-width: 640px) {
         .show-cards-container {
@@ -775,9 +772,8 @@
             <div class="show-card-info">
               <div class="show-card-title">Treehab</div>
               <div class="show-card-day">Every Monday — 11:00 AM EST</div>
-              <div class="show-card-desc">Recovery and renewal through music. Ambient soundscapes and healing frequencies for Monday restoration.</div>
+              <div class="show-card-desc">Lush soundscapes meet woodland vibes. When Monday hits hard, Treehab brings the healing frequencies.</div>
             </div>
-            <div class="show-card-footer">▌ STREAMING LIVE</div>
           </div>
 
           <div class="show-card">
@@ -787,30 +783,44 @@
             <div class="show-card-info">
               <div class="show-card-title">Pilgrim of the Signal</div>
               <div class="show-card-day">Every Friday — 12:00 PM EST</div>
-              <div class="show-card-desc">Journey through Azeroth with deep cuts and atmospheric transmissions. MMO culture meets real DJ energy.</div>
+              <div class="show-card-desc">Broadcasting from the depths of Azeroth. Deep cuts, epic atmospheres, and the wildest transmissions across digital realms.</div>
             </div>
-            <div class="show-card-footer">▌ STREAMING LIVE</div>
           </div>
         </div>
 
-        <!-- BRANDING BELT -->
+        <!-- BRANDING BELT - AUTO-SCROLLING FLYER CAROUSEL -->
         <div class="branding-belt">
-          <div class="branding-belt-item">
-            <img src="/img/bg-img/elbc_logo.png" alt="Everlook Broadcasting Co">
-            <div class="branding-belt-label">Everlook Broadcasting</div>
+          <div class="belt-scroll">
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+            <!-- Duplicate for seamless loop -->
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
           </div>
-          <div class="branding-belt-item">
-            <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros">
-            <div class="branding-belt-label">DJ Nopheros</div>
-          </div>
-          <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="branding-belt-item">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Twitch_Glitch_Logo_Purple.svg" alt="Twitch" style="max-height: 45px;">
-            <div class="branding-belt-label">Watch Live</div>
-          </a>
-          <a href="https://turtlewow.org/radio" target="_blank" rel="noopener" class="branding-belt-item">
-            <img src="https://turtlecraft.gg/build/assets/logo_shadow-DlJUma57.png" alt="Turtle WoW Radio" style="max-height: 50px;">
-            <div class="turtle-wow-label">Turtle WoW Radio</div>
-          </a>
         </div>
         </div>
         <!-- END SHOWS SECTION WRAPPER -->
