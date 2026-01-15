@@ -445,17 +445,17 @@
       /* Show Card Layout */
       .show-cards-container {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1.15fr;
         gap: 32px;
         margin: 40px auto;
         max-width: 1100px;
+        align-items: center;
       }
       .show-card:nth-child(2) {
-        transform: scale(1.15);
         grid-column: 2;
       }
       .show-card:nth-child(1) {
-        transform: scale(1);
+        grid-column: 1;
       }
       .show-card {
         position: relative;
