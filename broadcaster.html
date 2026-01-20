@@ -446,7 +446,7 @@
       .show-cards-container {
         display: grid;
         grid-template-columns: 1.4fr 1fr;
-        gap: 32px;
+        gap: 48px;
         margin: 20px auto;
         max-width: 1100px;
         align-items: start;
@@ -486,14 +486,14 @@
         object-fit: contain;
         filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
         transition: transform 0.3s ease;
-        padding: 15px;
+        padding: 0;
         box-sizing: border-box;
       }
       .show-card:hover .show-card-flyer img {
         transform: scale(1.05);
       }
       .show-card-info {
-        padding: 20px;
+        padding: 28px;
         color: #dff8ff;
       }
       .show-card-title {
@@ -512,9 +512,9 @@
       }
       .show-card-desc {
         font-family: 'EB Garamond', serif;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        opacity: 0.9;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        opacity: 0.95;
       }
       .show-card-footer {
         padding: 12px 20px;
@@ -906,7 +906,7 @@
               <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab with DJ Nopheros">
             </div>
             <div class="show-card-info">
-              <div class="show-card-title">Treehab</div>
+              <div class="show-card-title">Weekly Therapy with Dr. Nopheros at the Treehab</div>
               <div class="show-card-day">Every Monday — 11:00 AM EST</div>
               <div class="show-card-desc">An earlier time during the day, and during the week! That same Signal Pilgrim music taste just at a time a little closer to your evenin' bangers n' mash hour, or 2nd dinner.<br><br>This dwarf wants to invade all of your green spaces and he will travel Azeroth to find them. Will Arch Druid Bob Marley make an experience? Mel B?<br><br>By Golly, I hope so!</div>
             </div>
@@ -963,6 +963,53 @@
         </div>
         <!-- END SHOWS SECTION WRAPPER -->
 
+        <!-- DISCLAIMER -->
+        <div class="scroll-wrapper">
+          <div class="scroll" style="background: linear-gradient(145deg, rgba(139, 90, 43, 0.1), rgba(30, 60, 90, 0.15)); border-color: rgba(200, 150, 100, 0.3);">
+            <p style="font-size: 0.95rem; color: #c9a771; line-height: 1.7; margin: 0;">
+              <b style="color: #d4b896;">⚠ WARNING FROM THE TOWER:</b> This broadcast may contain goblin slang and explicit language. Listener discretion is advised, especially for low-level ears.<br><br>
+              Community DJ and streamer producing independent media content; not affiliated with Blizzard Entertainment and not involved in game distribution, servers, mods, or installation assistance.
+            </p>
+          </div>
+        </div>
+
+        <!-- BRANDING BELT - AUTO-SCROLLING FLYER CAROUSEL -->
+        <div class="branding-belt">
+          <div class="belt-scroll">
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+            <!-- Duplicate for seamless loop -->
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+          </div>
+        </div>
+
         <!-- FLYER ZOOM MODAL -->
         <div id="flyer-modal" class="flyer-modal">
           <div class="flyer-modal-content">
@@ -973,16 +1020,6 @@
 
         <!-- TWITCH SECTION -->
         <div id="twitch-embed-container" style="margin: 50px auto 40px auto; text-align:center; max-width: 900px;"></div>
-
-        <!-- DISCLAIMER -->
-        <div class="scroll-wrapper">
-          <div class="scroll" style="background: linear-gradient(145deg, rgba(139, 90, 43, 0.1), rgba(30, 60, 90, 0.15)); border-color: rgba(200, 150, 100, 0.3);">
-            <p style="font-size: 0.95rem; color: #c9a771; line-height: 1.7; margin: 0;">
-              <b style="color: #d4b896;">⚠ WARNING FROM THE TOWER:</b> This broadcast may contain goblin slang and explicit language. Listener discretion is advised, especially for low-level ears.<br><br>
-              Community DJ and streamer producing independent media content; not affiliated with Blizzard Entertainment and not involved in game distribution, servers, mods, or installation assistance.
-            </p>
-          </div>
-        </div>
 
         <!-- SCROLL: EVERLOOK BROADCASTING -->
         <div class="scroll-wrapper">
