@@ -174,20 +174,18 @@
         text-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
       }
 
-      /* Voice Profile Grid */
-      .voice-profile-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 16px;
-        margin-top: 20px;
+      /* Voice Profile List */
+      .voice-profile-list {
+        list-style: none;
+        margin: 20px 0 0 0;
+        padding: 0;
+        text-align: left;
       }
 
       .profile-item {
-        background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
-        border: 1px solid rgba(0,200,255,0.25);
-        border-radius: 10px;
-        padding: 14px;
-        position: relative;
+        margin-bottom: 18px;
+        padding-left: 12px;
+        border-left: 3px solid rgba(0, 200, 255, 0.4);
       }
 
       .profile-label {
@@ -196,8 +194,9 @@
         font-size: 0.85rem;
         letter-spacing: 1px;
         text-transform: uppercase;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
         text-shadow: 0 0 8px rgba(0,255,136,0.6);
+        display: block;
       }
 
       .profile-value {
@@ -205,6 +204,53 @@
         color: #dff8ff;
         font-size: 1.05rem;
         line-height: 1.5;
+      }
+
+      /* About Section with Image */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 32px;
+        align-items: start;
+        margin-top: 20px;
+      }
+
+      .about-image-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .about-image {
+        width: 100%;
+        max-width: 320px;
+        border-radius: 14px;
+        border: 2px solid rgba(0, 200, 255, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 200, 255, 0.2);
+        object-fit: cover;
+        display: block;
+      }
+
+      .about-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+      }
+
+      @media (max-width: 968px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .about-image-wrapper {
+          order: -1;
+          max-width: 280px;
+          margin: 0 auto;
+        }
+
+        .about-image {
+          max-width: 280px;
+        }
       }
 
       /* Demo Reels */
@@ -351,8 +397,12 @@
         <h2 class="hero-title">NOPHEROS</h2>
         
         <div class="status-badge">
-          <span class="status-dot"></span>
-          <span class="status-text">AVAILABLE FOR BOOKINGS</span>
+          <a href="mailto:nopheros.media@gmail.com?subject=Voice%20Actor%20Booking%20Inquiry" 
+             onclick="window.open(this.href); return false;" 
+             style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
+            <span class="status-dot"></span>
+            <span class="status-text">AVAILABLE FOR BOOKINGS</span>
+          </a>
         </div>
 
         <!-- Voice Profile Section -->
@@ -360,32 +410,32 @@
           <div class="scanline"></div>
           <h2>VOICE PROFILE</h2>
           
-          <div class="voice-profile-grid">
-            <div class="profile-item">
-              <div class="profile-label">Voice Type</div>
-              <div class="profile-value">Baritone to Mid-Tenor</div>
-            </div>
+          <ul class="voice-profile-list">
+            <li class="profile-item">
+              <span class="profile-label">Voice Type</span>
+              <span class="profile-value">Baritone to Mid-Tenor</span>
+            </li>
             
-            <div class="profile-item">
-              <div class="profile-label">Age Range</div>
-              <div class="profile-value">Children through Elderly</div>
-            </div>
+            <li class="profile-item">
+              <span class="profile-label">Age Range</span>
+              <span class="profile-value">Children through Elderly</span>
+            </li>
             
-            <div class="profile-item">
-              <div class="profile-label">Accents</div>
-              <div class="profile-value">Southern American, Boston, British Cockney, Slavic/Eastern European</div>
-            </div>
+            <li class="profile-item">
+              <span class="profile-label">Accents</span>
+              <span class="profile-value">Southern American, Boston, British Cockney, Slavic/Eastern European</span>
+            </li>
             
-            <div class="profile-item">
-              <div class="profile-label">Specialties</div>
-              <div class="profile-value">Cold reading, improvisation, long-form endurance</div>
-            </div>
+            <li class="profile-item">
+              <span class="profile-label">Specialties</span>
+              <span class="profile-value">Cold reading, improvisation, long-form endurance</span>
+            </li>
             
-            <div class="profile-item">
-              <div class="profile-label">Studio</div>
-              <div class="profile-value">Samson Q2U (XLR), Behringer Xenyx 802S, Audacity — clean processing workflow</div>
-            </div>
-          </div>
+            <li class="profile-item">
+              <span class="profile-label">Studio</span>
+              <span class="profile-value">Samson Q2U (XLR), Behringer Xenyx 802S, Audacity — clean processing workflow</span>
+            </li>
+          </ul>
         </section>
 
         <!-- Demo Reels Section -->
@@ -425,18 +475,26 @@
           <div class="scanline"></div>
           <h2>ABOUT</h2>
           
-          <div class="bio-text">
-            <p>
-              Nopheros is a voice actor specializing in versatile character performance and commercial delivery. 
-              With an age range spanning children through elderly characters and accents including Southern American, 
-              Boston, British Cockney, and Slavic dialects, he brings adaptability to projects across animation, 
-              video games, audiobooks, and corporate content.
-            </p>
-            <p>
-              His background in live broadcast performance has developed skills in cold reading, improvisation, 
-              timing precision, and vocal endurance. Select credits include promo work for gaming and streaming platforms. 
-              Available for remote sessions with quick turnaround and flexible scheduling.
-            </p>
+          <div class="about-grid">
+            <div class="about-image-wrapper">
+              <img src="/img/bg-img/voiceactor_hero.jpg" alt="Nopheros Voice Actor" class="about-image">
+            </div>
+
+            <div class="about-content">
+              <div class="bio-text">
+                <p>
+                  Nopheros is a voice actor specializing in versatile character performance and commercial delivery. 
+                  With an age range spanning children through elderly characters and accents including Southern American, 
+                  Boston, British Cockney, and Slavic dialects, he brings adaptability to projects across animation, 
+                  video games, audiobooks, and corporate content.
+                </p>
+                <p>
+                  His background in live broadcast performance has developed skills in cold reading, improvisation, 
+                  timing precision, and vocal endurance. Select credits include promo work for gaming and streaming platforms. 
+                  Available for remote sessions with quick turnaround and flexible scheduling.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
