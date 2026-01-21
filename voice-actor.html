@@ -18,11 +18,283 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        html, body { background-color: #000 !important; color: #fff; }
-        .page-main { padding: 120px 0; text-align: center; }
-        .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
-        .page-main .brb-placeholder { margin-top: 40px; display: flex; justify-content: center; }
-        .page-main .brb-placeholder img { max-width: 420px; width: 100%; height: auto; border-radius: 6px; }
+      html, body { background-color: #050505 !important; color: #dff8ff; }
+      
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(0,255,200,0.05), transparent 35%),
+                    radial-gradient(circle at 80% 0%, rgba(120,200,255,0.05), transparent 35%),
+                    linear-gradient(180deg, rgba(0,255,180,0.03), rgba(0,120,180,0.02));
+        pointer-events: none;
+        z-index: -2;
+      }
+      
+      .rune-rain {
+        position: fixed;
+        inset: 0;
+        background:
+          repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,180,0.08) 0px,
+            rgba(0,255,180,0.08) 2px,
+            transparent 6px,
+            transparent 24px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(0,120,180,0.05) 7px,
+            rgba(0,120,180,0.08) 8px,
+            transparent 12px
+          );
+        opacity: 0.22;
+        mix-blend-mode: screen;
+        animation: rainShift 12s linear infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      
+      @keyframes rainShift {
+        0% { transform: translateY(0) translateX(0); }
+        100% { transform: translateY(24px) translateX(-6px); }
+      }
+
+      /* Hero Section */
+      .page-main { 
+        padding: 110px 0 60px; 
+        text-align: center; 
+        position: relative; 
+      }
+      
+      .page-main h1 {
+        color: #9fd8ff;
+        letter-spacing: 5px;
+        font-family: 'Share Tech Mono', 'Cinzel Decorative', serif;
+        font-weight: 700;
+        font-size: 1rem;
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
+        margin-bottom: 10px;
+      }
+      
+      .hero-title {
+        color: #dff8ff;
+        font-family: 'Cinzel Decorative', serif;
+        font-weight: 700;
+        font-size: 3rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 18px rgba(0, 200, 255, 0.85), 0 0 30px rgba(0, 140, 200, 0.4);
+        margin-bottom: 6px;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.22), rgba(0,120,160,0.28));
+        border: 1px solid rgba(0,200,255,0.38);
+        color: #dff8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 16px rgba(0,200,255,0.22);
+        margin-bottom: 40px;
+      }
+      
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10ff9e;
+        box-shadow: 0 0 12px #10ff9e;
+        animation: pulseDot 1.4s ease-in-out infinite;
+      }
+      
+      @keyframes pulseDot {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(0.8); }
+      }
+
+      /* Section Shell */
+      .section-shell {
+        background: linear-gradient(145deg, #0c0c0c, #0a1116);
+        border: 1px solid rgba(0, 200, 255, 0.28);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
+        border-radius: 18px;
+        padding: 32px 28px;
+        margin: 0 auto 46px auto;
+        max-width: 860px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .section-shell::after {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        border-radius: 16px;
+        border: 1px solid rgba(159, 216, 255, 0.12);
+        pointer-events: none;
+      }
+      
+      .scanline {
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 255, 200, 0.06),
+          rgba(0, 255, 200, 0.06) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+        mix-blend-mode: screen;
+        pointer-events: none;
+        opacity: 0.35;
+      }
+
+      .section-shell h2 {
+        font-family: 'Cinzel Decorative', serif;
+        color: #9fd8ff;
+        letter-spacing: 3px;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
+        text-align: center;
+      }
+
+      .section-shell h3 {
+        font-family: 'Cinzel Decorative', serif;
+        color: #9fd8ff;
+        letter-spacing: 2px;
+        font-size: 1.3rem;
+        margin: 24px 0 12px 0;
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
+      }
+
+      /* Voice Profile Grid */
+      .voice-profile-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .profile-item {
+        background: linear-gradient(145deg, rgba(0,200,255,0.08), rgba(0,120,180,0.12));
+        border: 1px solid rgba(0,200,255,0.25);
+        border-radius: 10px;
+        padding: 14px;
+        position: relative;
+      }
+
+      .profile-label {
+        font-family: 'Share Tech Mono', monospace;
+        color: #00ff88;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        text-shadow: 0 0 8px rgba(0,255,136,0.6);
+      }
+
+      .profile-value {
+        font-family: 'EB Garamond', serif;
+        color: #dff8ff;
+        font-size: 1.05rem;
+        line-height: 1.5;
+      }
+
+      /* Demo Reels */
+      .demo-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 20px;
+      }
+
+      .demo-item {
+        background: linear-gradient(145deg, rgba(0,200,255,0.06), rgba(0,120,180,0.10));
+        border: 1px solid rgba(0,200,255,0.3);
+        border-radius: 14px;
+        padding: 20px;
+        position: relative;
+      }
+
+      .demo-title {
+        font-family: 'Share Tech Mono', monospace;
+        color: #9fd8ff;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        text-shadow: 0 0 8px rgba(0,200,255,0.5);
+      }
+
+      .demo-placeholder {
+        width: 100%;
+        height: 60px;
+        border-radius: 8px;
+        border: 1px dashed rgba(159, 216, 255, 0.5);
+        background: linear-gradient(135deg, rgba(0, 200, 255, 0.08), rgba(0, 80, 140, 0.20));
+        color: #9fd8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Bio Text */
+      .bio-text {
+        font-family: 'EB Garamond', serif;
+        color: #dff8ff;
+        font-size: 1.1rem;
+        line-height: 1.75;
+        text-align: left;
+        margin-top: 16px;
+      }
+
+      .bio-text p {
+        margin-bottom: 14px;
+      }
+
+      .bio-text p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* CTA Button */
+      .booking-cta {
+        text-align: center;
+        margin: 50px 0 80px 0;
+      }
+      
+      .booking-button {
+        display: inline-block;
+        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
+        color: #001018;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        padding: 14px 32px;
+        border-radius: 10px;
+        box-shadow: 0 6px 24px rgba(0, 200, 255, 0.35);
+        text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      
+      .booking-button:hover { 
+        transform: translateY(-2px); 
+        box-shadow: 0 10px 28px rgba(0, 200, 255, 0.45); 
+      }
+
+      @media (max-width: 768px) {
+        .hero-title { font-size: 2.2rem; }
+        .section-shell { max-width: 94vw; padding: 24px 18px; }
+        .voice-profile-grid { grid-template-columns: 1fr; }
+      }
     </style>
 </head>
 
@@ -71,12 +343,111 @@
         </div>
     </header>
 
+    <div class="rune-rain"></div>
+
     <main class="page-main">
       <div class="container">
-                <h1>VOICE ACTOR</h1>
-                <div class="brb-placeholder">
-                    <img src="/img/bg-img/brb.jpg" alt="Under construction" loading="lazy">
-                </div>
+        <h1>VOICE ACTOR</h1>
+        <h2 class="hero-title">NOPHEROS</h2>
+        
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span class="status-text">AVAILABLE FOR BOOKINGS</span>
+        </div>
+
+        <!-- Voice Profile Section -->
+        <section class="section-shell">
+          <div class="scanline"></div>
+          <h2>VOICE PROFILE</h2>
+          
+          <div class="voice-profile-grid">
+            <div class="profile-item">
+              <div class="profile-label">Voice Type</div>
+              <div class="profile-value">Baritone to Mid-Tenor</div>
+            </div>
+            
+            <div class="profile-item">
+              <div class="profile-label">Age Range</div>
+              <div class="profile-value">Children through Elderly</div>
+            </div>
+            
+            <div class="profile-item">
+              <div class="profile-label">Accents</div>
+              <div class="profile-value">Southern American, Boston, British Cockney, Slavic/Eastern European</div>
+            </div>
+            
+            <div class="profile-item">
+              <div class="profile-label">Specialties</div>
+              <div class="profile-value">Cold reading, improvisation, long-form endurance</div>
+            </div>
+            
+            <div class="profile-item">
+              <div class="profile-label">Studio</div>
+              <div class="profile-value">Samson Q2U (XLR), Behringer Xenyx 802S, Audacity — clean processing workflow</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Demo Reels Section -->
+        <section class="section-shell">
+          <div class="scanline"></div>
+          <h2>DEMO REELS</h2>
+          
+          <div class="demo-grid">
+            <!-- Commercial Demo -->
+            <div class="demo-item">
+              <div class="demo-title">COMMERCIAL DEMO</div>
+              <div class="demo-placeholder">
+                Demo reel coming soon — Contact for sample reads
+              </div>
+            </div>
+
+            <!-- Character/Narrative Demo -->
+            <div class="demo-item">
+              <div class="demo-title">CHARACTER / NARRATIVE DEMO</div>
+              <div class="demo-placeholder">
+                Demo reel coming soon — Contact for sample reads
+              </div>
+            </div>
+
+            <!-- Optional: Long-Form Demo -->
+            <div class="demo-item">
+              <div class="demo-title">LONG-FORM / PODCAST DEMO</div>
+              <div class="demo-placeholder">
+                Demo reel coming soon — Contact for sample reads
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section-shell">
+          <div class="scanline"></div>
+          <h2>ABOUT</h2>
+          
+          <div class="bio-text">
+            <p>
+              Nopheros is a voice actor specializing in versatile character performance and commercial delivery. 
+              With an age range spanning children through elderly characters and accents including Southern American, 
+              Boston, British Cockney, and Slavic dialects, he brings adaptability to projects across animation, 
+              video games, audiobooks, and corporate content.
+            </p>
+            <p>
+              His background in live broadcast performance has developed skills in cold reading, improvisation, 
+              timing precision, and vocal endurance. Select credits include promo work for gaming and streaming platforms. 
+              Available for remote sessions with quick turnaround and flexible scheduling.
+            </p>
+          </div>
+        </section>
+
+        <!-- Booking CTA -->
+        <div class="booking-cta">
+          <a href="mailto:nopheros.media@gmail.com?subject=Voice%20Actor%20Booking%20Inquiry" 
+             onclick="window.open(this.href); return false;" 
+             class="booking-button">
+            INQUIRE ABOUT BOOKINGS
+          </a>
+        </div>
       </div>
     </main>
 
