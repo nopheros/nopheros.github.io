@@ -135,9 +135,7 @@
       width: min(92%, 420px);
       height: auto;
       filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
-      background: rgba(255, 255, 255, 0.94);
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 8px;
     }
 
     .brand-caption {
@@ -265,12 +263,33 @@
       padding: 14px;
     }
 
-    .tower-iframe {
+    .player-stage {
       width: 100%;
-      height: 440px;
       border: 1px solid rgba(110, 192, 228, 0.35);
       border-radius: 10px;
       background: #060b10;
+      padding: 16px;
+      min-height: 170px;
+    }
+
+    .player-stage-title {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+      margin: 0 0 8px;
+      color: #ddf7ff;
+    }
+
+    .player-stage-copy {
+      margin: 0 0 12px;
+      color: #a7d5e5;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .tower-audio {
+      width: 100%;
     }
 
     .control-row {
@@ -528,9 +547,6 @@
         grid-template-columns: 1fr;
       }
 
-      .tower-iframe {
-        height: 390px;
-      }
     }
 
     @media (max-width: 760px) {
@@ -546,9 +562,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .tower-iframe {
-        height: 340px;
-      }
     }
 
     @media (max-width: 440px) {
@@ -632,7 +645,7 @@
         </div>
       </div>
       <div class="hero-brand">
-        <img src="/img/core-img/oobe-logo.svg" alt="Out of Bounds Entertainment logo">
+        <img src="/OOBE_refined_lockup_white.png" alt="Out of Bounds Entertainment logo">
         <div class="brand-caption">Signal Partner Brand</div>
       </div>
     </section>
@@ -642,11 +655,16 @@
       <p class="section-sub">Primary broadcast relay. If one playback path fails in your browser, use the alternate launch links below.</p>
       <div class="radio-grid">
         <div class="player-box">
-          <iframe class="tower-iframe" src="https://nopheros.com/nopheros-listener-dashboard-main/index.html" title="Tower 3 listener dashboard" loading="lazy" allow="autoplay"></iframe>
+          <div class="player-stage">
+            <h3 class="player-stage-title">Single Page Tower 3 Player</h3>
+            <p class="player-stage-copy">No external dashboard embedded. This player connects directly to your secure relay endpoint.</p>
+            <audio id="tower3-audio" class="tower-audio" controls preload="none" crossorigin="anonymous"></audio>
+          </div>
           <div class="control-row">
-            <a class="btn-signal" href="https://nopheros.com/nopheros-listener-dashboard-main/index.html" target="_blank" rel="noopener">Open Full Command Deck</a>
-            <a class="btn-outline" href="http://romeblue7.myvnc.com:8088/autodj.m3u" target="_blank" rel="noopener">Direct Stream M3U</a>
-            <a class="btn-outline" href="http://romeblue7.myvnc.com:8088/status.xsl" target="_blank" rel="noopener">Icecast Status</a>
+            <button id="play-live" class="btn-signal" type="button">Play Tower 3</button>
+            <button id="pause-live" class="btn-outline" type="button">Pause</button>
+            <a class="btn-outline" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener">Direct Stream M3U</a>
+            <a class="btn-outline" href="https://romeblue7.myvnc.com:8443/status-json.xsl" target="_blank" rel="noopener">Icecast Status JSON</a>
           </div>
           <div id="now-playing" class="now-playing">Now playing data loading...</div>
         </div>
@@ -671,7 +689,7 @@
             </li>
           </ul>
           <p class="metrics-note" id="metrics-note">
-            Metrics proxy online. Polling listener telemetry from Icecast every 60 seconds.
+            Polling listener telemetry from Icecast every 60 seconds.
           </p>
         </aside>
       </div>
@@ -796,9 +814,13 @@
       var lastRefreshEl = document.getElementById('last-refresh');
       var nowPlayingEl = document.getElementById('now-playing');
       var metricsNoteEl = document.getElementById('metrics-note');
+      var audioEl = document.getElementById('tower3-audio');
+      var playLiveEl = document.getElementById('play-live');
+      var pauseLiveEl = document.getElementById('pause-live');
 
-      var ICECAST_STATUS = 'http://romeblue7.myvnc.com:8088/status.xsl';
-      var PROXY_STATUS = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(ICECAST_STATUS);
+      var STREAM_URL = 'https://romeblue7.myvnc.com:8443/autodj';
+      var METADATA_URL = 'https://romeblue7.myvnc.com:8443/status-json.xsl';
+      var PROXY_STATUS = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(METADATA_URL);
 
       function setLastRefresh() {
         var ts = new Date();
@@ -811,28 +833,37 @@
         currentListenersEl.textContent = '--';
         peakListenersEl.textContent = '--';
         bitrateEl.textContent = '--';
-        nowPlayingEl.textContent = 'Now playing data unavailable. Open the Command Deck for direct playback status.';
+        nowPlayingEl.textContent = 'Now playing data unavailable. Use Play Tower 3 to keep listening.';
         metricsNoteEl.textContent = message;
         setLastRefresh();
       }
 
-      function parseAutodjSection(raw) {
-        var sectionMatch = raw.match(/###\s+Mount Point\s+\/autodj([\s\S]*?)(?:###\s+Mount Point|$)/i);
-        if (!sectionMatch || !sectionMatch[1]) {
+      function normalizeSources(data) {
+        var source = data && data.icestats && data.icestats.source;
+        if (!source) {
+          return [];
+        }
+        return Array.isArray(source) ? source : [source];
+      }
+
+      function getAutodjSource(sources) {
+        return sources.find(function(source) {
+          return source && source.listenurl && source.listenurl.indexOf('/autodj') !== -1;
+        }) || null;
+      }
+
+      function parseAutodjSource(data) {
+        var sources = normalizeSources(data);
+        var source = getAutodjSource(sources);
+        if (!source) {
           return null;
         }
 
-        var section = sectionMatch[1];
-        var listenersMatch = section.match(/Listeners\s*\(current\):\s*(\d+)/i);
-        var peakMatch = section.match(/Listeners\s*\(peak\):\s*(\d+)/i);
-        var bitrateMatch = section.match(/Bitrate:\s*(\d+)/i);
-        var nowMatch = section.match(/Currently playing:\s*([^\n\r]+)/i);
-
         return {
-          current: listenersMatch ? parseInt(listenersMatch[1], 10) : null,
-          peak: peakMatch ? parseInt(peakMatch[1], 10) : null,
-          bitrate: bitrateMatch ? bitrateMatch[1] + ' kbps' : '--',
-          nowPlaying: nowMatch ? nowMatch[1].trim() : 'Track metadata not available'
+          current: typeof source.listeners === 'number' ? source.listeners : null,
+          peak: typeof source.listener_peak === 'number' ? source.listener_peak : null,
+          bitrate: source.bitrate ? String(source.bitrate) + ' kbps' : '--',
+          nowPlaying: (source.title || source.server_name || 'Track metadata not available').trim()
         };
       }
 
@@ -864,17 +895,42 @@
             return res.text();
           })
           .then(function(raw) {
-            var parsed = parseAutodjSection(raw);
+            var parsed = parseAutodjSource(JSON.parse(raw));
             if (!parsed) {
               throw new Error('Unable to parse /autodj mount data');
             }
-            metricsNoteEl.textContent = 'Live metrics fetched from Icecast status mount /autodj via HTTPS proxy.';
+            metricsNoteEl.textContent = 'Live metrics fetched from Icecast /status-json.xsl mount /autodj.';
             renderTelemetry(parsed);
           })
           .catch(function() {
-            setOfflineTelemetry('Live metrics blocked by network or CORS policy. Use Icecast Status and Command Deck links as fallback.');
+            setOfflineTelemetry('Live metrics blocked by network, CORS, or upstream endpoint availability.');
           });
       }
+
+      function setAudioSource() {
+        if (!audioEl.getAttribute('src')) {
+          audioEl.setAttribute('src', STREAM_URL + '?nocache=' + Date.now());
+        }
+      }
+
+      playLiveEl.addEventListener('click', function() {
+        setAudioSource();
+        audioEl.play()
+          .then(function() {
+            statusEl.classList.remove('offline');
+            statusTextEl.textContent = 'Live signal active';
+          })
+          .catch(function() {
+            statusEl.classList.add('offline');
+            statusTextEl.textContent = 'Playback blocked by browser policy';
+          });
+      });
+
+      pauseLiveEl.addEventListener('click', function() {
+        audioEl.pause();
+        statusEl.classList.add('offline');
+        statusTextEl.textContent = 'Playback paused';
+      });
 
       pollTelemetry();
       setInterval(pollTelemetry, 60000);
