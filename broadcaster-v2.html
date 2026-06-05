@@ -250,13 +250,10 @@
     }
 
     .radio-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 18px;
+      display: block;
     }
 
-    .player-box,
-    .metrics-box {
+    .player-box {
       border: 1px solid rgba(150, 215, 240, 0.22);
       border-radius: 14px;
       background: rgba(6, 13, 18, 0.72);
@@ -297,6 +294,27 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .volume-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid rgba(140, 210, 235, 0.42);
+      border-radius: 10px;
+      background: rgba(8, 20, 30, 0.74);
+      color: #d6f5ff;
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .volume-slider {
+      width: 120px;
+      accent-color: #13f5d7;
     }
 
     .now-playing {
@@ -310,46 +328,6 @@
       font-size: 0.92rem;
       line-height: 1.5;
       min-height: 48px;
-    }
-
-    .metric-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 10px;
-    }
-
-    .metric-item {
-      border: 1px solid rgba(140, 205, 232, 0.24);
-      border-radius: 10px;
-      padding: 10px 11px;
-      background: rgba(6, 18, 24, 0.68);
-    }
-
-    .metric-label {
-      display: block;
-      color: #9bcfe2;
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
-
-    .metric-value {
-      color: #ecfbff;
-      font-size: 1.15rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-    }
-
-    .metrics-note {
-      margin: 10px 0 0;
-      color: #98c4d5;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.82rem;
-      line-height: 1.5;
     }
 
     .actions-shell {
@@ -626,7 +604,7 @@
   <main class="page-main">
     <section class="hero-shell">
       <div>
-        <div class="hero-kicker">BROADCASTER LANDING PAGE / 24-7 SIGNAL</div>
+        <div class="hero-kicker">24/7 RADIO</div>
         <h1 class="hero-title">Out of Bounds Entertainment</h1>
         <p class="hero-copy">
           This is the live relay point for the Tower 3 signal. Built by DJ Nopheros, carrying the same world-building spirit from Everlook Broadcasting into a continuous station for listeners in every time zone.
@@ -651,47 +629,27 @@
     </section>
 
     <section id="tower3" class="radio-shell">
-      <h2 class="section-title">Tower 3 Command Deck</h2>
-      <p class="section-sub">Primary broadcast relay. If one playback path fails in your browser, use the alternate launch links below.</p>
+      <h2 class="section-title">Listen Live</h2>
+      <p class="section-sub">Press play to start the stream, pause anytime, and set volume to your preference.</p>
       <div class="radio-grid">
         <div class="player-box">
           <div class="player-stage">
-            <h3 class="player-stage-title">Single Page Tower 3 Player</h3>
-            <p class="player-stage-copy">No external dashboard embedded. This player connects directly to your secure relay endpoint.</p>
+            <h3 class="player-stage-title">Out of Bounds Radio</h3>
+            <p class="player-stage-copy">A simple, direct player for the live station.</p>
             <audio id="tower3-audio" class="tower-audio" controls preload="none" crossorigin="anonymous"></audio>
           </div>
           <div class="control-row">
-            <button id="play-live" class="btn-signal" type="button">Play Tower 3</button>
+            <button id="play-live" class="btn-signal" type="button">Play</button>
             <button id="pause-live" class="btn-outline" type="button">Pause</button>
             <a class="btn-outline" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener">Direct Stream M3U</a>
-            <a class="btn-outline" href="https://romeblue7.myvnc.com:8443/status-json.xsl" target="_blank" rel="noopener">Icecast Status JSON</a>
+            <label class="volume-wrap" for="volume-control">
+              Volume
+              <input id="volume-control" class="volume-slider" type="range" min="0" max="100" value="70">
+              <span id="volume-value">70%</span>
+            </label>
           </div>
           <div id="now-playing" class="now-playing">Now playing data loading...</div>
         </div>
-
-        <aside class="metrics-box">
-          <ul class="metric-list">
-            <li class="metric-item">
-              <span class="metric-label">Current listeners</span>
-              <span id="current-listeners" class="metric-value">--</span>
-            </li>
-            <li class="metric-item">
-              <span class="metric-label">Peak listeners</span>
-              <span id="peak-listeners" class="metric-value">--</span>
-            </li>
-            <li class="metric-item">
-              <span class="metric-label">Bitrate</span>
-              <span id="stream-bitrate" class="metric-value">--</span>
-            </li>
-            <li class="metric-item">
-              <span class="metric-label">Last refresh</span>
-              <span id="last-refresh" class="metric-value">--</span>
-            </li>
-          </ul>
-          <p class="metrics-note" id="metrics-note">
-            Polling listener telemetry from Icecast every 60 seconds.
-          </p>
-        </aside>
       </div>
     </section>
 
@@ -808,34 +766,24 @@
     (function() {
       var statusEl = document.getElementById('live-status');
       var statusTextEl = document.getElementById('live-status-text');
-      var currentListenersEl = document.getElementById('current-listeners');
-      var peakListenersEl = document.getElementById('peak-listeners');
-      var bitrateEl = document.getElementById('stream-bitrate');
-      var lastRefreshEl = document.getElementById('last-refresh');
       var nowPlayingEl = document.getElementById('now-playing');
-      var metricsNoteEl = document.getElementById('metrics-note');
       var audioEl = document.getElementById('tower3-audio');
       var playLiveEl = document.getElementById('play-live');
       var pauseLiveEl = document.getElementById('pause-live');
+      var volumeControlEl = document.getElementById('volume-control');
+      var volumeValueEl = document.getElementById('volume-value');
 
       var STREAM_URL = 'https://romeblue7.myvnc.com:8443/autodj';
       var METADATA_URL = 'https://romeblue7.myvnc.com:8443/status-json.xsl';
       var PROXY_STATUS = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(METADATA_URL);
 
-      function setLastRefresh() {
-        var ts = new Date();
-        lastRefreshEl.textContent = ts.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      }
-
       function setOfflineTelemetry(message) {
         statusEl.classList.add('offline');
-        statusTextEl.textContent = 'Telemetry unavailable';
-        currentListenersEl.textContent = '--';
-        peakListenersEl.textContent = '--';
-        bitrateEl.textContent = '--';
+        statusTextEl.textContent = 'Stream info unavailable';
         nowPlayingEl.textContent = 'Now playing data unavailable. Use Play Tower 3 to keep listening.';
-        metricsNoteEl.textContent = message;
-        setLastRefresh();
+        if (message) {
+          console.warn(message);
+        }
       }
 
       function normalizeSources(data) {
@@ -862,28 +810,14 @@
         return {
           current: typeof source.listeners === 'number' ? source.listeners : null,
           peak: typeof source.listener_peak === 'number' ? source.listener_peak : null,
-          bitrate: source.bitrate ? String(source.bitrate) + ' kbps' : '--',
           nowPlaying: (source.title || source.server_name || 'Track metadata not available').trim()
         };
       }
 
       function renderTelemetry(data) {
-        var current = typeof data.current === 'number' ? data.current : '--';
-        var peak = typeof data.peak === 'number' ? data.peak : '--';
-
-        currentListenersEl.textContent = current;
-        peakListenersEl.textContent = peak;
-        bitrateEl.textContent = data.bitrate;
         nowPlayingEl.textContent = 'Now playing: ' + data.nowPlaying;
-        setLastRefresh();
-
-        if (typeof data.current === 'number' && data.current > 0) {
-          statusEl.classList.remove('offline');
-          statusTextEl.textContent = 'Live signal active';
-        } else {
-          statusEl.classList.add('offline');
-          statusTextEl.textContent = 'Station online, no active listeners';
-        }
+        statusEl.classList.remove('offline');
+        statusTextEl.textContent = 'Live radio online';
       }
 
       function pollTelemetry() {
@@ -899,7 +833,6 @@
             if (!parsed) {
               throw new Error('Unable to parse /autodj mount data');
             }
-            metricsNoteEl.textContent = 'Live metrics fetched from Icecast /status-json.xsl mount /autodj.';
             renderTelemetry(parsed);
           })
           .catch(function() {
@@ -912,6 +845,14 @@
           audioEl.setAttribute('src', STREAM_URL + '?nocache=' + Date.now());
         }
       }
+
+      audioEl.volume = 0.7;
+
+      volumeControlEl.addEventListener('input', function() {
+        var volume = Number(volumeControlEl.value) / 100;
+        audioEl.volume = volume;
+        volumeValueEl.textContent = volumeControlEl.value + '%';
+      });
 
       playLiveEl.addEventListener('click', function() {
         setAudioSource();
