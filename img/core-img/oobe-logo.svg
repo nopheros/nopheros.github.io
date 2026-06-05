@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">Out of Bounds Entertainment Logo</title>
+  <desc id="desc">Stylized O O B E lettering with frame and brand text.</desc>
+  <rect width="1400" height="860" fill="#e6e6e6"/>
+  <g fill="none" stroke="#111" stroke-width="10">
+    <path d="M300 140H500"/>
+    <path d="M640 140H1030V220"/>
+    <path d="M300 300V430"/>
+    <path d="M300 480V600H730"/>
+    <path d="M860 600H1030V430"/>
+  </g>
+  <g fill="#111" font-family="Montserrat, Arial, sans-serif" font-weight="800">
+    <text x="220" y="430" font-size="260">O</text>
+    <text x="540" y="250" font-size="200">O</text>
+    <text x="760" y="470" font-size="210">B</text>
+    <text x="930" y="420" font-size="210">E</text>
+  </g>
+  <g fill="#111" font-family="Montserrat, Arial, sans-serif" text-anchor="middle">
+    <text x="700" y="720" font-size="92" font-weight="800" letter-spacing="14">OUT OF BOUNDS</text>
+    <text x="700" y="790" font-size="48" font-weight="500" letter-spacing="10">ENTERTAINMENT</text>
+  </g>
+</svg>
