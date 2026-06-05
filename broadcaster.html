@@ -335,6 +335,125 @@
       min-height: 48px;
     }
 
+    /* ---- Player redesign: hidden native audio, custom controls ---- */
+    #tower3-audio { display: none; }
+
+    .player-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .player-station-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: #d9f6ff;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .player-info-bar {
+      padding: 7px 12px;
+      border-radius: 7px;
+      border: 1px solid rgba(33, 150, 243, 0.3);
+      background: rgba(10, 28, 40, 0.66);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      color: #80d0c0;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .player-info-bar.is-error {
+      border-color: rgba(244, 67, 54, 0.4);
+      color: #ff9999;
+    }
+    .track-block {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      min-height: 52px;
+    }
+    .track-title-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e0f7ff;
+      margin: 0 0 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-artist-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      color: #8ecce0;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-artist-text a { color: #80d0a0; text-decoration: none; }
+    .track-artist-text a:hover { text-decoration: underline; }
+    .player-btn-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .player-btn {
+      flex: 1;
+      min-width: 80px;
+      padding: 11px 14px;
+      border: 1px solid rgba(140,210,235,.45);
+      border-radius: 9px;
+      background: rgba(8,20,30,.74);
+      color: #d6f5ff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.84rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.16s, transform 0.12s, border-color 0.16s;
+    }
+    .player-btn:hover { transform: translateY(-2px); border-color: rgba(70,190,240,.7); }
+    .player-btn.is-play {
+      background: linear-gradient(90deg,#46b9ff,#13f5d7);
+      color: #061116;
+      border-color: rgba(160,246,255,.75);
+      box-shadow: 0 6px 18px rgba(20,176,220,.28);
+    }
+    .player-btn.is-play:hover { box-shadow: 0 10px 22px rgba(20,176,220,.38); }
+    .player-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .player-volume-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid rgba(140,210,235,.3);
+      border-radius: 9px;
+      background: rgba(8,20,30,.74);
+      margin-bottom: 10px;
+    }
+    .player-vol-icon { font-size: 1rem; flex-shrink: 0; }
+    .player-vol-slider { flex: 1; accent-color: #13f5d7; }
+    .player-vol-label {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.78rem;
+      color: #80d0a0;
+      min-width: 36px;
+      text-align: right;
+    }
+    .player-quality-line {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      color: #5ba8be;
+      text-align: center;
+      margin-top: 4px;
+    }
+
     .actions-shell {
       max-width: 1080px;
       margin: 0 auto 28px;
@@ -654,20 +773,39 @@
 
       <!-- Player panel merged directly into hero -->
       <div class="player-box" id="tower3">
-        <audio id="tower3-audio" class="tower-audio" controls preload="none" crossorigin="anonymous"></audio>
-        <div class="control-row">
-          <button id="play-live" class="btn-signal" type="button">Play</button>
-          <button id="pause-live" class="btn-outline" type="button">Pause</button>
-          <button id="resync-live" class="btn-outline" type="button">Live</button>
-          <button id="popout-player" class="btn-outline" type="button">Pop-Out</button>
-          <a id="direct-stream-link" class="btn-outline" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener">M3U Stream</a>
-          <label class="volume-wrap" for="volume-control">
-            Volume
-            <input id="volume-control" class="volume-slider" type="range" min="0" max="100" value="70">
-            <span id="volume-value">70%</span>
-          </label>
+        <!-- Hidden native audio element — all controls are custom below -->
+        <audio id="tower3-audio" preload="none" crossorigin="anonymous"></audio>
+
+        <div class="player-header-row">
+          <p class="player-station-name">Tower 3 — Out of Bounds Entertainment</p>
+          <div id="live-status-player" class="status-pill offline" style="font-size:0.76rem;padding:5px 10px;">
+            <span class="status-dot"></span>
+            <span id="live-status-text-player">Offline</span>
+          </div>
         </div>
-        <div id="now-playing" class="now-playing">Loading station info…</div>
+
+        <div class="player-info-bar" id="player-info-bar">Ready to play — click Play</div>
+
+        <div class="track-block">
+          <p class="track-title-text" id="track-title">Loading…</p>
+          <p class="track-artist-text" id="track-artist">Connecting to stream…</p>
+        </div>
+
+        <div class="player-btn-row">
+          <button class="player-btn is-play" id="play-live" type="button">▶ Play</button>
+          <button class="player-btn" id="pause-live" type="button" style="display:none;">⏸ Pause</button>
+          <button class="player-btn" id="resync-live" type="button">🔄 Reconnect</button>
+          <button class="player-btn" id="popout-player" type="button">⧉ Pop-Out</button>
+          <a id="direct-stream-link" class="player-btn" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;">M3U</a>
+        </div>
+
+        <div class="player-volume-row">
+          <span class="player-vol-icon">🔊</span>
+          <input id="volume-control" class="player-vol-slider" type="range" min="0" max="100" value="70">
+          <span class="player-vol-label" id="volume-value">70%</span>
+        </div>
+
+        <div class="player-quality-line" id="stream-quality">Bitrate: —</div>
       </div>
     </section>
 
@@ -782,8 +920,460 @@
 
   <script>
     (function() {
-      var statusEl = document.getElementById('live-status');
-      var statusTextEl = document.getElementById('live-status-text');
+      // ── DOM refs ───────────────────────────────────────────────────────────
+      var statusEl          = document.getElementById('live-status');
+      var statusTextEl      = document.getElementById('live-status-text');
+      var statusElPlayer    = document.getElementById('live-status-player');
+      var statusTextPlayer  = document.getElementById('live-status-text-player');
+      var heroPeakEl        = document.getElementById('hero-peak-listeners');
+      var honorPeakEl       = document.getElementById('honor-tower3-peak');
+      var honorPeakDateEl   = document.getElementById('honor-tower3-peak-date');
+      var audioEl           = document.getElementById('tower3-audio');
+      var playBtn           = document.getElementById('play-live');
+      var pauseBtn          = document.getElementById('pause-live');
+      var resyncBtn         = document.getElementById('resync-live');
+      var popoutBtn         = document.getElementById('popout-player');
+      var volSlider         = document.getElementById('volume-control');
+      var volLabel          = document.getElementById('volume-value');
+      var streamLink        = document.getElementById('direct-stream-link');
+      var infoBar           = document.getElementById('player-info-bar');
+      var trackTitleEl      = document.getElementById('track-title');
+      var trackArtistEl     = document.getElementById('track-artist');
+      var qualityEl         = document.getElementById('stream-quality');
+
+      // ── Config ─────────────────────────────────────────────────────────────
+      var STREAM_BASE      = 'https://romeblue7.myvnc.com:8443';
+      var AUTODJ_MOUNT     = '/autodj';
+      var LIVE_MOUNT       = '/stream';
+      var METADATA_URL     = STREAM_BASE + '/status-json.xsl';
+      var DISCORD_URL      = 'https://discord.gg/2dFqMnrNdU';
+
+      var SHARED_STATS_URLS = [
+        'https://nopheros.com/nopheros-listener-dashboard-main/data/data_all.json'
+      ];
+
+      var METADATA_INTERVAL  = 5000;   // poll every 5 s once playing
+      var RECONNECT_INTERVAL = 8000;
+      var SHARED_PEAK_TTL    = 10 * 60 * 1000;
+
+      // ── State ──────────────────────────────────────────────────────────────
+      var isPlaying          = false;
+      var switchingStream    = false;
+      var reconnectTimeout   = null;
+      var metadataTimer      = null;
+      var reconnectAttempts  = 0;
+      var lastDetectedMount  = AUTODJ_MOUNT;
+      var playbackMount      = AUTODJ_MOUNT;
+      var lastActiveSource   = null;
+      var lastMetaKey        = '';
+      var sharedPeakRecord   = null;
+      var sharedPeakLoadedAt = 0;
+      var popoutWindow       = null;
+
+      audioEl.volume = 0.7;
+
+      // ── Helpers ────────────────────────────────────────────────────────────
+      function clean(v) { return typeof v === 'string' ? v.trim() : ''; }
+      function toNum(v)  { var n = Number(v); return isFinite(n) ? n : null; }
+      function fmt(n)    { return typeof n === 'number' ? n.toLocaleString() : '--'; }
+      function fmtDate(iso) {
+        if (!iso) return 'Date unknown';
+        var d = new Date(iso);
+        return isNaN(d) ? 'Date unknown' : d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+      }
+      function cacheBust(url) { return url + (url.indexOf('?') > -1 ? '&' : '?') + 't=' + Date.now(); }
+
+      function mountFromUrl(url) {
+        if (!url) return AUTODJ_MOUNT;
+        if (url.indexOf(LIVE_MOUNT) > -1)  return LIVE_MOUNT;
+        if (url.indexOf(AUTODJ_MOUNT) > -1) return AUTODJ_MOUNT;
+        return AUTODJ_MOUNT;
+      }
+
+      function streamUrl(mount) { return STREAM_BASE + (mount || AUTODJ_MOUNT); }
+
+      function normalizeSources(data) {
+        var raw = data && data.icestats && data.icestats.source;
+        if (!raw) return [];
+        return Array.isArray(raw) ? raw : [raw];
+      }
+
+      function getMountFromSource(src) {
+        var lu = clean(src && src.listenurl);
+        if (!lu) return '';
+        if (lu.indexOf(LIVE_MOUNT) > -1)  return LIVE_MOUNT;
+        if (lu.indexOf(AUTODJ_MOUNT) > -1) return AUTODJ_MOUNT;
+        return '';
+      }
+
+      function detectActiveSource(sources) {
+        var djSrc  = sources.filter(function(s){ return getMountFromSource(s) === LIVE_MOUNT; })[0] || null;
+        var adjSrc = sources.filter(function(s){ return getMountFromSource(s) === AUTODJ_MOUNT; })[0] || null;
+        var djLive = !!(djSrc && (clean(djSrc.title) || clean(djSrc.server_name) || clean(djSrc.server_description)));
+        if (djLive && djSrc) return { mount: LIVE_MOUNT, source: djSrc };
+        if (adjSrc)          return { mount: AUTODJ_MOUNT, source: adjSrc };
+        if (djSrc)           return { mount: LIVE_MOUNT, source: djSrc };
+        return { mount: AUTODJ_MOUNT, source: sources[0] || null };
+      }
+
+      // ── UI helpers ─────────────────────────────────────────────────────────
+      function showInfo(msg, isErr) {
+        infoBar.textContent = msg;
+        infoBar.classList.toggle('is-error', !!isErr);
+      }
+
+      function setPlayerOnline(online, label) {
+        [statusEl, statusElPlayer].forEach(function(el) {
+          if (!el) return;
+          el.classList.toggle('offline', !online);
+        });
+        if (statusTextEl)     statusTextEl.textContent     = label || (online ? 'Live' : 'Offline');
+        if (statusTextPlayer) statusTextPlayer.textContent  = label || (online ? 'Live' : 'Offline');
+      }
+
+      function syncUI() {
+        playBtn.style.display  = isPlaying ? 'none' : '';
+        pauseBtn.style.display = isPlaying ? ''     : 'none';
+      }
+
+      function setTrackArtist(content) {
+        trackArtistEl.textContent = '';
+        if (content && content.type === 'link' && content.url) {
+          var a = document.createElement('a');
+          a.href = content.url; a.textContent = content.text;
+          a.target = '_blank'; a.rel = 'noopener noreferrer';
+          trackArtistEl.appendChild(a);
+        } else {
+          trackArtistEl.textContent = (content && content.text) || '';
+        }
+      }
+
+      function getArtistContent(source, mount) {
+        if (mount === AUTODJ_MOUNT) return { type:'link', text:'Join the Discord community', url: DISCORD_URL };
+        var su = clean(source && source.server_url);
+        var sn = clean(source && source.server_name);
+        if (su && /^https?:\/\//.test(su)) return { type:'link', text: (sn || 'DJ live') + ' — join on Twitch!', url: su };
+        return { type:'text', text: sn || 'Live on /stream' };
+      }
+
+      function getStatusLabel(mount, source) {
+        if (mount === LIVE_MOUNT) {
+          var desc = clean(source && (source.server_description || source.description));
+          return (desc && desc.toLowerCase() !== 'undetermined') ? desc : 'A DJ is live!';
+        }
+        return 'Live Radio';
+      }
+
+      // ── Peak/stats display ─────────────────────────────────────────────────
+      function updateHeroStatus(current) {
+        if (statusTextEl) statusTextEl.textContent = 'Listeners: ' + fmt(current);
+        if (statusTextPlayer) statusTextPlayer.textContent = 'Listeners: ' + fmt(current);
+      }
+
+      function updatePeakDisplay(livePeak) {
+        var display = (sharedPeakRecord && typeof sharedPeakRecord.peak === 'number')
+          ? sharedPeakRecord.peak : livePeak;
+        if (heroPeakEl) heroPeakEl.textContent = fmt(display);
+        if (honorPeakEl) honorPeakEl.textContent = typeof display === 'number' ? fmt(display) + ' listeners' : '--';
+        if (honorPeakDateEl) {
+          if (sharedPeakRecord && sharedPeakRecord.date) {
+            honorPeakDateEl.textContent = 'Peak on ' + fmtDate(sharedPeakRecord.date);
+          } else if (typeof livePeak === 'number') {
+            honorPeakDateEl.textContent = 'Tower 3 live peak (archive pending)';
+          } else {
+            honorPeakDateEl.textContent = 'Awaiting Tower 3 archive data';
+          }
+        }
+      }
+
+      // ── Shared archive peak ────────────────────────────────────────────────
+      function findT3Series(data) {
+        var arr = data && data.series;
+        if (!Array.isArray(arr)) return null;
+        return arr.find(function(s) {
+          var n = ((s && s.name) ? String(s.name) : '').toLowerCase();
+          return n.indexOf('tower 3') > -1 || n.indexOf('tower3') > -1 || n.indexOf('out of bounds') > -1;
+        }) || null;
+      }
+
+      function seriesPeakRecord(entry) {
+        if (!entry || !Array.isArray(entry.points) || !entry.points.length) return null;
+        var peak = null, ts = null;
+        entry.points.forEach(function(p) {
+          if (!Array.isArray(p) || p.length < 2) return;
+          var v = toNum(p[1]);
+          if (v !== null && (peak === null || v > peak)) { peak = v; ts = toNum(p[0]); }
+        });
+        return peak !== null ? { peak: peak, date: ts ? new Date(ts).toISOString() : null } : null;
+      }
+
+      function refreshSharedPeak() {
+        var now = Date.now();
+        if (sharedPeakLoadedAt && now - sharedPeakLoadedAt < SHARED_PEAK_TTL) return;
+        sharedPeakLoadedAt = now;
+
+        SHARED_STATS_URLS.forEach(function(url) {
+          fetch(url, { cache: 'no-store' })
+            .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
+            .then(function(data) {
+              var rec = seriesPeakRecord(findT3Series(data));
+              if (rec) { sharedPeakRecord = rec; updatePeakDisplay(null); }
+            })
+            .catch(function(e) { console.warn('Shared peak unavailable:', e); });
+        });
+      }
+
+      // ── Stream open / play / pause / reconnect ─────────────────────────────
+      function openStream(mount, autoPlay, msg) {
+        if (switchingStream) return Promise.resolve();
+        switchingStream = true;
+        showInfo(msg || 'Connecting…');
+
+        var url = cacheBust(streamUrl(mount));
+        audioEl.pause();
+        audioEl.removeAttribute('src');
+        audioEl.load();
+        audioEl.src = url;
+        audioEl.load();
+        playbackMount = mount;
+        streamLink.href = streamUrl(mount) + '.m3u';
+
+        var p = autoPlay ? audioEl.play() : Promise.resolve();
+        return p.finally(function() { switchingStream = false; });
+      }
+
+      function playStream() {
+        var target = lastDetectedMount || playbackMount || AUTODJ_MOUNT;
+        openStream(target, true, 'Connecting…')
+          .then(function() {
+            showInfo('Connected ✓'); isPlaying = true;
+            reconnectAttempts = 0; syncUI(); startMetaPoll();
+            setPlayerOnline(true, getStatusLabel(target, lastActiveSource));
+          })
+          .catch(function(err) { onPlayError(err); });
+      }
+
+      function pauseStream() {
+        clearTimers();
+        audioEl.pause();
+        isPlaying = false; syncUI();
+        showInfo('Paused'); setPlayerOnline(false, 'Paused');
+      }
+
+      function reconnectStream() {
+        var target = lastDetectedMount || playbackMount || AUTODJ_MOUNT;
+        var wasPlaying = isPlaying && !audioEl.paused;
+        openStream(target, wasPlaying, wasPlaying ? 'Reconnecting…' : 'Reloading…')
+          .then(function() {
+            if (wasPlaying) {
+              showInfo('Reconnected ✓'); isPlaying = true;
+              reconnectAttempts = 0; syncUI(); startMetaPoll();
+            } else {
+              showInfo('Stream reloaded');
+            }
+          })
+          .catch(function(err) { onPlayError(err); });
+      }
+
+      function scheduleReconnect() {
+        if (reconnectTimeout) return;
+        if (reconnectAttempts >= 5) { showInfo('Max reconnect attempts reached', true); return; }
+        reconnectAttempts++;
+        reconnectTimeout = setTimeout(function() { reconnectTimeout = null; playStream(); }, RECONNECT_INTERVAL);
+      }
+
+      function onPlayError(err) {
+        var code = audioEl.error && audioEl.error.code;
+        var msg = code === 4 ? 'Stream not found' : code === 2 ? 'Network error' : 'Stream error';
+        showInfo(msg, true); setPlayerOnline(false, 'Interrupted');
+        isPlaying = false; syncUI(); scheduleReconnect();
+        console.warn('Playback error:', code, err);
+      }
+
+      // ── Metadata polling ───────────────────────────────────────────────────
+      function fetchMetadata() {
+        if (switchingStream) return;
+        fetch(METADATA_URL + '?t=' + Date.now(), { cache: 'no-store' })
+          .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
+          .then(function(data) {
+            var sources  = normalizeSources(data);
+            var detected = detectActiveSource(sources);
+            var mount    = detected.mount;
+            var source   = detected.source;
+            lastDetectedMount = mount;
+            lastActiveSource  = source;
+
+            var title   = clean(source && source.title) || clean(source && source.server_name) || 'Track info unavailable';
+            var bitrate = source && source.bitrate ? source.bitrate : '—';
+            var current = toNum(source && source.listeners);
+            var peak    = toNum(source && source.listener_peak);
+            var artist  = getArtistContent(source, mount);
+            var key     = [mount, title, artist.type, artist.text, bitrate, current].join('|');
+
+            if (key !== lastMetaKey) {
+              trackTitleEl.textContent = title;
+              setTrackArtist(artist);
+              qualityEl.textContent = 'Bitrate: ' + bitrate + ' kbps';
+              lastMetaKey = key;
+            }
+
+            updateHeroStatus(current);
+            updatePeakDisplay(peak);
+            if (isPlaying || !audioEl.paused) {
+              setPlayerOnline(true, getStatusLabel(mount, source));
+            }
+            statusEl.classList.remove('offline');
+
+            // Auto-switch mount if live DJ came online or went offline
+            if (isPlaying && mount !== playbackMount) {
+              openStream(mount, true, mount === LIVE_MOUNT ? 'Switching to live DJ…' : 'Switching to AutoDJ…')
+                .then(function() {
+                  showInfo('Connected ✓'); isPlaying = true; reconnectAttempts = 0;
+                  syncUI(); setPlayerOnline(true, getStatusLabel(mount, source));
+                })
+                .catch(function(err) { onPlayError(err); });
+            }
+          })
+          .catch(function(err) { console.warn('Metadata fetch failed:', err); });
+      }
+
+      function startMetaPoll() {
+        if (metadataTimer) clearInterval(metadataTimer);
+        fetchMetadata();
+        metadataTimer = setInterval(function() {
+          if (isPlaying || !audioEl.paused) fetchMetadata();
+        }, METADATA_INTERVAL);
+      }
+
+      function clearTimers() {
+        if (metadataTimer)   clearInterval(metadataTimer);
+        if (reconnectTimeout) clearTimeout(reconnectTimeout);
+        metadataTimer = reconnectTimeout = null;
+      }
+
+      // ── Audio element events ───────────────────────────────────────────────
+      audioEl.addEventListener('play', function() {
+        setPlayerOnline(true, getStatusLabel(playbackMount, lastActiveSource));
+        showInfo('Playing ▶'); isPlaying = true; reconnectAttempts = 0; syncUI();
+      });
+      audioEl.addEventListener('pause', function() {
+        if (!isPlaying) { setPlayerOnline(false, 'Paused'); }
+      });
+      audioEl.addEventListener('error', function() {
+        if (switchingStream) return;
+        onPlayError(audioEl.error);
+      });
+      audioEl.addEventListener('stalled', function() {
+        if (!switchingStream) setPlayerOnline(false, 'Buffering…');
+      });
+      audioEl.addEventListener('canplay', function() {
+        setPlayerOnline(true, getStatusLabel(playbackMount, lastActiveSource));
+      });
+
+      // ── Button events ──────────────────────────────────────────────────────
+      playBtn.addEventListener('click',   playStream);
+      pauseBtn.addEventListener('click',  pauseStream);
+      resyncBtn.addEventListener('click', reconnectStream);
+
+      volSlider.addEventListener('input', function() {
+        audioEl.volume = Number(volSlider.value) / 100;
+        volLabel.textContent = volSlider.value + '%';
+      });
+
+      // ── Pop-out player ─────────────────────────────────────────────────────
+      popoutBtn.addEventListener('click', function() {
+        if (popoutWindow && !popoutWindow.closed) { popoutWindow.focus(); return; }
+
+        popoutWindow = window.open('', 'oobeTower3Player', 'width=430,height=290,resizable=yes');
+        if (!popoutWindow) { showInfo('Pop-out blocked by browser', true); return; }
+
+        var html = [
+          '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">',
+          '<meta name="viewport" content="width=device-width,initial-scale=1">',
+          '<title>Tower 3 — Out of Bounds</title>',
+          '<style>body{margin:0;background:#07111a;color:#d9f6ff;font-family:system-ui,sans-serif;padding:14px;}',
+          '.box{border:1px solid rgba(110,200,235,.4);border-radius:12px;padding:14px;background:rgba(8,18,26,.85);}',
+          'h3{margin:0 0 6px;font-size:.95rem;}',
+          '.meta{font-size:.82rem;color:#9dd4e6;margin:0 0 6px;}',
+          '.np{font-size:.88rem;line-height:1.45;margin:0 0 10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:7px;padding:8px 10px;}',
+          '.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}',
+          'button{background:#0d2232;border:1px solid rgba(120,205,240,.5);border-radius:8px;padding:8px 10px;color:#d9f6ff;cursor:pointer;}',
+          'button:hover{border-color:#8feaff;}',
+          '.vol{display:flex;gap:8px;align-items:center;font-size:.8rem;}',
+          'input[type=range]{flex:1;accent-color:#13f5d7;}',
+          'audio{display:none;}</style></head><body>',
+          '<div class="box">',
+          '<h3>Tower 3 — Out of Bounds</h3>',
+          '<p id="popout-status" class="meta">Listeners: -- | Peak: --</p>',
+          '<div class="np" id="popout-now-playing">Loading metadata…</div>',
+          '<div class="row">',
+          '<button id="pp-play">▶ Play</button>',
+          '<button id="pp-pause">⏸ Pause</button>',
+          '<button id="pp-live">🔄 Reconnect</button>',
+          '</div>',
+          '<label class="vol">🔊 <input id="pp-vol" type="range" min="0" max="100" value="70"><span id="pp-vl">70%</span></label>',
+          '<audio id="pp-audio" preload="none" crossorigin="anonymous"></audio>',
+          '</div></body></html>'
+        ].join('');
+
+        popoutWindow.document.open();
+        popoutWindow.document.write(html);
+        popoutWindow.document.close();
+
+        var pd = popoutWindow.document;
+        var pa = pd.getElementById('pp-audio');
+        pa.src = cacheBust(streamUrl(playbackMount));
+        pa.volume = audioEl.volume;
+
+        pd.getElementById('pp-play').onclick  = function() { pa.play().catch(function(){}); };
+        pd.getElementById('pp-pause').onclick = function() { pa.pause(); };
+        pd.getElementById('pp-live').onclick  = function() { pa.src = cacheBust(streamUrl(playbackMount)); pa.play().catch(function(){}); };
+        var pv = pd.getElementById('pp-vol');
+        pv.value = String(Math.round(audioEl.volume * 100));
+        pv.oninput = function() { pa.volume = Number(pv.value)/100; pd.getElementById('pp-vl').textContent = pv.value + '%'; };
+
+        var ps = pd.getElementById('popout-status');
+        var pn = pd.getElementById('popout-now-playing');
+        if (ps) ps.textContent = 'Listeners: ' + fmt(null) + ' | Peak: ' + fmt(null);
+        if (pn) pn.textContent = (trackTitleEl && trackTitleEl.textContent) || 'Loading…';
+      });
+
+      // ── Kick off ───────────────────────────────────────────────────────────
+      refreshSharedPeak();
+      fetchMetadata();
+      setInterval(function() {
+        refreshSharedPeak();
+        if (!isPlaying) fetchMetadata();
+      }, 30000);
+
+      window.addEventListener('beforeunload', clearTimers);
+
+      // ── Flyer modal ────────────────────────────────────────────────────────
+      var modal    = document.getElementById('flyer-modal');
+      var modalImg = document.getElementById('flyer-modal-image');
+      var closeBtn = document.getElementById('flyer-modal-close');
+
+      document.querySelectorAll('.poster-btn img').forEach(function(img) {
+        img.addEventListener('click', function(e) {
+          e.stopPropagation();
+          modalImg.src = img.src;
+          modal.classList.add('active');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = 'auto';
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    })();
+  </script>
       var heroPeakListenersEl = document.getElementById('hero-peak-listeners');
       var honorTower3PeakEl = document.getElementById('honor-tower3-peak');
       var nowPlayingEl = document.getElementById('now-playing');
