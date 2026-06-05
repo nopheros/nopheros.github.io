@@ -154,17 +154,40 @@
       margin: 20px 0 4px;
     }
 
-    .hero-honors {
+    .hero-honors-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
       margin-top: 10px;
-      color: #9bcfe2;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.92rem;
-      line-height: 1.5;
     }
 
-    .hero-honors strong {
+    .honor-badge {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      border-left: 2px solid rgba(70, 185, 255, 0.5);
+      padding-left: 10px;
+    }
+
+    .honor-label {
+      color: #7bc4da;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .honor-value {
       color: #e8f7ff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
       font-weight: 700;
+    }
+
+    .honor-note {
+      color: #7bc4da;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
     }
 
     .status-pill {
@@ -631,7 +654,18 @@
             <span>Peak: <span id="hero-peak-listeners">--</span></span>
           </div>
         </div>
-        <div class="hero-honors">Hall of Fame: <strong id="hall-of-fame-value">--</strong> <span id="hall-of-fame-note">Peak since launch.</span></div>
+        <div class="hero-honors-row">
+          <div class="honor-badge">
+            <span class="honor-label">Record Night</span>
+            <span class="honor-value">1,706 listeners</span>
+            <span class="honor-note">May 14, 2026 — Legacy Towers</span>
+          </div>
+          <div class="honor-badge">
+            <span class="honor-label">Tower 3 Peak</span>
+            <span class="honor-value" id="honor-tower3-peak">--</span>
+            <span class="honor-note">Since station launch</span>
+          </div>
+        </div>
         <div class="hero-cta">
           <a class="btn-signal" href="#tower3">Listen Live</a>
           <a class="btn-outline" href="https://www.outofbounds.live/" target="_blank" rel="noopener">OutOfBounds.live</a>
@@ -784,8 +818,7 @@
       var statusEl = document.getElementById('live-status');
       var statusTextEl = document.getElementById('live-status-text');
       var heroPeakListenersEl = document.getElementById('hero-peak-listeners');
-      var hallOfFameValueEl = document.getElementById('hall-of-fame-value');
-      var hallOfFameNoteEl = document.getElementById('hall-of-fame-note');
+      var honorTower3PeakEl = document.getElementById('honor-tower3-peak');
       var nowPlayingEl = document.getElementById('now-playing');
       var audioEl = document.getElementById('tower3-audio');
       var playLiveEl = document.getElementById('play-live');
@@ -879,8 +912,7 @@
         currentMount = data.mount || AUTODJ_MOUNT;
         statusTextEl.textContent = 'Listeners: ' + (typeof data.current === 'number' ? String(data.current) : '--');
         heroPeakListenersEl.textContent = typeof data.peak === 'number' ? String(data.peak) : '--';
-        hallOfFameValueEl.textContent = typeof data.peak === 'number' ? String(data.peak) + ' listeners' : '--';
-        hallOfFameNoteEl.textContent = 'Peak since launch on May 10, 2026.';
+        honorTower3PeakEl.textContent = typeof data.peak === 'number' ? String(data.peak) + ' listeners' : '--';
         nowPlayingEl.textContent = 'Now playing: ' + data.nowPlaying;
         statusEl.classList.remove('offline');
         directStreamLinkEl.href = STREAM_BASE_URL + currentMount + '.m3u';
