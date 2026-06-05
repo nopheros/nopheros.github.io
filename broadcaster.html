@@ -154,6 +154,19 @@
       margin: 20px 0 4px;
     }
 
+    .hero-honors {
+      margin-top: 10px;
+      color: #9bcfe2;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .hero-honors strong {
+      color: #e8f7ff;
+      font-weight: 700;
+    }
+
     .status-pill {
       display: inline-flex;
       align-items: center;
@@ -315,25 +328,6 @@
     .volume-slider {
       width: 120px;
       accent-color: #13f5d7;
-    }
-
-    .listener-row {
-      margin-top: 12px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .listener-pill {
-      border: 1px solid rgba(115, 208, 240, 0.32);
-      border-radius: 999px;
-      background: rgba(8, 23, 31, 0.66);
-      color: #c7f4ff;
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      padding: 7px 12px;
-      text-transform: uppercase;
     }
 
     .now-playing {
@@ -631,9 +625,13 @@
         <div class="status-row">
           <div id="live-status" class="status-pill offline">
             <span class="status-dot"></span>
-            <span id="live-status-text">Signal monitoring active</span>
+            <span id="live-status-text">Listeners: --</span>
+          </div>
+          <div class="status-pill">
+            <span>Peak: <span id="hero-peak-listeners">--</span></span>
           </div>
         </div>
+        <div class="hero-honors">Hall of Fame: <strong id="hall-of-fame-value">--</strong> <span id="hall-of-fame-note">Peak since launch.</span></div>
         <div class="hero-cta">
           <a class="btn-signal" href="#tower3">Listen Live</a>
           <a class="btn-outline" href="https://www.outofbounds.live/" target="_blank" rel="noopener">OutOfBounds.live</a>
@@ -660,16 +658,12 @@
           <div class="control-row">
             <button id="play-live" class="btn-signal" type="button">Play</button>
             <button id="pause-live" class="btn-outline" type="button">Pause</button>
-            <a class="btn-outline" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener">Direct Stream M3U</a>
+            <a id="direct-stream-link" class="btn-outline" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener">Direct Stream M3U</a>
             <label class="volume-wrap" for="volume-control">
               Volume
               <input id="volume-control" class="volume-slider" type="range" min="0" max="100" value="70">
               <span id="volume-value">70%</span>
             </label>
-          </div>
-          <div class="listener-row">
-            <div class="listener-pill">Listeners: <span id="current-listeners">--</span></div>
-            <div class="listener-pill">Peak: <span id="peak-listeners">--</span></div>
           </div>
           <div id="now-playing" class="now-playing">Now playing data loading...</div>
         </div>
@@ -789,18 +783,23 @@
     (function() {
       var statusEl = document.getElementById('live-status');
       var statusTextEl = document.getElementById('live-status-text');
-      var currentListenersEl = document.getElementById('current-listeners');
-      var peakListenersEl = document.getElementById('peak-listeners');
+      var heroPeakListenersEl = document.getElementById('hero-peak-listeners');
+      var hallOfFameValueEl = document.getElementById('hall-of-fame-value');
+      var hallOfFameNoteEl = document.getElementById('hall-of-fame-note');
       var nowPlayingEl = document.getElementById('now-playing');
       var audioEl = document.getElementById('tower3-audio');
       var playLiveEl = document.getElementById('play-live');
       var pauseLiveEl = document.getElementById('pause-live');
       var volumeControlEl = document.getElementById('volume-control');
       var volumeValueEl = document.getElementById('volume-value');
+      var directStreamLinkEl = document.getElementById('direct-stream-link');
 
-      var STREAM_URL = 'https://romeblue7.myvnc.com:8443/autodj';
+      var STREAM_BASE_URL = 'https://romeblue7.myvnc.com:8443';
       var METADATA_URL = 'https://romeblue7.myvnc.com:8443/status-json.xsl';
       var PROXY_STATUS = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(METADATA_URL);
+      var AUTODJ_MOUNT = '/autodj';
+      var LIVE_MOUNT = '/stream';
+      var currentMount = AUTODJ_MOUNT;
 
       function fetchJson(url) {
         return fetch(url, { cache: 'no-store' }).then(function(res) {
@@ -814,8 +813,7 @@
       function setOfflineTelemetry(message) {
         statusEl.classList.add('offline');
         statusTextEl.textContent = 'Stream info unavailable';
-        currentListenersEl.textContent = '--';
-        peakListenersEl.textContent = '--';
+        heroPeakListenersEl.textContent = '--';
         nowPlayingEl.textContent = 'Now playing data unavailable. Use Play Tower 3 to keep listening.';
         if (message) {
           console.warn(message);
@@ -830,20 +828,47 @@
         return Array.isArray(source) ? source : [source];
       }
 
-      function getAutodjSource(sources) {
-        return sources.find(function(source) {
-          return source && source.listenurl && source.listenurl.indexOf('/autodj') !== -1;
-        }) || null;
+      function getMountFromSource(source) {
+        if (!source || !source.listenurl) {
+          return '';
+        }
+        if (source.listenurl.indexOf(LIVE_MOUNT) !== -1) {
+          return LIVE_MOUNT;
+        }
+        if (source.listenurl.indexOf(AUTODJ_MOUNT) !== -1) {
+          return AUTODJ_MOUNT;
+        }
+        return '';
       }
 
-      function parseAutodjSource(data) {
+      function hasLiveDjSignal(source) {
+        return !!(source && (source.listeners > 0 || source.title || source.server_name || source.server_description));
+      }
+
+      function getPreferredSource(sources) {
+        var liveSource = sources.find(function(source) {
+          return getMountFromSource(source) === LIVE_MOUNT;
+        }) || null;
+        var autodjSource = sources.find(function(source) {
+          return getMountFromSource(source) === AUTODJ_MOUNT;
+        }) || null;
+
+        if (liveSource && hasLiveDjSignal(liveSource)) {
+          return liveSource;
+        }
+
+        return autodjSource || liveSource;
+      }
+
+      function parsePreferredSource(data) {
         var sources = normalizeSources(data);
-        var source = getAutodjSource(sources);
+        var source = getPreferredSource(sources);
         if (!source) {
           return null;
         }
 
         return {
+          mount: getMountFromSource(source) || AUTODJ_MOUNT,
           current: typeof source.listeners === 'number' ? source.listeners : null,
           peak: typeof source.listener_peak === 'number' ? source.listener_peak : null,
           nowPlaying: (source.title || source.server_name || 'Track metadata not available').trim()
@@ -851,11 +876,14 @@
       }
 
       function renderTelemetry(data) {
-        currentListenersEl.textContent = typeof data.current === 'number' ? String(data.current) : '--';
-        peakListenersEl.textContent = typeof data.peak === 'number' ? String(data.peak) : '--';
+        currentMount = data.mount || AUTODJ_MOUNT;
+        statusTextEl.textContent = 'Listeners: ' + (typeof data.current === 'number' ? String(data.current) : '--');
+        heroPeakListenersEl.textContent = typeof data.peak === 'number' ? String(data.peak) : '--';
+        hallOfFameValueEl.textContent = typeof data.peak === 'number' ? String(data.peak) + ' listeners' : '--';
+        hallOfFameNoteEl.textContent = 'Peak since launch on May 10, 2026.';
         nowPlayingEl.textContent = 'Now playing: ' + data.nowPlaying;
         statusEl.classList.remove('offline');
-        statusTextEl.textContent = 'Live radio online';
+        directStreamLinkEl.href = STREAM_BASE_URL + currentMount + '.m3u';
       }
 
       function pollTelemetry() {
@@ -871,9 +899,9 @@
             });
           })
           .then(function(data) {
-            var parsed = parseAutodjSource(data);
+            var parsed = parsePreferredSource(data);
             if (!parsed) {
-              throw new Error('Unable to parse /autodj mount data');
+              throw new Error('Unable to parse mount data');
             }
             renderTelemetry(parsed);
           })
@@ -883,9 +911,7 @@
       }
 
       function setAudioSource() {
-        if (!audioEl.getAttribute('src')) {
-          audioEl.setAttribute('src', STREAM_URL + '?nocache=' + Date.now());
-        }
+        audioEl.setAttribute('src', STREAM_BASE_URL + currentMount + '?nocache=' + Date.now());
       }
 
       audioEl.volume = 0.7;
@@ -901,7 +927,6 @@
         audioEl.play()
           .then(function() {
             statusEl.classList.remove('offline');
-            statusTextEl.textContent = 'Live signal active';
           })
           .catch(function() {
             statusEl.classList.add('offline');
