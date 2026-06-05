@@ -1,1167 +1,957 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <meta name="description" content="Out of Bounds Entertainment - 24/7 radio signal by DJ Nopheros.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Title -->
-    <title>BROADCASTER — DJ NOPHEROS</title>
+  <title>BROADCASTER | DJ NOPHEROS</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
-    <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
+  <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
+  <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;700&family=Cinzel:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-0: #050608;
+      --bg-1: #0b1217;
+      --bg-2: #0f1c24;
+      --ink-0: #e8f7ff;
+      --ink-1: #9dd4e6;
+      --signal: #13f5d7;
+      --signal-2: #46b9ff;
+      --signal-warn: #f7c057;
+      --line: rgba(130, 210, 240, 0.34);
+      --panel: linear-gradient(160deg, rgba(12, 28, 38, 0.8), rgba(8, 14, 21, 0.92));
+    }
 
-    <style>
-      html, body { background-color: #050505 !important; color: #dff8ff; }
-      body::before {
-        content: '';
-        position: fixed;
-        inset: 0;
-        background: radial-gradient(circle at 20% 20%, rgba(0,255,200,0.05), transparent 35%),
-                    radial-gradient(circle at 80% 0%, rgba(120,200,255,0.05), transparent 35%),
-                    linear-gradient(180deg, rgba(0,255,180,0.03), rgba(0,120,180,0.02));
-        pointer-events: none;
-        z-index: -2;
+    html, body {
+      background: var(--bg-0);
+      color: var(--ink-0);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(70, 185, 255, 0.11), transparent 34%),
+        radial-gradient(circle at 85% 18%, rgba(19, 245, 215, 0.08), transparent 32%),
+        linear-gradient(180deg, rgba(7, 19, 28, 0.2), rgba(5, 8, 12, 0.5));
+      z-index: -3;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.24;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(90, 200, 255, 0.06),
+        rgba(90, 200, 255, 0.06) 1px,
+        transparent 2px,
+        transparent 5px
+      );
+      z-index: -2;
+    }
+
+    .page-main {
+      padding: 115px 0 72px;
+    }
+
+    .hero-shell,
+    .radio-shell,
+    .actions-shell,
+    .legacy-shell {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 10px 38px rgba(0, 0, 0, 0.62), 0 0 20px rgba(70, 185, 255, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-shell::before,
+    .radio-shell::before,
+    .actions-shell::before,
+    .legacy-shell::before {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: 16px;
+      border: 1px solid rgba(180, 230, 250, 0.1);
+      pointer-events: none;
+    }
+
+    .hero-shell {
+      max-width: 1080px;
+      margin: 0 auto 28px;
+      padding: 32px 28px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      font-family: 'Chakra Petch', sans-serif;
+      color: var(--ink-1);
+      letter-spacing: 3px;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 2px;
+      font-size: 2.35rem;
+      margin-bottom: 12px;
+      color: var(--ink-0);
+      text-shadow: 0 0 18px rgba(70, 185, 255, 0.42);
+    }
+
+    .hero-copy {
+      margin: 0;
+      color: #c3e6f2;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.7;
+      max-width: 62ch;
+    }
+
+    .hero-brand {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .hero-brand img {
+      width: min(92%, 420px);
+      height: auto;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+      border-radius: 8px;
+    }
+
+    .brand-caption {
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 2px;
+      font-size: 0.78rem;
+      color: #9ad4e8;
+      text-transform: uppercase;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0 4px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      border: 1px solid rgba(19, 245, 215, 0.45);
+      background: rgba(12, 36, 40, 0.65);
+      color: #c9fff6;
+    }
+
+    .status-pill.offline {
+      border-color: rgba(247, 192, 87, 0.38);
+      background: rgba(38, 31, 16, 0.58);
+      color: #ffeac0;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--signal);
+      box-shadow: 0 0 10px var(--signal);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    .offline .status-dot {
+      background: var(--signal-warn);
+      box-shadow: 0 0 8px var(--signal-warn);
+      animation: none;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn-signal,
+    .btn-outline {
+      border-radius: 10px;
+      text-decoration: none;
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 11px 16px;
+      font-size: 0.84rem;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn-signal {
+      background: linear-gradient(90deg, #46b9ff 0%, #13f5d7 100%);
+      color: #061116;
+      border: 1px solid rgba(160, 246, 255, 0.75);
+      box-shadow: 0 9px 20px rgba(20, 176, 220, 0.28);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(140, 210, 235, 0.42);
+      background: rgba(8, 20, 30, 0.74);
+      color: #d6f5ff;
+    }
+
+    .btn-signal:hover,
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(20, 176, 220, 0.34);
+    }
+
+    .radio-shell {
+      max-width: 1080px;
+      margin: 0 auto 28px;
+      padding: 24px;
+    }
+
+    .section-title {
+      margin: 0 0 6px;
+      font-family: 'Cinzel', serif;
+      font-size: 1.55rem;
+      letter-spacing: 1.6px;
+      color: #dcf5ff;
+    }
+
+    .section-sub {
+      margin: 0 0 18px;
+      color: var(--ink-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .radio-grid {
+      display: block;
+    }
+
+    .player-box {
+      border: 1px solid rgba(150, 215, 240, 0.22);
+      border-radius: 14px;
+      background: rgba(6, 13, 18, 0.72);
+      padding: 14px;
+    }
+
+    .player-stage {
+      width: 100%;
+      border: 1px solid rgba(110, 192, 228, 0.35);
+      border-radius: 10px;
+      background: #060b10;
+      padding: 16px;
+      min-height: 170px;
+    }
+
+    .player-stage-title {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+      margin: 0 0 8px;
+      color: #ddf7ff;
+    }
+
+    .player-stage-copy {
+      margin: 0 0 12px;
+      color: #a7d5e5;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .tower-audio {
+      width: 100%;
+    }
+
+    .control-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .volume-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid rgba(140, 210, 235, 0.42);
+      border-radius: 10px;
+      background: rgba(8, 20, 30, 0.74);
+      color: #d6f5ff;
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .volume-slider {
+      width: 120px;
+      accent-color: #13f5d7;
+    }
+
+    .listener-row {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .listener-pill {
+      border: 1px solid rgba(115, 208, 240, 0.32);
+      border-radius: 999px;
+      background: rgba(8, 23, 31, 0.66);
+      color: #c7f4ff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      padding: 7px 12px;
+      text-transform: uppercase;
+    }
+
+    .now-playing {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(115, 208, 240, 0.32);
+      background: rgba(8, 23, 31, 0.66);
+      color: #c7f4ff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      min-height: 48px;
+    }
+
+    .actions-shell {
+      max-width: 1080px;
+      margin: 0 auto 28px;
+      padding: 24px;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .action-card {
+      border: 1px solid rgba(130, 200, 230, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      background: rgba(8, 16, 23, 0.72);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.16s ease, border-color 0.16s ease;
+      min-height: 152px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .action-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(70, 190, 240, 0.72);
+    }
+
+    .action-kicker {
+      color: #8ec7db;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+
+    .action-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      color: #e4f7ff;
+      letter-spacing: 0.8px;
+      margin: 6px 0;
+    }
+
+    .action-copy {
+      margin: 0;
+      color: #b6deec;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    .legacy-shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .legacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .legacy-copy {
+      color: #c5e5ef;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.7;
+    }
+
+    .legacy-list {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .legacy-list li {
+      padding: 10px 10px 10px 12px;
+      border-left: 2px solid rgba(86, 181, 219, 0.65);
+      background: rgba(7, 18, 23, 0.66);
+      border-radius: 8px;
+    }
+
+    .legacy-year {
+      color: #8fcae0;
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: 0.8px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    .legacy-event {
+      display: block;
+      color: #e2f7ff;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 3px;
+      font-size: 0.93rem;
+    }
+
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .poster-btn {
+      padding: 0;
+      border: 1px solid rgba(138, 202, 228, 0.34);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(5, 12, 18, 0.8);
+      cursor: pointer;
+      aspect-ratio: 3 / 4;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .poster-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(90, 196, 238, 0.75);
+    }
+
+    .poster-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: rgba(8, 16, 23, 0.9);
+    }
+
+    .flyer-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 7, 12, 0.92);
+      z-index: 9998;
+      padding: 24px;
+    }
+
+    .flyer-modal.active {
+      display: flex;
+    }
+
+    .flyer-modal-box {
+      max-width: min(95vw, 1100px);
+      max-height: 92vh;
+      position: relative;
+    }
+
+    .flyer-modal-box img {
+      width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid rgba(130, 200, 235, 0.45);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+      background: #08111a;
+    }
+
+    .flyer-modal-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      border: 0;
+      background: transparent;
+      color: #e7f8ff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(0.83); }
+    }
+
+    @media (max-width: 1040px) {
+      .hero-shell,
+      .radio-shell,
+      .actions-shell,
+      .legacy-shell {
+        max-width: 94vw;
       }
-      /* Rune rain overlay */
-      .rune-rain {
-        position: fixed;
-        inset: 0;
-        background:
-          repeating-linear-gradient(
-            to bottom,
-            rgba(0,255,180,0.08) 0px,
-            rgba(0,255,180,0.08) 2px,
-            transparent 6px,
-            transparent 24px
-          ),
-          repeating-linear-gradient(
-            90deg,
-            transparent 0px,
-            transparent 6px,
-            rgba(0,120,180,0.05) 7px,
-            rgba(0,120,180,0.08) 8px,
-            transparent 12px
-          );
-        opacity: 0.22;
-        mix-blend-mode: screen;
-        animation: rainShift 12s linear infinite;
-        pointer-events: none;
-        z-index: -1;
+
+      .hero-shell,
+      .radio-grid,
+      .legacy-grid {
+        grid-template-columns: 1fr;
       }
-      @keyframes rainShift {
-        0% { transform: translateY(0) translateX(0); }
-        100% { transform: translateY(24px) translateX(-6px); }
-      }
-      .page-main { padding: 110px 0 60px; text-align: center; position: relative; }
-      .page-main h1 {
-        color: #9fd8ff;
-        letter-spacing: 5px;
-        font-family: 'Share Tech Mono', 'Cinzel Decorative', serif;
-        font-weight: 700;
-        font-size: 1rem;
-        text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
-        margin-bottom: 10px;
-      }
+
+    }
+
+    @media (max-width: 760px) {
       .hero-title {
-        color: #dff8ff;
-        font-family: 'Cinzel Decorative', serif;
-        font-weight: 700;
-        font-size: 3rem;
-        letter-spacing: 3px;
-        text-shadow: 0 0 18px rgba(0, 200, 255, 0.85), 0 0 30px rgba(0, 140, 200, 0.4);
-        margin-bottom: 6px;
-      }
-      .hero-sub {
-        color: #9fd8ff;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 1.4rem;
-        letter-spacing: 2px;
-        text-shadow: 0 0 14px rgba(0, 255, 220, 0.8), 0 0 24px rgba(0, 120, 180, 0.45);
-        margin-bottom: 26px;
+        font-size: 1.78rem;
       }
 
-      .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 14px;
-        border-radius: 14px;
-        background: linear-gradient(145deg, rgba(0,200,255,0.22), rgba(0,120,160,0.28));
-        border: 1px solid rgba(0,200,255,0.38);
-        color: #dff8ff;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.95rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 16px rgba(0,200,255,0.22);
-        margin-bottom: 12px;
-      }
-      .status-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #10ff9e;
-        box-shadow: 0 0 12px #10ff9e;
-        animation: pulseDot 1.4s ease-in-out infinite;
-      }
-      .status-text { letter-spacing: 1px; }
-      .status-offline .status-dot { background: #3a5560; box-shadow: 0 0 8px #3a5560; animation: none; }
-      .status-offline { opacity: 0.85; }
-      @keyframes pulseDot {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(0.8); }
+      .actions-grid {
+        grid-template-columns: 1fr;
       }
 
-      .cta-row {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-bottom: 22px;
-        flex-wrap: wrap;
-      }
-      .cta-book {
-        display: inline-block;
-        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
-        color: #001018;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 1.05rem;
-        letter-spacing: 1px;
-        padding: 12px 26px;
-        border-radius: 10px;
-        box-shadow: 0 6px 22px rgba(0, 200, 255, 0.32);
-        text-decoration: none;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-      .cta-book:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0, 200, 255, 0.42); }
-      .section-shell {
-        background: linear-gradient(145deg, #0c0c0c, #0a1116);
-        border: 1px solid rgba(0, 200, 255, 0.28);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
-        border-radius: 18px;
-        padding: 28px 22px;
-        margin: 0 auto 46px auto;
-        max-width: 860px;
-        position: relative;
-        overflow: hidden;
-      }
-      .section-shell::after {
-        content: '';
-        position: absolute;
-        inset: 1px;
-        border-radius: 16px;
-        border: 1px solid rgba(159, 216, 255, 0.12);
-        pointer-events: none;
-      }
-      .scanline {
-        position: absolute;
-        inset: 0;
-        background: repeating-linear-gradient(
-          to bottom,
-          rgba(0, 255, 200, 0.06),
-          rgba(0, 255, 200, 0.06) 1px,
-          transparent 2px,
-          transparent 4px
-        );
-        mix-blend-mode: screen;
-        pointer-events: none;
-        opacity: 0.35;
-      }
-      .twitch-embed { width: 100%; height: 400px; border: none; border-radius: 12px; }
-      .twitch-btn {
-        display: inline-block;
-        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
-        color: #001018;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 1.15rem;
-        letter-spacing: 1px;
-        padding: 14px 32px;
-        border-radius: 10px;
-        box-shadow: 0 6px 24px rgba(0, 200, 255, 0.35);
-        text-decoration: none;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-      }
-      .twitch-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 200, 255, 0.45); }
-      .twitch-card { margin: 0 auto 22px auto; max-width: 500px; }
-      .gallery-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
-      .gallery-placeholder {
-        flex: 1 1 320px;
-        max-width: 380px;
-        height: 220px;
-        border-radius: 14px;
-        border: 1px dashed rgba(159, 216, 255, 0.6);
-        background: linear-gradient(135deg, rgba(0, 200, 255, 0.08), rgba(0, 80, 140, 0.25));
-        color: #9fd8ff;
-        font-family: 'Share Tech Mono', monospace;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        box-shadow: inset 0 0 12px rgba(0, 200, 255, 0.18);
-      }
-      .discord-cta {
-        flex: 1 1 320px;
-        max-width: 380px;
-        height: 220px;
-        border-radius: 14px;
-        background: linear-gradient(145deg, rgba(0, 200, 255, 0.16), rgba(60, 10, 40, 0.6));
-        color: #dff8ff;
-        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
-        text-decoration: none;
-        display: grid;
-        place-items: center;
-        text-align: center;
-        padding: 20px;
-        box-shadow: 0 10px 26px rgba(0,0,0,0.55), 0 0 22px rgba(0, 200, 255, 0.22);
-        transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.2s ease;
-      }
-      .discord-cta:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 16px 32px rgba(0,0,0,0.65), 0 0 28px rgba(0, 200, 255, 0.3);
-        filter: saturate(1.1);
-      }
-      .cta-title { font-size: 1.2rem; letter-spacing: 1px; text-shadow: 0 0 12px rgba(0, 200, 255, 0.7); }
-      .cta-sub { font-size: 0.95rem; font-family: 'Share Tech Mono', monospace; color: #9fd8ff; opacity: 0.85; }
-
-      /* Flyer Gallery Section */
-      .flyer-gallery-section {
-        margin: 60px auto 40px auto;
-        max-width: 1200px;
-      }
-      .flyers-title {
-        text-align: center;
-        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
-        color: #9fd8ff;
-        letter-spacing: 3px;
-        font-size: 1.8rem;
-        margin: 0 auto 28px auto;
-        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
-      }
-      .flyer-showcase {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-bottom: 30px;
-      }
-      .flyer-item {
-        position: relative;
-        border-radius: 14px;
-        aspect-ratio: 3/4;
-        padding: 12px;
-        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
-        box-shadow: 0 14px 40px rgba(0,0,0,0.7), 0 0 28px rgba(0,200,255,0.28);
-        border: 1px solid rgba(0,200,255,0.45);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        overflow: hidden;
-      }
-      .flyer-item:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 18px 48px rgba(0,0,0,0.78), 0 0 34px rgba(0,200,255,0.42);
-        border-color: rgba(0,200,255,0.65);
-      }
-      .flyer-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
-      }
-      @media (max-width: 992px) {
-        .flyer-showcase {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
-        }
-      }
-      @media (max-width: 640px) {
-        .flyer-showcase {
-          grid-template-columns: 1fr;
-          gap: 12px;
-        }
+      .poster-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      /* Layout: desktop two-column */
-      .content-grid {
-        display: grid;
-        grid-template-columns: 0.9fr 1.1fr;
-        gap: 20px;
-        align-items: start;
-        margin-top: 20px;
-      }
-      @media (max-width: 992px) {
-        .content-grid { display: block; }
-        .logo-strip { gap: 14px; }
-      }
-      .scroll-wrapper {
-        position: relative;
-        margin: 20px auto 50px auto;
-        max-width: 1040px;
-        padding: 28px;
-      }
-      .scroll {
-        position: relative;
-        background: radial-gradient(circle at 20% 20%, #f3e3c2, #e1c79b 60%, #c9a771 95%);
-        color: #2f2413;
-        border-radius: 18px;
-        padding: 56px 38px 48px 38px;
-        box-shadow: 0 10px 50px rgba(0,0,0,0.55), 0 0 24px rgba(0, 200, 255, 0.15);
-        font-family: 'EB Garamond', serif;
-        line-height: 1.72;
-      }
-      .scroll::before, .scroll::after {
-        content: '';
-        position: absolute;
-        left: 14px;
-        right: 14px;
-        height: 32px;
-        border-radius: 14px;
-        background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.05));
-        box-shadow: inset 0 0 18px rgba(0,0,0,0.35);
-      }
-      .scroll::before { top: -18px; }
-      .scroll::after { bottom: -18px; }
-      .scroll h2 {
-        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
-        color: #0b3f5f;
-        text-shadow: 0 1px 0 #f3e3c2, 0 0 18px rgba(0, 120, 180, 0.45);
-        letter-spacing: 2px;
-        margin-bottom: 14px;
-      }
-      .scroll .scroll-subtitle {
-        font-family: 'EB Garamond', serif;
-        font-style: italic;
-        color: #3a5670;
-        letter-spacing: 1px;
-        margin-top: -6px;
-        margin-bottom: 14px;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-      }
-      .scroll b { color: #0f4e73; }
-      .schedule-section {
-        background: linear-gradient(145deg, #0c0c0c, #0a1116);
-        border: 1px solid rgba(0, 200, 255, 0.28);
-        border-radius: 18px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
-        padding: 26px 20px;
-        margin: 0 auto 40px auto;
-        max-width: 820px;
-      }
-      .schedule-section h2 {
-        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
-        color: #9fd8ff;
-        letter-spacing: 3px;
-        margin-bottom: 16px;
-        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
-        text-align: center;
-      }
-      .schedule-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        text-align: left;
-        color: #dff8ff;
-        font-family: 'EB Garamond', serif;
-        font-size: 1.15rem;
-      }
-      .schedule-list li {
-        margin-bottom: 12px;
-        padding-left: 12px;
-        border-left: 3px solid rgba(0, 200, 255, 0.4);
-      }
-      @media (max-width: 820px) {
-        .section-shell { max-width: 94vw; }
-        .scroll-wrapper { padding: 18px; }
-        .scroll { padding: 44px 24px 36px 24px; }
-        .gallery-row { gap: 12px; }
-        .twitch-embed { height: 320px; }
+    }
+
+    @media (max-width: 440px) {
+      .poster-grid {
+        grid-template-columns: 1fr;
       }
 
-      /* Schedule split layout */
-      .schedule-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
+      .hero-shell,
+      .radio-shell,
+      .actions-shell,
+      .legacy-shell {
+        padding: 16px;
       }
-      .schedule-col h3 {
-        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
-        color: #9fd8ff;
-        letter-spacing: 2px;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        text-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
-      }
-      .schedule-float {
-        display: none;
-      }
-      .schedule-float:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 36px rgba(0,0,0,0.68), 0 0 30px rgba(0,200,255,0.4);
-      }
-      @media (max-width: 992px) {
-        .schedule-float { display: none; }
-      }
-      /* Shows Section with Background Mosaic */
-      .shows-section-wrapper {
-        position: relative;
-        padding: 40px 0 60px 0;
-        margin: 30px 0;
-        overflow: hidden;
-      }
-      .shows-section-wrapper::before {
-        content: '';
-        position: absolute;
-        inset: -50px;
-        background-image: 
-          url('/img/bg-img/flyer_accident.png'),
-          url('/img/bg-img/flyer_china.jpg'),
-          url('/img/bg-img/flyer_dayoff.png'),
-          url('/img/bg-img/flyer_karazhan.png'),
-          url('/img/bg-img/flyer_labuburave.png'),
-          url('/img/bg-img/flyer_metalshow.png'),
-          url('/img/bg-img/flyer_raidrave.png'),
-          url('/img/bg-img/flyer_sa.png'),
-          url('/img/bg-img/flyer_tapes.png'),
-          url('/img/bg-img/flyer_tram.png'),
-          url('/img/bg-img/flyer_wood.png'),
-          url('/img/bg-img/flyer_zippo.png');
-        background-size: 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto;
-        background-position: 
-          5% 10%, 25% 5%, 45% 15%, 65% 8%, 85% 12%,
-          10% 85%, 30% 90%, 50% 88%, 70% 92%, 90% 87%,
-          15% 50%, 75% 48%;
-        background-repeat: no-repeat;
-        opacity: 0.08;
-        filter: blur(2px) grayscale(0.3);
-        pointer-events: none;
-        z-index: 0;
-      }
-      .shows-section-wrapper > * {
-        position: relative;
-        z-index: 1;
-      }
-      /* Show Card Layout */
-      .show-cards-container {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        gap: 48px;
-        margin: 20px auto;
-        max-width: 1100px;
-        align-items: start;
-      }
-      .show-card:nth-child(1) {
-        grid-column: 1;
-      }
-      .show-card {
-        position: relative;
-        background: linear-gradient(145deg, rgba(0,200,255,0.15), rgba(0,80,140,0.3));
-        border: 2px solid rgba(0,200,255,0.35);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(0,200,255,0.2);
-        transition: all 0.3s ease;
-        aspect-ratio: 1;
-        display: flex;
-        flex-direction: column;
-      }
-      .show-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(0,200,255,0.6);
-        box-shadow: 0 16px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0,200,255,0.35);
-      }
-      .show-card-flyer {
-        width: 100%;
-        flex: 1;
-        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-      }
-      .show-card-flyer img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
-        transition: transform 0.3s ease;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      .show-card:hover .show-card-flyer img {
-        transform: scale(1.05);
-      }
-      .show-card-info {
-        padding: 28px;
-        color: #dff8ff;
-      }
-      .show-card-title {
-        font-family: 'Cinzel Decorative', serif;
-        font-size: 1.3rem;
-        letter-spacing: 2px;
-        margin-bottom: 8px;
-        text-shadow: 0 0 10px rgba(0,200,255,0.6);
-      }
-      .show-card-day {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.95rem;
-        color: #9fd8ff;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
-      }
-      .show-card-desc {
-        font-family: 'EB Garamond', serif;
-        font-size: 1.05rem;
-        line-height: 1.7;
-        opacity: 0.95;
-      }
-      .show-card-footer {
-        padding: 12px 20px;
-        background: rgba(0,200,255,0.08);
-        border-top: 1px solid rgba(0,200,255,0.2);
-        text-align: center;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.85rem;
-        color: #9fd8ff;
-        letter-spacing: 1px;
-      }
-      /* Branding Header for Schedule */
-      .schedule-hero {
-        text-align: center;
-        margin: 20px auto 10px auto;
-        max-width: 900px;
-      }
-      .schedule-hero-logos {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        gap: 24px;
-        margin-bottom: 20px;
-      }
-      .logo-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-      }
-      .logo-item.logo-link {
-        text-decoration: none;
-        transition: transform 0.3s ease;
-        cursor: pointer;
-      }
-      .logo-item.logo-link:hover {
-        transform: scale(1.08);
-      }
-      .logo-item img {
-        max-height: 90px;
-        width: auto;
-        filter: drop-shadow(0 0 8px rgba(0,200,255,0.4));
-        transition: filter 0.3s ease;
-      }
-      .logo-item.logo-link:hover img {
-        filter: drop-shadow(0 0 16px rgba(0,200,255,0.8)) brightness(1.2);
-      }
-      .logo-item:nth-child(2) img {
-        max-height: 110px;
-      }
-      .logo-item:nth-child(3) img {
-        max-height: 80px;
-      }
-      .schedule-hero-logos:last-of-type .logo-item img {
-        max-height: 90px;
-      }
-      .logo-label {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.75rem;
-        color: #9fd8ff;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-      }
-      .schedule-hero-title {
-        font-family: 'Cinzel Decorative', serif;
-        font-size: 2.2rem;
-        color: #9fd8ff;
-        letter-spacing: 3px;
-        text-shadow: 0 0 18px rgba(0,200,255,0.7), 0 0 30px rgba(0,140,200,0.3);
-        margin-bottom: 10px;
-      }
-      .schedule-hero-sub {
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 1rem;
-        color: #dff8ff;
-        letter-spacing: 2px;
-      }
-      /* Collage Gallery */
-      .collage-gallery-section {
-        margin: 60px auto 40px auto;
-        max-width: 900px;
-      }
-      .collage-title {
-        text-align: center;
-        font-family: 'Cinzel Decorative', serif;
-        color: #9fd8ff;
-        letter-spacing: 2px;
-        font-size: 1.3rem;
-        margin: 0 auto 24px auto;
-        text-shadow: 0 0 12px rgba(0,200,255,0.7);
-      }
-      .collage-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
-      }
-      .collage-item {
-        position: relative;
-        aspect-ratio: 3/4;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 16px rgba(0,200,255,0.22);
-        border: 1px solid rgba(0,200,255,0.35);
-        cursor: pointer;
-        transition: all 0.25s ease;
-        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .collage-item:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.75), 0 0 24px rgba(0,200,255,0.4);
-        border-color: rgba(0,200,255,0.6);
-      }
-      .collage-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        filter: drop-shadow(0 0 8px rgba(0,200,255,0.25));
-      }
-      /* Branding Belt - Auto-scrolling Flyer Carousel */
-      .branding-belt {
-        position: relative;
-        margin: 30px 0 60px 0;
-        width: 100%;
-        height: 200px;
-        background: linear-gradient(90deg, rgba(0,200,255,0.06), rgba(0,255,220,0.1), rgba(0,200,255,0.06));
-        border-top: 1px solid rgba(0,200,255,0.25);
-        border-bottom: 1px solid rgba(0,200,255,0.25);
-        overflow: hidden;
-        box-shadow: 0 0 15px rgba(0,200,255,0.15), inset 0 0 10px rgba(0,200,255,0.05);
-      }
-      .branding-belt::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: repeating-linear-gradient(
-          90deg,
-          transparent 0px,
-          rgba(0,200,255,0.1) 2px,
-          transparent 4px,
-          transparent 50px
-        );
-        pointer-events: none;
-        z-index: 2;
-      }
-      .branding-belt::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, rgba(5,5,5,0.8) 0%, transparent 15%, transparent 85%, rgba(5,5,5,0.8) 100%);
-        pointer-events: none;
-        z-index: 1;
-      }
-      .belt-scroll {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        animation: scrollBelt 40s linear infinite;
-        gap: 80px;
-        padding: 0 50px;
-        position: relative;
-        z-index: 0;
-      }
-      @keyframes scrollBelt {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-      .belt-scroll img {
-        height: 140px;
-        width: auto;
-        object-fit: contain;
-        filter: drop-shadow(0 0 12px rgba(0,200,255,0.6)) brightness(1.1);
-        flex-shrink: 0;
-        cursor: pointer;
-        transition: filter 0.2s ease;
-      }
-      .belt-scroll img:hover {
-        filter: drop-shadow(0 0 18px rgba(0,200,255,0.9)) brightness(1.3);
-      }
-      /* Modal for zoomed flyer */
-      .flyer-modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.85);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-        animation: fadeInModal 0.3s ease;
-      }
-      .flyer-modal.active {
-        display: flex;
-      }
-      @keyframes fadeInModal {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-      }
-      .flyer-modal-content {
-        position: relative;
-        max-width: 90vw;
-        max-height: 90vh;
-        animation: zoomInFlyer 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      @keyframes zoomInFlyer {
-        0% { transform: scale(0.3) translateY(20px); opacity: 0; }
-        100% { transform: scale(1) translateY(0); opacity: 1; }
-      }
-      .flyer-modal-content img {
-        width: 100%;
-        height: auto;
-        max-height: 85vh;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 0 50px rgba(0,200,255,0.6);
-      }
-      .flyer-modal-close {
-        position: absolute;
-        top: -40px;
-        right: 0;
-        background: none;
-        border: none;
-        color: #dff8ff;
-        font-size: 2rem;
-        cursor: pointer;
-        z-index: 10000;
-        transition: color 0.2s ease;
-      }
-      .flyer-modal-close:hover {
-        color: #0ff;
-      }
-      /* Offline Twitch Section */
-      .offline-section {
-        max-width: 900px;
-        margin: 50px auto;
-        padding: 40px;
-        background: linear-gradient(145deg, rgba(0,200,255,0.1), rgba(0,80,140,0.15));
-        border: 2px solid rgba(0,200,255,0.3);
-        border-radius: 16px;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(0,200,255,0.15);
-      }
-      .offline-section h3 {
-        font-family: 'Cinzel Decorative', serif;
-        font-size: 1.5rem;
-        color: #dff8ff;
-        letter-spacing: 2px;
-        text-shadow: 0 0 12px rgba(0,200,255,0.6);
-        margin-bottom: 12px;
-      }
-      .offline-section p {
-        font-family: 'EB Garamond', serif;
-        font-size: 1rem;
-        color: #9fd8ff;
-        margin-bottom: 28px;
-        opacity: 0.9;
-        line-height: 1.6;
-      }
-      .offline-links {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .offline-link-btn {
-        padding: 14px 28px;
-        background: linear-gradient(145deg, rgba(0,200,255,0.25), rgba(0,120,160,0.35));
-        border: 2px solid rgba(0,200,255,0.5);
-        border-radius: 12px;
-        color: #dff8ff;
-        text-decoration: none;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.95rem;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 15px rgba(0,200,255,0.2);
-        text-transform: uppercase;
-      }
-      .offline-link-btn:hover {
-        transform: translateY(-3px);
-        background: linear-gradient(145deg, rgba(0,200,255,0.35), rgba(0,120,160,0.45));
-        border-color: rgba(0,200,255,0.7);
-        box-shadow: 0 8px 25px rgba(0,200,255,0.4);
-        color: #0ff;
-      }
-      @media (max-width: 640px) {
-        .show-cards-container {
-          grid-template-columns: 1fr;
-        }
-        .branding-belt {
-          gap: 24px;
-        }
-        .schedule-hero-logos {
-          gap: 16px;
-        }
-        .collage-grid {
-          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        }
-      }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    }
+  </style>
 </head>
-
 <body>
-    <header class="header-area">
-        <div class="oneMusic-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container">
-                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
-                        <a href="/index.html" class="nav-brand nav-brand-text">DJ NOPHEROS</a>
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-                        <div class="classy-menu">
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/index.html">Home</a></li>
-                                    <li><a href="#">DJ</a>
-                                        <ul class="dropdown">
-                                            <li><a href="/dj.html">DJ Page</a></li>
-                                            <li><a href="https://www.youtube.com/@Nopheros" target="_blank">YouTube VODs</a></li>
-                                            <li><a href="https://www.twitch.tv/nopheros" target="_blank">Twitch</a></li>
-                                            <li><a href="https://archive.org/details/@nopheros" target="_blank">Show Archives</a></li>
-                                            <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="/broadcaster.html">Broadcaster</a></li>
-                                    <li><a href="/voice-actor.html">Voice Actor</a></li>
-                                    <li><a href="/writer.html">Writer</a></li>
-                                    <li><a href="#">About Me</a>
-                                        <ul class="dropdown">
-                                            <li><a href="/aboutme.html">The story so far</a></li>
-                                            <li><a href="https://linktr.ee/nopheros" target="_blank">Socials</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
+  <header class="header-area">
+    <div class="oneMusic-main-menu">
+      <div class="classy-nav-container breakpoint-off">
+        <div class="container">
+          <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+            <a href="/index.html" class="nav-brand nav-brand-text">DJ NOPHEROS</a>
+            <div class="classy-navbar-toggler">
+              <span class="navbarToggler"><span></span><span></span><span></span></span>
             </div>
-        </div>
-    </header>
-
-    <div class="rune-rain"></div>
-    <main class="page-main">
-      <a class="schedule-float" href="#schedule-overview">Schedule Overview</a>
-      <div class="container">
-        <h1>BROADCASTER</h1>
-        <div class="hero-title">PILGRIM OF THE SIGNAL</div>
-        <div class="hero-sub">SIGNAL PILGRIM NOPHEROS</div>
-        <div id="live-status" class="status-badge status-offline">
-          <span class="status-dot"></span>
-          <span class="status-text">OFFLINE — FOLLOW FOR LIVE ALERTS</span>
-        </div>
-        <!-- SCHEDULE HERO WITH BRANDING -->
-        <section id="schedule-overview" class="schedule-hero">
-          <div class="schedule-hero-logos">
-            <div class="logo-item">
-              <img src="/img/core-img/elbc_logo.png" alt="ELBC Everlook Logo">
-              <div class="logo-label">Everlook Broadcasting</div>
+            <div class="classy-menu">
+              <div class="classycloseIcon">
+                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+              </div>
+              <div class="classynav">
+                <ul>
+                  <li><a href="/index.html">Home</a></li>
+                  <li><a href="#">DJ</a>
+                    <ul class="dropdown">
+                      <li><a href="/dj.html">DJ Page</a></li>
+                      <li><a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener">YouTube VODs</a></li>
+                      <li><a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener">Twitch</a></li>
+                      <li><a href="https://archive.org/details/@nopheros" target="_blank" rel="noopener">Show Archives</a></li>
+                      <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="/broadcaster.html">Broadcaster</a></li>
+                  <li><a href="/voice-actor.html">Voice Actor</a></li>
+                  <li><a href="/writer.html">Writer</a></li>
+                  <li><a href="#">About Me</a>
+                    <ul class="dropdown">
+                      <li><a href="/aboutme.html">The story so far</a></li>
+                      <li><a href="https://linktr.ee/nopheros" target="_blank" rel="noopener">Socials</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
+                </ul>
+              </div>
             </div>
-            <div class="logo-item">
-              <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros Logo">
-              <div class="logo-label">DJ Nopheros</div>
-            </div>
-            <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="logo-item logo-link">
-              <img src="/img/core-img/twitch_logo.ico" alt="Twitch">
-              <div class="logo-label">Twitch</div>
-            </a>
-          </div>
-          <div class="schedule-hero-title">ROTATING SHOWS</div>
-          <div class="schedule-hero-sub">TUNE IN FOR THE SIGNAL</div>
-        </section>
-
-        <!-- SHOWS SECTION WITH BACKGROUND MOSAIC -->
-        <div class="shows-section-wrapper">
-          <!-- FLAGSHIP SHOWS WITH FLYERS -->
-          <div class="show-cards-container">
-          <div class="show-card">
-            <div class="show-card-flyer">
-              <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab with DJ Nopheros">
-            </div>
-            <div class="show-card-info">
-              <div class="show-card-title">Weekly Therapy with Dr. Nopheros at the Treehab</div>
-              <div class="show-card-day">Every Saturday — 1:00 PM EST</div>
-              <div class="show-card-desc">An earlier time during the day, and during the week! That same Signal Pilgrim music taste just at a time a little closer to your evenin' bangers n' mash hour, or 2nd dinner.<br><br>This dwarf wants to invade all of your green spaces and he will travel Azeroth to find them. Will Arch Druid Bob Marley make an experience? Mel B?<br><br>By Golly, I hope so!</div>
-            </div>
-          </div>
-
-          <div class="show-card">
-            <div class="show-card-flyer">
-              <img src="/img/bg-img/flyer_pots.jpg" alt="Pilgrim of the Signal">
-            </div>
-            <div class="show-card-info">
-              <div class="show-card-title">Pilgrim of the Signal</div>
-              <div class="show-card-day">Every Friday — 08:00 PM EST</div>
-              <div class="show-card-desc">Industrial rhythms. Darkwave noise. Tales from the wildest corners of Azeroth.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BRANDING BELT - AUTO-SCROLLING FLYER CAROUSEL -->
-        <div class="branding-belt">
-          <div class="belt-scroll">
-            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
-            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
-            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
-            <!-- Duplicate for seamless loop -->
-            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
-            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
-            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
-          </div>
-        </div>
-        </div>
-        <!-- END SHOWS SECTION WRAPPER -->
-
-        <!-- DISCLAIMER -->
-        <div class="scroll-wrapper">
-          <div class="scroll" style="background: linear-gradient(145deg, rgba(139, 90, 43, 0.1), rgba(30, 60, 90, 0.15)); border-color: rgba(200, 150, 100, 0.3);">
-            <p style="font-size: 0.95rem; color: #c9a771; line-height: 1.7; margin: 0;">
-              <b style="color: #d4b896;">⚠ WARNING FROM THE TOWER:</b> This broadcast may contain goblin slang and explicit language. Listener discretion is advised, especially for low-level ears.<br><br>
-              Community DJ and streamer producing independent media content; not affiliated with Blizzard Entertainment and not involved in game distribution, servers, mods, or installation assistance.
-            </p>
-          </div>
-        </div>
-
-        <!-- BRANDING BELT - AUTO-SCROLLING FLYER CAROUSEL -->
-        <div class="branding-belt">
-          <div class="belt-scroll">
-            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
-            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
-            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
-            <!-- Duplicate for seamless loop -->
-            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
-            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
-            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
-            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
-          </div>
-        </div>
-
-        <!-- FLYER ZOOM MODAL -->
-        <div id="flyer-modal" class="flyer-modal">
-          <div class="flyer-modal-content">
-            <button class="flyer-modal-close">&times;</button>
-            <img id="flyer-modal-img" src="" alt="Show Flyer">
-          </div>
-        </div>
-
-        <!-- TWITCH SECTION -->
-        <div id="twitch-embed-container" style="margin: 50px auto 40px auto; text-align:center; max-width: 900px;"></div>
-
-        <!-- SCROLL: EVERLOOK BROADCASTING -->
-        <div class="scroll-wrapper">
-          <div class="scroll">
-            <h2>Everlook Broadcasting Co.</h2>
-            <div class="scroll-subtitle">Pilgrim of the Signal</div>
-            <p>Nopheros, an architect of atmosphere. A Digital Sherpa traveling the virtual hills, curating music, knowledge, and an insatiable creativity. A DJ that walks both the Real and Digital.<br><br>
-            Starting in the virtual worlds of <b>Anarchy Online</b>, <b>The Matrix Online</b>, and <b>World of Warcraft</b>, this DJ crossed realms, finding sanctuary in Providence, Rhode Island and Boston, Massachusetts at night clubs such as Club Hell, Alchemy, Ego, Xmortis, Darq, Jaded, Kink, and more.<br><br>
-            Combining these realms the deck became a storytelling canvas. Nopheros weaves textures of rhythm and emotion, guiding the crowd through waves of tension and release. By the end of the night the audience leaves holding more than memories. They carry an experience and a story. That journey starts with booking DJ Nopheros.<br><br>
-            <b>Everlook Broadcasting Co.</b> is the premier radio and event platform for <b>Turtle WoW</b>, bringing live music, talk shows, and in-game events to the world of Azeroth. As a broadcaster, Nopheros hosts <b>Pilgrim of the Signal</b> and other unique shows, blending MMO culture with real DJ energy. Tune in for bi-weekly live shows, special event broadcasts, and more adventures from the wildest corners of Azeroth.</p>
-          </div>
+          </nav>
         </div>
       </div>
-    </main>
+    </div>
+  </header>
 
-    <footer class="footer-area">
-        <div class="container">
-            <div class="row d-flex flex-wrap align-items-center">
-                <div class="col-12 col-md-4">
-                    <a href="/index.html" class="footer-brand">DJ NOPHEROS</a>
-                    <p class="copywrite-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | You're gonna carry that weight</p>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="footer-nav">
-                        <ul>
-                            <li><a href="/index.html">home</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4" style="text-align: center;">
-                    <a href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener" style="display: inline-block; color: #9fd8ff; text-decoration: none; font-family: 'Share Tech Mono', monospace; letter-spacing: 1px; font-size: 0.9rem; transition: color 0.2s ease;">📡 JOIN THE SIGNAL ON DISCORD</a>
-                </div>
-            </div>
+  <main class="page-main">
+    <section class="hero-shell">
+      <div>
+        <div class="hero-kicker">24/7 RADIO</div>
+        <h1 class="hero-title">Out of Bounds Entertainment</h1>
+        <p class="hero-copy">
+          This is the live relay point for the Tower 3 signal. Built by DJ Nopheros, carrying the same world-building spirit from Everlook Broadcasting into a continuous station for listeners in every time zone.
+        </p>
+        <div class="status-row">
+          <div id="live-status" class="status-pill offline">
+            <span class="status-dot"></span>
+            <span id="live-status-text">Signal monitoring active</span>
+          </div>
         </div>
-    </footer>
+        <div class="hero-cta">
+          <a class="btn-signal" href="#tower3">Listen Live</a>
+          <a class="btn-outline" href="https://www.outofbounds.live/" target="_blank" rel="noopener">OutOfBounds.live</a>
+          <a class="btn-outline" href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener">Discord</a>
+          <a class="btn-outline" href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener">Twitch</a>
+        </div>
+      </div>
+      <div class="hero-brand">
+        <img src="/OOBE_refined_lockup_white.png" alt="Out of Bounds Entertainment logo">
+        <div class="brand-caption">Signal Partner Brand</div>
+      </div>
+    </section>
 
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <script src="js/bootstrap/popper.min.js"></script>
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/plugins/plugins.js"></script>
-    <script src="js/active.js"></script>
-    <script>
-      // Twitch embed logic - using Helix API with free public approach
-      function checkTwitchLive(channel, callback) {
-        // Uses Twitch Helix API. For free usage:
-        // 1. Go to https://dev.twitch.tv/console/apps
-        // 2. Create an application (OAuth Client ID)
-        // 3. Replace CLIENT_ID_HERE with your Client ID
-        // For testing without API key, defaults to embedded mode which auto-detects
-        const clientId = 'l4hsedavjavi22gqavdx0t4q1wjhlw'; // Your Client ID from dev.twitch.tv
-        const accessToken = ''; // Optional: for better rate limits
-        
-        if (!clientId || clientId === 'YOUR_TWITCH_CLIENT_ID') {
-          // Fallback: Use embedded iframe which auto-detects live status
-          callback(null); // null = use embedded mode
-          return;
-        }
-        
-        fetch(`https://api.twitch.tv/helix/streams?user_login=${channel}`, {
-          headers: {
-            'Client-ID': clientId,
-            'Authorization': accessToken ? `Bearer ${accessToken}` : ''
+    <section id="tower3" class="radio-shell">
+      <h2 class="section-title">Listen Live</h2>
+      <p class="section-sub">Press play to start the stream, pause anytime, and set volume to your preference.</p>
+      <div class="radio-grid">
+        <div class="player-box">
+          <div class="player-stage">
+            <h3 class="player-stage-title">Out of Bounds Radio</h3>
+            <p class="player-stage-copy">A simple, direct player for the live station.</p>
+            <audio id="tower3-audio" class="tower-audio" controls preload="none" crossorigin="anonymous"></audio>
+          </div>
+          <div class="control-row">
+            <button id="play-live" class="btn-signal" type="button">Play</button>
+            <button id="pause-live" class="btn-outline" type="button">Pause</button>
+            <a class="btn-outline" href="https://romeblue7.myvnc.com:8443/autodj.m3u" target="_blank" rel="noopener">Direct Stream M3U</a>
+            <label class="volume-wrap" for="volume-control">
+              Volume
+              <input id="volume-control" class="volume-slider" type="range" min="0" max="100" value="70">
+              <span id="volume-value">70%</span>
+            </label>
+          </div>
+          <div class="listener-row">
+            <div class="listener-pill">Listeners: <span id="current-listeners">--</span></div>
+            <div class="listener-pill">Peak: <span id="peak-listeners">--</span></div>
+          </div>
+          <div id="now-playing" class="now-playing">Now playing data loading...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="actions-shell">
+      <h2 class="section-title">Forward Channels</h2>
+      <p class="section-sub">Jump directly into live platforms and community touchpoints.</p>
+      <div class="actions-grid">
+        <a class="action-card" href="https://www.outofbounds.live/" target="_blank" rel="noopener">
+          <div>
+            <div class="action-kicker">Primary Platform</div>
+            <div class="action-title">Out of Bounds Live</div>
+            <p class="action-copy">Launch the branded station site and additional stream controls.</p>
+          </div>
+          <div class="action-kicker">Visit Site</div>
+        </a>
+        <a class="action-card" href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener">
+          <div>
+            <div class="action-kicker">Live Broadcast</div>
+            <div class="action-title">Twitch Channel</div>
+            <p class="action-copy">Catch live sets, special events, and signal experiments in real time.</p>
+          </div>
+          <div class="action-kicker">Watch Stream</div>
+        </a>
+        <a class="action-card" href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener">
+          <div>
+            <div class="action-kicker">Community Relay</div>
+            <div class="action-title">Discord</div>
+            <p class="action-copy">Get alerts, event drops, and direct updates from the signal tower.</p>
+          </div>
+          <div class="action-kicker">Join Signal</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="legacy-shell">
+      <h2 class="section-title">Legacy Archive: Everlook to Out of Bounds</h2>
+      <p class="section-sub">A memorial of broadcast years, event work, and world-built programming.</p>
+      <div class="legacy-grid">
+        <div>
+          <p class="legacy-copy">
+            Everlook Broadcasting Co. has ended as an operating chapter, but the body of work remains the foundation of this station. The projects below are kept as portfolio proof of live programming, atmosphere design, poster campaigns, and community-facing broadcast continuity.
+          </p>
+          <ul class="legacy-list">
+            <li>
+              <span class="legacy-year">2018-Present</span>
+              <span class="legacy-event">Independent DJ and online broadcaster across MMO and nightlife communities.</span>
+            </li>
+            <li>
+              <span class="legacy-year">Everlook Era</span>
+              <span class="legacy-event">Hosted Pilgrim of the Signal and multi-show rotation, events, and radio storytelling.</span>
+            </li>
+            <li>
+              <span class="legacy-year">Event Portfolio</span>
+              <span class="legacy-event">Produced branded show flyers, themed nights, and collaborative scene-driven broadcasts.</span>
+            </li>
+            <li>
+              <span class="legacy-year">Current Chapter</span>
+              <span class="legacy-event">Out of Bounds Entertainment: a 24/7 relay with live DJ intersections and curated continuity.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="poster-grid" id="poster-grid">
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_accident.png" alt="Legacy flyer 1"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_china.jpg" alt="Legacy flyer 2"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_dayoff.png" alt="Legacy flyer 3"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_karazhan.png" alt="Legacy flyer 4"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_labuburave.png" alt="Legacy flyer 5"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_metalshow.png" alt="Legacy flyer 6"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_raidrave.png" alt="Legacy flyer 7"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_tapes.png" alt="Legacy flyer 8"></button>
+          <button class="poster-btn" type="button"><img src="/img/bg-img/flyer_zippo.png" alt="Legacy flyer 9"></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="flyer-modal" class="flyer-modal" aria-hidden="true">
+    <div class="flyer-modal-box">
+      <button class="flyer-modal-close" id="flyer-modal-close" aria-label="Close modal">&times;</button>
+      <img id="flyer-modal-image" src="" alt="Expanded legacy flyer">
+    </div>
+  </div>
+
+  <footer class="footer-area">
+    <div class="container">
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-12 col-md-4">
+          <a href="/index.html" class="footer-brand">DJ NOPHEROS</a>
+          <p class="copywrite-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Signal stays online</p>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="footer-nav">
+            <ul>
+              <li><a href="/index.html">home</a></li>
+              <li><a href="/broadcaster.html">broadcaster</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-md-4" style="text-align:center;">
+          <a href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener" style="display:inline-block;color:#9fd8ff;text-decoration:none;font-family:'Chakra Petch',sans-serif;letter-spacing:1px;font-size:0.88rem;">JOIN THE SIGNAL ON DISCORD</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/jquery/jquery-2.2.4.min.js"></script>
+  <script src="js/bootstrap/popper.min.js"></script>
+  <script src="js/bootstrap/bootstrap.min.js"></script>
+  <script src="js/plugins/plugins.js"></script>
+  <script src="js/active.js"></script>
+
+  <script>
+    (function() {
+      var statusEl = document.getElementById('live-status');
+      var statusTextEl = document.getElementById('live-status-text');
+      var currentListenersEl = document.getElementById('current-listeners');
+      var peakListenersEl = document.getElementById('peak-listeners');
+      var nowPlayingEl = document.getElementById('now-playing');
+      var audioEl = document.getElementById('tower3-audio');
+      var playLiveEl = document.getElementById('play-live');
+      var pauseLiveEl = document.getElementById('pause-live');
+      var volumeControlEl = document.getElementById('volume-control');
+      var volumeValueEl = document.getElementById('volume-value');
+
+      var STREAM_URL = 'https://romeblue7.myvnc.com:8443/autodj';
+      var METADATA_URL = 'https://romeblue7.myvnc.com:8443/status-json.xsl';
+      var PROXY_STATUS = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(METADATA_URL);
+
+      function fetchJson(url) {
+        return fetch(url, { cache: 'no-store' }).then(function(res) {
+          if (!res.ok) {
+            throw new Error('Telemetry request failed');
           }
-        })
-        .then(res => res.json())
-        .then(data => {
-          callback(data.data && data.data.length > 0);
-        })
-        .catch(() => {
-          // On error, default to embedded mode which auto-detects
-          callback(null);
+          return res.json();
         });
       }
-      function renderTwitchSection(isLive) {
-        const container = document.getElementById('twitch-embed-container');
-        const statusEl = document.getElementById('live-status');
-        
-        // If isLive is null, use embedded player which auto-detects live status
-        if (isLive === null) {
-          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
-          // Auto-detection happens via the iframe
-          return;
-        }
-        
-        if (isLive) {
-          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
-          if (statusEl) {
-            statusEl.classList.remove('status-offline');
-            statusEl.innerHTML = `<span class="status-dot"></span><span class="status-text">LIVE NOW — WATCH THE SIGNAL</span>`;
-          }
-        } else {
-          container.innerHTML = '';
-          if (statusEl) {
-            statusEl.classList.add('status-offline');
-            statusEl.innerHTML = `
-              <div class="offline-section" style="max-width: none; margin: 0; padding: 30px; border-radius: 12px;">
-                <h3 style="margin-bottom: 16px;">SIGNAL INTERRUPTED</h3>
-                <p style="margin-bottom: 20px;">The broadcast is currently offline. Check back for live shows or explore past streams and recordings.</p>
-                <div class="offline-links">
-                  <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
-                  <a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener" class="offline-link-btn">Watch VODs</a>
-                </div>
-              </div>
-            `;
-          }
+
+      function setOfflineTelemetry(message) {
+        statusEl.classList.add('offline');
+        statusTextEl.textContent = 'Stream info unavailable';
+        currentListenersEl.textContent = '--';
+        peakListenersEl.textContent = '--';
+        nowPlayingEl.textContent = 'Now playing data unavailable. Use Play Tower 3 to keep listening.';
+        if (message) {
+          console.warn(message);
         }
       }
-      checkTwitchLive('nopheros', renderTwitchSection);
-      
-      // Flyer zoom modal functionality
-      const modal = document.getElementById('flyer-modal');
-      const modalImg = document.getElementById('flyer-modal-img');
-      const closeBtn = document.querySelector('.flyer-modal-close');
-      const beltImages = document.querySelectorAll('.belt-scroll img');
-      
-      beltImages.forEach(img => {
+
+      function normalizeSources(data) {
+        var source = data && data.icestats && data.icestats.source;
+        if (!source) {
+          return [];
+        }
+        return Array.isArray(source) ? source : [source];
+      }
+
+      function getAutodjSource(sources) {
+        return sources.find(function(source) {
+          return source && source.listenurl && source.listenurl.indexOf('/autodj') !== -1;
+        }) || null;
+      }
+
+      function parseAutodjSource(data) {
+        var sources = normalizeSources(data);
+        var source = getAutodjSource(sources);
+        if (!source) {
+          return null;
+        }
+
+        return {
+          current: typeof source.listeners === 'number' ? source.listeners : null,
+          peak: typeof source.listener_peak === 'number' ? source.listener_peak : null,
+          nowPlaying: (source.title || source.server_name || 'Track metadata not available').trim()
+        };
+      }
+
+      function renderTelemetry(data) {
+        currentListenersEl.textContent = typeof data.current === 'number' ? String(data.current) : '--';
+        peakListenersEl.textContent = typeof data.peak === 'number' ? String(data.peak) : '--';
+        nowPlayingEl.textContent = 'Now playing: ' + data.nowPlaying;
+        statusEl.classList.remove('offline');
+        statusTextEl.textContent = 'Live radio online';
+      }
+
+      function pollTelemetry() {
+        fetchJson(METADATA_URL)
+          .catch(function() {
+            return fetch(PROXY_STATUS, { cache: 'no-store' }).then(function(res) {
+              if (!res.ok) {
+                throw new Error('Telemetry proxy request failed');
+              }
+              return res.text().then(function(raw) {
+                return JSON.parse(raw);
+              });
+            });
+          })
+          .then(function(data) {
+            var parsed = parseAutodjSource(data);
+            if (!parsed) {
+              throw new Error('Unable to parse /autodj mount data');
+            }
+            renderTelemetry(parsed);
+          })
+          .catch(function() {
+            setOfflineTelemetry('Live metrics blocked by network, CORS, or upstream endpoint availability.');
+          });
+      }
+
+      function setAudioSource() {
+        if (!audioEl.getAttribute('src')) {
+          audioEl.setAttribute('src', STREAM_URL + '?nocache=' + Date.now());
+        }
+      }
+
+      audioEl.volume = 0.7;
+
+      volumeControlEl.addEventListener('input', function() {
+        var volume = Number(volumeControlEl.value) / 100;
+        audioEl.volume = volume;
+        volumeValueEl.textContent = volumeControlEl.value + '%';
+      });
+
+      playLiveEl.addEventListener('click', function() {
+        setAudioSource();
+        audioEl.play()
+          .then(function() {
+            statusEl.classList.remove('offline');
+            statusTextEl.textContent = 'Live signal active';
+          })
+          .catch(function() {
+            statusEl.classList.add('offline');
+            statusTextEl.textContent = 'Playback blocked by browser policy';
+          });
+      });
+
+      pauseLiveEl.addEventListener('click', function() {
+        audioEl.pause();
+        statusEl.classList.add('offline');
+        statusTextEl.textContent = 'Playback paused';
+      });
+
+      pollTelemetry();
+      setInterval(pollTelemetry, 60000);
+
+      var modal = document.getElementById('flyer-modal');
+      var modalImg = document.getElementById('flyer-modal-image');
+      var closeBtn = document.getElementById('flyer-modal-close');
+      var posterButtons = document.querySelectorAll('.poster-btn img');
+
+      posterButtons.forEach(function(img) {
         img.addEventListener('click', function(e) {
           e.stopPropagation();
-          modalImg.src = this.src;
+          modalImg.src = img.src;
           modal.classList.add('active');
+          modal.setAttribute('aria-hidden', 'false');
           document.body.style.overflow = 'hidden';
         });
       });
-      
-      closeBtn.addEventListener('click', function() {
+
+      function closeModal() {
         modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = 'auto';
-      });
-      
+      }
+
+      closeBtn.addEventListener('click', closeModal);
       modal.addEventListener('click', function(e) {
         if (e.target === modal) {
-          modal.classList.remove('active');
-          document.body.style.overflow = 'auto';
+          closeModal();
         }
       });
-      
+
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
-          modal.classList.remove('active');
-          document.body.style.overflow = 'auto';
+          closeModal();
         }
       });
-    </script>
+    })();
+  </script>
 </body>
 </html>

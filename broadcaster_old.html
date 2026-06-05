@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>BROADCASTER — DJ NOPHEROS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
+    <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      html, body { background-color: #050505 !important; color: #dff8ff; }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(0,255,200,0.05), transparent 35%),
+                    radial-gradient(circle at 80% 0%, rgba(120,200,255,0.05), transparent 35%),
+                    linear-gradient(180deg, rgba(0,255,180,0.03), rgba(0,120,180,0.02));
+        pointer-events: none;
+        z-index: -2;
+      }
+      /* Rune rain overlay */
+      .rune-rain {
+        position: fixed;
+        inset: 0;
+        background:
+          repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,180,0.08) 0px,
+            rgba(0,255,180,0.08) 2px,
+            transparent 6px,
+            transparent 24px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(0,120,180,0.05) 7px,
+            rgba(0,120,180,0.08) 8px,
+            transparent 12px
+          );
+        opacity: 0.22;
+        mix-blend-mode: screen;
+        animation: rainShift 12s linear infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      @keyframes rainShift {
+        0% { transform: translateY(0) translateX(0); }
+        100% { transform: translateY(24px) translateX(-6px); }
+      }
+      .page-main { padding: 110px 0 60px; text-align: center; position: relative; }
+      .page-main h1 {
+        color: #9fd8ff;
+        letter-spacing: 5px;
+        font-family: 'Share Tech Mono', 'Cinzel Decorative', serif;
+        font-weight: 700;
+        font-size: 1rem;
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.7);
+        margin-bottom: 10px;
+      }
+      .hero-title {
+        color: #dff8ff;
+        font-family: 'Cinzel Decorative', serif;
+        font-weight: 700;
+        font-size: 3rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 18px rgba(0, 200, 255, 0.85), 0 0 30px rgba(0, 140, 200, 0.4);
+        margin-bottom: 6px;
+      }
+      .hero-sub {
+        color: #9fd8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        text-shadow: 0 0 14px rgba(0, 255, 220, 0.8), 0 0 24px rgba(0, 120, 180, 0.45);
+        margin-bottom: 26px;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.22), rgba(0,120,160,0.28));
+        border: 1px solid rgba(0,200,255,0.38);
+        color: #dff8ff;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 16px rgba(0,200,255,0.22);
+        margin-bottom: 12px;
+      }
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10ff9e;
+        box-shadow: 0 0 12px #10ff9e;
+        animation: pulseDot 1.4s ease-in-out infinite;
+      }
+      .status-text { letter-spacing: 1px; }
+      .status-offline .status-dot { background: #3a5560; box-shadow: 0 0 8px #3a5560; animation: none; }
+      .status-offline { opacity: 0.85; }
+      @keyframes pulseDot {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(0.8); }
+      }
+
+      .cta-row {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+      }
+      .cta-book {
+        display: inline-block;
+        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
+        color: #001018;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.05rem;
+        letter-spacing: 1px;
+        padding: 12px 26px;
+        border-radius: 10px;
+        box-shadow: 0 6px 22px rgba(0, 200, 255, 0.32);
+        text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .cta-book:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0, 200, 255, 0.42); }
+      .section-shell {
+        background: linear-gradient(145deg, #0c0c0c, #0a1116);
+        border: 1px solid rgba(0, 200, 255, 0.28);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
+        border-radius: 18px;
+        padding: 28px 22px;
+        margin: 0 auto 46px auto;
+        max-width: 860px;
+        position: relative;
+        overflow: hidden;
+      }
+      .section-shell::after {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        border-radius: 16px;
+        border: 1px solid rgba(159, 216, 255, 0.12);
+        pointer-events: none;
+      }
+      .scanline {
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 255, 200, 0.06),
+          rgba(0, 255, 200, 0.06) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+        mix-blend-mode: screen;
+        pointer-events: none;
+        opacity: 0.35;
+      }
+      .twitch-embed { width: 100%; height: 400px; border: none; border-radius: 12px; }
+      .twitch-btn {
+        display: inline-block;
+        background: linear-gradient(90deg, #08f7fe 0%, #09fbd3 40%, #67e8f9 100%);
+        color: #001018;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1.15rem;
+        letter-spacing: 1px;
+        padding: 14px 32px;
+        border-radius: 10px;
+        box-shadow: 0 6px 24px rgba(0, 200, 255, 0.35);
+        text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .twitch-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 200, 255, 0.45); }
+      .twitch-card { margin: 0 auto 22px auto; max-width: 500px; }
+      .gallery-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+      .gallery-placeholder {
+        flex: 1 1 320px;
+        max-width: 380px;
+        height: 220px;
+        border-radius: 14px;
+        border: 1px dashed rgba(159, 216, 255, 0.6);
+        background: linear-gradient(135deg, rgba(0, 200, 255, 0.08), rgba(0, 80, 140, 0.25));
+        color: #9fd8ff;
+        font-family: 'Share Tech Mono', monospace;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        box-shadow: inset 0 0 12px rgba(0, 200, 255, 0.18);
+      }
+      .discord-cta {
+        flex: 1 1 320px;
+        max-width: 380px;
+        height: 220px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(0, 200, 255, 0.16), rgba(60, 10, 40, 0.6));
+        color: #dff8ff;
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        text-decoration: none;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.55), 0 0 22px rgba(0, 200, 255, 0.22);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.2s ease;
+      }
+      .discord-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.65), 0 0 28px rgba(0, 200, 255, 0.3);
+        filter: saturate(1.1);
+      }
+      .cta-title { font-size: 1.2rem; letter-spacing: 1px; text-shadow: 0 0 12px rgba(0, 200, 255, 0.7); }
+      .cta-sub { font-size: 0.95rem; font-family: 'Share Tech Mono', monospace; color: #9fd8ff; opacity: 0.85; }
+
+      /* Flyer Gallery Section */
+      .flyer-gallery-section {
+        margin: 60px auto 40px auto;
+        max-width: 1200px;
+      }
+      .flyers-title {
+        text-align: center;
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #9fd8ff;
+        letter-spacing: 3px;
+        font-size: 1.8rem;
+        margin: 0 auto 28px auto;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
+      }
+      .flyer-showcase {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+      .flyer-item {
+        position: relative;
+        border-radius: 14px;
+        aspect-ratio: 3/4;
+        padding: 12px;
+        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
+        box-shadow: 0 14px 40px rgba(0,0,0,0.7), 0 0 28px rgba(0,200,255,0.28);
+        border: 1px solid rgba(0,200,255,0.45);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+      .flyer-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 48px rgba(0,0,0,0.78), 0 0 34px rgba(0,200,255,0.42);
+        border-color: rgba(0,200,255,0.65);
+      }
+      .flyer-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
+      }
+      @media (max-width: 992px) {
+        .flyer-showcase {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
+      @media (max-width: 640px) {
+        .flyer-showcase {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+      }
+
+      /* Layout: desktop two-column */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 20px;
+        align-items: start;
+        margin-top: 20px;
+      }
+      @media (max-width: 992px) {
+        .content-grid { display: block; }
+        .logo-strip { gap: 14px; }
+      }
+      .scroll-wrapper {
+        position: relative;
+        margin: 20px auto 50px auto;
+        max-width: 1040px;
+        padding: 28px;
+      }
+      .scroll {
+        position: relative;
+        background: radial-gradient(circle at 20% 20%, #f3e3c2, #e1c79b 60%, #c9a771 95%);
+        color: #2f2413;
+        border-radius: 18px;
+        padding: 56px 38px 48px 38px;
+        box-shadow: 0 10px 50px rgba(0,0,0,0.55), 0 0 24px rgba(0, 200, 255, 0.15);
+        font-family: 'EB Garamond', serif;
+        line-height: 1.72;
+      }
+      .scroll::before, .scroll::after {
+        content: '';
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        height: 32px;
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.05));
+        box-shadow: inset 0 0 18px rgba(0,0,0,0.35);
+      }
+      .scroll::before { top: -18px; }
+      .scroll::after { bottom: -18px; }
+      .scroll h2 {
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #0b3f5f;
+        text-shadow: 0 1px 0 #f3e3c2, 0 0 18px rgba(0, 120, 180, 0.45);
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+      }
+      .scroll .scroll-subtitle {
+        font-family: 'EB Garamond', serif;
+        font-style: italic;
+        color: #3a5670;
+        letter-spacing: 1px;
+        margin-top: -6px;
+        margin-bottom: 14px;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+      }
+      .scroll b { color: #0f4e73; }
+      .schedule-section {
+        background: linear-gradient(145deg, #0c0c0c, #0a1116);
+        border: 1px solid rgba(0, 200, 255, 0.28);
+        border-radius: 18px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 25px rgba(0,200,255,0.16);
+        padding: 26px 20px;
+        margin: 0 auto 40px auto;
+        max-width: 820px;
+      }
+      .schedule-section h2 {
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #9fd8ff;
+        letter-spacing: 3px;
+        margin-bottom: 16px;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.7);
+        text-align: center;
+      }
+      .schedule-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        color: #dff8ff;
+        font-family: 'EB Garamond', serif;
+        font-size: 1.15rem;
+      }
+      .schedule-list li {
+        margin-bottom: 12px;
+        padding-left: 12px;
+        border-left: 3px solid rgba(0, 200, 255, 0.4);
+      }
+      @media (max-width: 820px) {
+        .section-shell { max-width: 94vw; }
+        .scroll-wrapper { padding: 18px; }
+        .scroll { padding: 44px 24px 36px 24px; }
+        .gallery-row { gap: 12px; }
+        .twitch-embed { height: 320px; }
+      }
+
+      /* Schedule split layout */
+      .schedule-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .schedule-col h3 {
+        font-family: 'Cinzel Decorative', 'Share Tech Mono', serif;
+        color: #9fd8ff;
+        letter-spacing: 2px;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.6);
+      }
+      .schedule-float {
+        display: none;
+      }
+      .schedule-float:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 36px rgba(0,0,0,0.68), 0 0 30px rgba(0,200,255,0.4);
+      }
+      @media (max-width: 992px) {
+        .schedule-float { display: none; }
+      }
+      /* Shows Section with Background Mosaic */
+      .shows-section-wrapper {
+        position: relative;
+        padding: 40px 0 60px 0;
+        margin: 30px 0;
+        overflow: hidden;
+      }
+      .shows-section-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: -50px;
+        background-image: 
+          url('/img/bg-img/flyer_accident.png'),
+          url('/img/bg-img/flyer_china.jpg'),
+          url('/img/bg-img/flyer_dayoff.png'),
+          url('/img/bg-img/flyer_karazhan.png'),
+          url('/img/bg-img/flyer_labuburave.png'),
+          url('/img/bg-img/flyer_metalshow.png'),
+          url('/img/bg-img/flyer_raidrave.png'),
+          url('/img/bg-img/flyer_sa.png'),
+          url('/img/bg-img/flyer_tapes.png'),
+          url('/img/bg-img/flyer_tram.png'),
+          url('/img/bg-img/flyer_wood.png'),
+          url('/img/bg-img/flyer_zippo.png');
+        background-size: 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto, 120px auto;
+        background-position: 
+          5% 10%, 25% 5%, 45% 15%, 65% 8%, 85% 12%,
+          10% 85%, 30% 90%, 50% 88%, 70% 92%, 90% 87%,
+          15% 50%, 75% 48%;
+        background-repeat: no-repeat;
+        opacity: 0.08;
+        filter: blur(2px) grayscale(0.3);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .shows-section-wrapper > * {
+        position: relative;
+        z-index: 1;
+      }
+      /* Show Card Layout */
+      .show-cards-container {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        margin: 20px auto;
+        max-width: 1100px;
+        align-items: start;
+      }
+      .show-card:nth-child(1) {
+        grid-column: 1;
+      }
+      .show-card {
+        position: relative;
+        background: linear-gradient(145deg, rgba(0,200,255,0.15), rgba(0,80,140,0.3));
+        border: 2px solid rgba(0,200,255,0.35);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(0,200,255,0.2);
+        transition: all 0.3s ease;
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .show-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(0,200,255,0.6);
+        box-shadow: 0 16px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0,200,255,0.35);
+      }
+      .show-card-flyer {
+        width: 100%;
+        flex: 1;
+        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .show-card-flyer img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 12px rgba(0,200,255,0.35));
+        transition: transform 0.3s ease;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .show-card:hover .show-card-flyer img {
+        transform: scale(1.05);
+      }
+      .show-card-info {
+        padding: 28px;
+        color: #dff8ff;
+      }
+      .show-card-title {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+        text-shadow: 0 0 10px rgba(0,200,255,0.6);
+      }
+      .show-card-day {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.95rem;
+        color: #9fd8ff;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+      .show-card-desc {
+        font-family: 'EB Garamond', serif;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        opacity: 0.95;
+      }
+      .show-card-footer {
+        padding: 12px 20px;
+        background: rgba(0,200,255,0.08);
+        border-top: 1px solid rgba(0,200,255,0.2);
+        text-align: center;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.85rem;
+        color: #9fd8ff;
+        letter-spacing: 1px;
+      }
+      /* Branding Header for Schedule */
+      .schedule-hero {
+        text-align: center;
+        margin: 20px auto 10px auto;
+        max-width: 900px;
+      }
+      .schedule-hero-logos {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 20px;
+      }
+      .logo-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo-item.logo-link {
+        text-decoration: none;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+      .logo-item.logo-link:hover {
+        transform: scale(1.08);
+      }
+      .logo-item img {
+        max-height: 90px;
+        width: auto;
+        filter: drop-shadow(0 0 8px rgba(0,200,255,0.4));
+        transition: filter 0.3s ease;
+      }
+      .logo-item.logo-link:hover img {
+        filter: drop-shadow(0 0 16px rgba(0,200,255,0.8)) brightness(1.2);
+      }
+      .logo-item:nth-child(2) img {
+        max-height: 110px;
+      }
+      .logo-item:nth-child(3) img {
+        max-height: 80px;
+      }
+      .schedule-hero-logos:last-of-type .logo-item img {
+        max-height: 90px;
+      }
+      .logo-label {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.75rem;
+        color: #9fd8ff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .schedule-hero-title {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 2.2rem;
+        color: #9fd8ff;
+        letter-spacing: 3px;
+        text-shadow: 0 0 18px rgba(0,200,255,0.7), 0 0 30px rgba(0,140,200,0.3);
+        margin-bottom: 10px;
+      }
+      .schedule-hero-sub {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 1rem;
+        color: #dff8ff;
+        letter-spacing: 2px;
+      }
+      /* Collage Gallery */
+      .collage-gallery-section {
+        margin: 60px auto 40px auto;
+        max-width: 900px;
+      }
+      .collage-title {
+        text-align: center;
+        font-family: 'Cinzel Decorative', serif;
+        color: #9fd8ff;
+        letter-spacing: 2px;
+        font-size: 1.3rem;
+        margin: 0 auto 24px auto;
+        text-shadow: 0 0 12px rgba(0,200,255,0.7);
+      }
+      .collage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+      }
+      .collage-item {
+        position: relative;
+        aspect-ratio: 3/4;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 16px rgba(0,200,255,0.22);
+        border: 1px solid rgba(0,200,255,0.35);
+        cursor: pointer;
+        transition: all 0.25s ease;
+        background: radial-gradient(circle at 30% 30%, rgba(0,200,255,0.08), rgba(0,40,70,0.75));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .collage-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.75), 0 0 24px rgba(0,200,255,0.4);
+        border-color: rgba(0,200,255,0.6);
+      }
+      .collage-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        filter: drop-shadow(0 0 8px rgba(0,200,255,0.25));
+      }
+      /* Branding Belt - Auto-scrolling Flyer Carousel */
+      .branding-belt {
+        position: relative;
+        margin: 30px 0 60px 0;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(90deg, rgba(0,200,255,0.06), rgba(0,255,220,0.1), rgba(0,200,255,0.06));
+        border-top: 1px solid rgba(0,200,255,0.25);
+        border-bottom: 1px solid rgba(0,200,255,0.25);
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0,200,255,0.15), inset 0 0 10px rgba(0,200,255,0.05);
+      }
+      .branding-belt::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          rgba(0,200,255,0.1) 2px,
+          transparent 4px,
+          transparent 50px
+        );
+        pointer-events: none;
+        z-index: 2;
+      }
+      .branding-belt::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(5,5,5,0.8) 0%, transparent 15%, transparent 85%, rgba(5,5,5,0.8) 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .belt-scroll {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        animation: scrollBelt 40s linear infinite;
+        gap: 80px;
+        padding: 0 50px;
+        position: relative;
+        z-index: 0;
+      }
+      @keyframes scrollBelt {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .belt-scroll img {
+        height: 140px;
+        width: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 0 12px rgba(0,200,255,0.6)) brightness(1.1);
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: filter 0.2s ease;
+      }
+      .belt-scroll img:hover {
+        filter: drop-shadow(0 0 18px rgba(0,200,255,0.9)) brightness(1.3);
+      }
+      /* Modal for zoomed flyer */
+      .flyer-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        animation: fadeInModal 0.3s ease;
+      }
+      .flyer-modal.active {
+        display: flex;
+      }
+      @keyframes fadeInModal {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+      .flyer-modal-content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        animation: zoomInFlyer 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes zoomInFlyer {
+        0% { transform: scale(0.3) translateY(20px); opacity: 0; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+      }
+      .flyer-modal-content img {
+        width: 100%;
+        height: auto;
+        max-height: 85vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 0 50px rgba(0,200,255,0.6);
+      }
+      .flyer-modal-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        background: none;
+        border: none;
+        color: #dff8ff;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10000;
+        transition: color 0.2s ease;
+      }
+      .flyer-modal-close:hover {
+        color: #0ff;
+      }
+      /* Offline Twitch Section */
+      .offline-section {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.1), rgba(0,80,140,0.15));
+        border: 2px solid rgba(0,200,255,0.3);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 30px rgba(0,200,255,0.15);
+      }
+      .offline-section h3 {
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 1.5rem;
+        color: #dff8ff;
+        letter-spacing: 2px;
+        text-shadow: 0 0 12px rgba(0,200,255,0.6);
+        margin-bottom: 12px;
+      }
+      .offline-section p {
+        font-family: 'EB Garamond', serif;
+        font-size: 1rem;
+        color: #9fd8ff;
+        margin-bottom: 28px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+      .offline-links {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .offline-link-btn {
+        padding: 14px 28px;
+        background: linear-gradient(145deg, rgba(0,200,255,0.25), rgba(0,120,160,0.35));
+        border: 2px solid rgba(0,200,255,0.5);
+        border-radius: 12px;
+        color: #dff8ff;
+        text-decoration: none;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(0,200,255,0.2);
+        text-transform: uppercase;
+      }
+      .offline-link-btn:hover {
+        transform: translateY(-3px);
+        background: linear-gradient(145deg, rgba(0,200,255,0.35), rgba(0,120,160,0.45));
+        border-color: rgba(0,200,255,0.7);
+        box-shadow: 0 8px 25px rgba(0,200,255,0.4);
+        color: #0ff;
+      }
+      @media (max-width: 640px) {
+        .show-cards-container {
+          grid-template-columns: 1fr;
+        }
+        .branding-belt {
+          gap: 24px;
+        }
+        .schedule-hero-logos {
+          gap: 16px;
+        }
+        .collage-grid {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
+      }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header-area">
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+                        <a href="/index.html" class="nav-brand nav-brand-text">DJ NOPHEROS</a>
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <div class="classy-menu">
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/index.html">Home</a></li>
+                                    <li><a href="#">DJ</a>
+                                        <ul class="dropdown">
+                                            <li><a href="/dj.html">DJ Page</a></li>
+                                            <li><a href="https://www.youtube.com/@Nopheros" target="_blank">YouTube VODs</a></li>
+                                            <li><a href="https://www.twitch.tv/nopheros" target="_blank">Twitch</a></li>
+                                            <li><a href="https://archive.org/details/@nopheros" target="_blank">Show Archives</a></li>
+                                            <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/broadcaster.html">Broadcaster</a></li>
+                                    <li><a href="/voice-actor.html">Voice Actor</a></li>
+                                    <li><a href="/writer.html">Writer</a></li>
+                                    <li><a href="#">About Me</a>
+                                        <ul class="dropdown">
+                                            <li><a href="/aboutme.html">The story so far</a></li>
+                                            <li><a href="https://linktr.ee/nopheros" target="_blank">Socials</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="rune-rain"></div>
+    <main class="page-main">
+      <a class="schedule-float" href="#schedule-overview">Schedule Overview</a>
+      <div class="container">
+        <h1>BROADCASTER</h1>
+        <div class="hero-title">PILGRIM OF THE SIGNAL</div>
+        <div class="hero-sub">SIGNAL PILGRIM NOPHEROS</div>
+        <div id="live-status" class="status-badge status-offline">
+          <span class="status-dot"></span>
+          <span class="status-text">OFFLINE — FOLLOW FOR LIVE ALERTS</span>
+        </div>
+        <!-- SCHEDULE HERO WITH BRANDING -->
+        <section id="schedule-overview" class="schedule-hero">
+          <div class="schedule-hero-logos">
+            <div class="logo-item">
+              <img src="/img/core-img/elbc_logo.png" alt="ELBC Everlook Logo">
+              <div class="logo-label">Everlook Broadcasting</div>
+            </div>
+            <div class="logo-item">
+              <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros Logo">
+              <div class="logo-label">DJ Nopheros</div>
+            </div>
+            <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="logo-item logo-link">
+              <img src="/img/core-img/twitch_logo.ico" alt="Twitch">
+              <div class="logo-label">Twitch</div>
+            </a>
+          </div>
+          <div class="schedule-hero-title">ROTATING SHOWS</div>
+          <div class="schedule-hero-sub">TUNE IN FOR THE SIGNAL</div>
+        </section>
+
+        <!-- SHOWS SECTION WITH BACKGROUND MOSAIC -->
+        <div class="shows-section-wrapper">
+          <!-- FLAGSHIP SHOWS WITH FLYERS -->
+          <div class="show-cards-container">
+          <div class="show-card">
+            <div class="show-card-flyer">
+              <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab with DJ Nopheros">
+            </div>
+            <div class="show-card-info">
+              <div class="show-card-title">Weekly Therapy with Dr. Nopheros at the Treehab</div>
+              <div class="show-card-day">Every Saturday — 1:00 PM EST</div>
+              <div class="show-card-desc">An earlier time during the day, and during the week! That same Signal Pilgrim music taste just at a time a little closer to your evenin' bangers n' mash hour, or 2nd dinner.<br><br>This dwarf wants to invade all of your green spaces and he will travel Azeroth to find them. Will Arch Druid Bob Marley make an experience? Mel B?<br><br>By Golly, I hope so!</div>
+            </div>
+          </div>
+
+          <div class="show-card">
+            <div class="show-card-flyer">
+              <img src="/img/bg-img/flyer_pots.jpg" alt="Pilgrim of the Signal">
+            </div>
+            <div class="show-card-info">
+              <div class="show-card-title">Pilgrim of the Signal</div>
+              <div class="show-card-day">Every Friday — 08:00 PM EST</div>
+              <div class="show-card-desc">Industrial rhythms. Darkwave noise. Tales from the wildest corners of Azeroth.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BRANDING BELT - AUTO-SCROLLING FLYER CAROUSEL -->
+        <div class="branding-belt">
+          <div class="belt-scroll">
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+            <!-- Duplicate for seamless loop -->
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+          </div>
+        </div>
+        </div>
+        <!-- END SHOWS SECTION WRAPPER -->
+
+        <!-- DISCLAIMER -->
+        <div class="scroll-wrapper">
+          <div class="scroll" style="background: linear-gradient(145deg, rgba(139, 90, 43, 0.1), rgba(30, 60, 90, 0.15)); border-color: rgba(200, 150, 100, 0.3);">
+            <p style="font-size: 0.95rem; color: #c9a771; line-height: 1.7; margin: 0;">
+              <b style="color: #d4b896;">⚠ WARNING FROM THE TOWER:</b> This broadcast may contain goblin slang and explicit language. Listener discretion is advised, especially for low-level ears.<br><br>
+              Community DJ and streamer producing independent media content; not affiliated with Blizzard Entertainment and not involved in game distribution, servers, mods, or installation assistance.
+            </p>
+          </div>
+        </div>
+
+        <!-- BRANDING BELT - AUTO-SCROLLING FLYER CAROUSEL -->
+        <div class="branding-belt">
+          <div class="belt-scroll">
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+            <!-- Duplicate for seamless loop -->
+            <img src="/img/bg-img/flyer_accident.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_china.jpg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_corpo.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_dayoff.png" alt="Show Flyer">
+            <img src="/img/bg-img/ELBC Treehab Flyer 2026.png" alt="Treehab Flyer">
+            <img src="/img/bg-img/flyer_fashionfiesta.jpeg" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_karazhan.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_labuburave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_metalshow.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_raidrave.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_sa.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tapes.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_tram.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_wood.png" alt="Show Flyer">
+            <img src="/img/bg-img/flyer_zippo.png" alt="Show Flyer">
+          </div>
+        </div>
+
+        <!-- FLYER ZOOM MODAL -->
+        <div id="flyer-modal" class="flyer-modal">
+          <div class="flyer-modal-content">
+            <button class="flyer-modal-close">&times;</button>
+            <img id="flyer-modal-img" src="" alt="Show Flyer">
+          </div>
+        </div>
+
+        <!-- TWITCH SECTION -->
+        <div id="twitch-embed-container" style="margin: 50px auto 40px auto; text-align:center; max-width: 900px;"></div>
+
+        <!-- SCROLL: EVERLOOK BROADCASTING -->
+        <div class="scroll-wrapper">
+          <div class="scroll">
+            <h2>Everlook Broadcasting Co.</h2>
+            <div class="scroll-subtitle">Pilgrim of the Signal</div>
+            <p>Nopheros, an architect of atmosphere. A Digital Sherpa traveling the virtual hills, curating music, knowledge, and an insatiable creativity. A DJ that walks both the Real and Digital.<br><br>
+            Starting in the virtual worlds of <b>Anarchy Online</b>, <b>The Matrix Online</b>, and <b>World of Warcraft</b>, this DJ crossed realms, finding sanctuary in Providence, Rhode Island and Boston, Massachusetts at night clubs such as Club Hell, Alchemy, Ego, Xmortis, Darq, Jaded, Kink, and more.<br><br>
+            Combining these realms the deck became a storytelling canvas. Nopheros weaves textures of rhythm and emotion, guiding the crowd through waves of tension and release. By the end of the night the audience leaves holding more than memories. They carry an experience and a story. That journey starts with booking DJ Nopheros.<br><br>
+            <b>Everlook Broadcasting Co.</b> is the premier radio and event platform for <b>Turtle WoW</b>, bringing live music, talk shows, and in-game events to the world of Azeroth. As a broadcaster, Nopheros hosts <b>Pilgrim of the Signal</b> and other unique shows, blending MMO culture with real DJ energy. Tune in for bi-weekly live shows, special event broadcasts, and more adventures from the wildest corners of Azeroth.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-md-4">
+                    <a href="/index.html" class="footer-brand">DJ NOPHEROS</a>
+                    <p class="copywrite-text">Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | You're gonna carry that weight</p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="footer-nav">
+                        <ul>
+                            <li><a href="/index.html">home</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4" style="text-align: center;">
+                    <a href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener" style="display: inline-block; color: #9fd8ff; text-decoration: none; font-family: 'Share Tech Mono', monospace; letter-spacing: 1px; font-size: 0.9rem; transition: color 0.2s ease;">📡 JOIN THE SIGNAL ON DISCORD</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/plugins/plugins.js"></script>
+    <script src="js/active.js"></script>
+    <script>
+      // Twitch embed logic - using Helix API with free public approach
+      function checkTwitchLive(channel, callback) {
+        // Uses Twitch Helix API. For free usage:
+        // 1. Go to https://dev.twitch.tv/console/apps
+        // 2. Create an application (OAuth Client ID)
+        // 3. Replace CLIENT_ID_HERE with your Client ID
+        // For testing without API key, defaults to embedded mode which auto-detects
+        const clientId = 'l4hsedavjavi22gqavdx0t4q1wjhlw'; // Your Client ID from dev.twitch.tv
+        const accessToken = ''; // Optional: for better rate limits
+        
+        if (!clientId || clientId === 'YOUR_TWITCH_CLIENT_ID') {
+          // Fallback: Use embedded iframe which auto-detects live status
+          callback(null); // null = use embedded mode
+          return;
+        }
+        
+        fetch(`https://api.twitch.tv/helix/streams?user_login=${channel}`, {
+          headers: {
+            'Client-ID': clientId,
+            'Authorization': accessToken ? `Bearer ${accessToken}` : ''
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          callback(data.data && data.data.length > 0);
+        })
+        .catch(() => {
+          // On error, default to embedded mode which auto-detects
+          callback(null);
+        });
+      }
+      function renderTwitchSection(isLive) {
+        const container = document.getElementById('twitch-embed-container');
+        const statusEl = document.getElementById('live-status');
+        
+        // If isLive is null, use embedded player which auto-detects live status
+        if (isLive === null) {
+          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
+          // Auto-detection happens via the iframe
+          return;
+        }
+        
+        if (isLive) {
+          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
+          if (statusEl) {
+            statusEl.classList.remove('status-offline');
+            statusEl.innerHTML = `<span class="status-dot"></span><span class="status-text">LIVE NOW — WATCH THE SIGNAL</span>`;
+          }
+        } else {
+          container.innerHTML = '';
+          if (statusEl) {
+            statusEl.classList.add('status-offline');
+            statusEl.innerHTML = `
+              <div class="offline-section" style="max-width: none; margin: 0; padding: 30px; border-radius: 12px;">
+                <h3 style="margin-bottom: 16px;">SIGNAL INTERRUPTED</h3>
+                <p style="margin-bottom: 20px;">The broadcast is currently offline. Check back for live shows or explore past streams and recordings.</p>
+                <div class="offline-links">
+                  <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
+                  <a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener" class="offline-link-btn">Watch VODs</a>
+                </div>
+              </div>
+            `;
+          }
+        }
+      }
+      checkTwitchLive('nopheros', renderTwitchSection);
+      
+      // Flyer zoom modal functionality
+      const modal = document.getElementById('flyer-modal');
+      const modalImg = document.getElementById('flyer-modal-img');
+      const closeBtn = document.querySelector('.flyer-modal-close');
+      const beltImages = document.querySelectorAll('.belt-scroll img');
+      
+      beltImages.forEach(img => {
+        img.addEventListener('click', function(e) {
+          e.stopPropagation();
+          modalImg.src = this.src;
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+      
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+      
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          modal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    </script>
+</body>
+</html>
