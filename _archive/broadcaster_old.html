@@ -842,7 +842,7 @@
                                         <ul class="dropdown">
                                             <li><a href="/dj.html">DJ Page</a></li>
                                             <li><a href="https://www.youtube.com/@Nopheros" target="_blank">YouTube VODs</a></li>
-                                            <li><a href="https://www.twitch.tv/nopheros" target="_blank">Twitch</a></li>
+                                            <li><a href="https://www.twitch.tv/noferos" target="_blank">Twitch</a></li>
                                             <li><a href="https://archive.org/details/@nopheros" target="_blank">Show Archives</a></li>
                                             <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
                                         </ul>
@@ -888,7 +888,7 @@
               <img src="/video/nopheros_glitchlogo_transparent.gif" alt="Nopheros Logo">
               <div class="logo-label">DJ Nopheros</div>
             </div>
-            <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="logo-item logo-link">
+            <a href="https://www.twitch.tv/noferos" target="_blank" rel="noopener" class="logo-item logo-link">
               <img src="/img/core-img/twitch_logo.ico" alt="Twitch">
               <div class="logo-label">Twitch</div>
             </a>
@@ -1099,13 +1099,13 @@
         
         // If isLive is null, use embedded player which auto-detects live status
         if (isLive === null) {
-          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
+          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=noferos&parent=${window.location.hostname}" allowfullscreen></iframe>`;
           // Auto-detection happens via the iframe
           return;
         }
         
         if (isLive) {
-          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=nopheros&parent=${window.location.hostname}" allowfullscreen></iframe>`;
+          container.innerHTML = `<iframe class="twitch-embed" src="https://player.twitch.tv/?channel=noferos&parent=${window.location.hostname}" allowfullscreen></iframe>`;
           if (statusEl) {
             statusEl.classList.remove('status-offline');
             statusEl.innerHTML = `<span class="status-dot"></span><span class="status-text">LIVE NOW — WATCH THE SIGNAL</span>`;
@@ -1119,7 +1119,7 @@
                 <h3 style="margin-bottom: 16px;">SIGNAL INTERRUPTED</h3>
                 <p style="margin-bottom: 20px;">The broadcast is currently offline. Check back for live shows or explore past streams and recordings.</p>
                 <div class="offline-links">
-                  <a href="https://www.twitch.tv/nopheros" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
+                  <a href="https://www.twitch.tv/noferos" target="_blank" rel="noopener" class="offline-link-btn">Visit Twitch Channel</a>
                   <a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener" class="offline-link-btn">Watch VODs</a>
                 </div>
               </div>
@@ -1127,7 +1127,7 @@
           }
         }
       }
-      checkTwitchLive('nopheros', renderTwitchSection);
+      checkTwitchLive('noferos', renderTwitchSection);
       
       // Flyer zoom modal functionality
       const modal = document.getElementById('flyer-modal');
