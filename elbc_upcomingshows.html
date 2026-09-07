@@ -17,8 +17,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- FullCalendar CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css" rel="stylesheet">
+    <!-- FullCalendar 6 injects its own CSS via the JS bundle; no separate stylesheet needed -->
 
     <style>
       html, body { background-color: #000 !important; color: #fff; }
@@ -78,9 +77,9 @@
                                     <li><a href="#">DJ</a>
                                         <ul class="dropdown">
                                             <li><a href="/dj.html">DJ Page</a></li>
-                                            <li><a href="https://www.youtube.com/@Nopheros" target="_blank">YouTube VODs</a></li>
-                                            <li><a href="https://www.twitch.tv/noferos" target="_blank">Twitch</a></li>
-                                            <li><a href="https://archive.org/details/@nopheros" target="_blank">Show Archives</a></li>
+                                            <li><a href="https://www.youtube.com/@Nopheros" target="_blank" rel="noopener">YouTube VODs</a></li>
+                                            <li><a href="https://www.twitch.tv/noferos" target="_blank" rel="noopener">Twitch</a></li>
+                                            <li><a href="https://archive.org/details/@nopheros" target="_blank" rel="noopener">Show Archives</a></li>
                                             <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
                                         </ul>
                                     </li>
@@ -90,7 +89,7 @@
                                     <li><a href="#">About Me</a>
                                         <ul class="dropdown">
                                             <li><a href="/aboutme.html">The story so far</a></li>
-                                            <li><a href="https://linktr.ee/nopheros" target="_blank">Socials</a></li>
+                                            <li><a href="https://linktr.ee/nopheros" target="_blank" rel="noopener">Socials</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="mailto:nopheros.media@gmail.com?subject=Booking%20Inquiry%20-%20DJ%20Nopheros" onclick="window.open(this.href); return false;">Bookings</a></li>
@@ -165,14 +164,23 @@
         <script src="js/plugins/plugins.js"></script>
         <script src="js/active.js"></script>
 
-        <!-- FullCalendar JS -->
-        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+        <!-- FullCalendar JS (Subresource Integrity pinned) -->
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"
+                integrity="sha384-LjuMvep2w70bTtVscyL+xkqhYr7Y0kTM4t5cwWMy0xOTfl5duHb7MnP6K3J3/4Mk"
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script>
           (function(){
             // Google Calendar public iCal feed URL (no API key needed, no CORS issues)
             const ICAL_URL = 'https://calendar.google.com/calendar/ical/3ca3313af031d22bb22859954819396567d21792510e9c26151fdbfee803ffb5%40group.calendar.google.com/public/basic.ics';
-            const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/u/2?cid=M2NhMzMxM2FmMDMxZDIyYmIyMjg1OTk1NDgxOTM5NjU2N2QyMTc5MjUxMGU5YzI2MTUxZmRiZmVlODAzZmZiNUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t';
+            const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/r?cid=M2NhMzMxM2FmMDMxZDIyYmIyMjg1OTk1NDgxOTM5NjU2N2QyMTc5MjUxMGU5YzI2MTUxZmRiZmVlODAzZmZiNUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t';
+
+            // Escape text pulled from the external calendar feed before it is placed in markup
+            function escapeHtml(str){
+              return String(str).replace(/[&<>"']/g, function(c){
+                return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+              });
+            }
 
             const tzSelect = document.getElementById('tzSelect');
             const tzOther = document.getElementById('tzOther');
@@ -253,8 +261,7 @@
                 if(!response.ok) throw new Error(`Failed to fetch calendar: ${response.status}`);
 
                 const icalText = await response.text();
-                console.log('iCal data retrieved, length:', icalText.length);
-                
+
                 // Parse iCal events
                 const events = [];
                 const eventRegex = /BEGIN:VEVENT([\s\S]*?)END:VEVENT/g;
@@ -319,12 +326,9 @@
                         location: location
                       }
                     });
-                    
-                    console.log('Parsed event:', title, 'Start:', start);
                   }
                 }
-                
-                console.log('Total events parsed:', events.length);
+
                 return events;
               } catch(err){
                 console.error('Error parsing iCal:', err);
@@ -355,14 +359,14 @@
                   events: events,
                   eventDisplay: 'block',
                   eventContent: function(arg) {
-                    const title = arg.event.title;
+                    const title = escapeHtml(arg.event.title);
                     let details = '';
                     if(arg.event.extendedProps.location) {
-                      details += `<div style="font-size:0.8rem; opacity:0.9;">${arg.event.extendedProps.location}</div>`;
+                      details += `<div style="font-size:0.8rem; opacity:0.9;">${escapeHtml(arg.event.extendedProps.location)}</div>`;
                     }
                     if(arg.event.start && arg.event.start.toLocaleTimeString) {
                       const time = arg.event.start.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
-                      details += `<div style="font-size:0.8rem; opacity:0.85;">${time}</div>`;
+                      details += `<div style="font-size:0.8rem; opacity:0.85;">${escapeHtml(time)}</div>`;
                     }
                     return { html: `<strong>${title}</strong>${details}` };
                   }

@@ -1,0 +1,4 @@
+# Editor / OS cruft — not part of the published site
+.vscode/
+.DS_Store
+Thumbs.db

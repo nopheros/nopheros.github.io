@@ -14,8 +14,12 @@ Nothing on the live site links to these files.
 | `login.html` | Leftover Colorlib template page |
 | `event.html` | Leftover Colorlib template page; nav linked to `latest.html`, `spotify.html`, `patreon.html` which never existed |
 | `broadcaster_old.html` | Superseded by the rebuilt `broadcaster.html` (kept as a backup) |
+| `anchor-template.html` | Scaffold for building new skill pages — kept for reference, not a live page |
+| `VOICE_ACTOR_PAGE_GUIDE.md` | Internal planning notes for `voice-actor.html` — not meant to be public |
 
 To restore one, `git mv _archive/<file> <file>` and re-link it from the nav.
+Note: `anchor-template.html` uses relative asset paths (`style.css`, `js/…`) that
+only resolve from the site root, so fix those if you copy it back out.
 
 > Note: if you ever add a `.nojekyll` file to the repo root, Jekyll processing is
 > disabled and this folder **would** become publicly served. In that case move
