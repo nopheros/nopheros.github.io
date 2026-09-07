@@ -1981,3 +1981,22 @@ img {
     opacity: 0 !important;
 }
 /* ===== END NOPHEROS PRELOADER FIX ===== */
+
+/* ===== NOPHEROS MOBILE FIXES ===== */
+/* Media never forces horizontal overflow */
+img, video {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    /* index.html: the -100px pull-up hides the first nav button under the hero on phones */
+    .nav-button-area {
+        margin-top: 0 !important;
+        padding-top: 32px !important;
+    }
+    /* embedded players stay inside the viewport */
+    iframe {
+        max-width: 100%;
+    }
+}
+/* ===== END NOPHEROS MOBILE FIXES ===== */

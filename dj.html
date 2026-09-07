@@ -80,7 +80,7 @@
       /* Two-column layout: Pitch | Reel */
       .dj-content-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         column-gap: 32px;
         row-gap: 40px;
         align-items: stretch;
@@ -198,6 +198,7 @@
         position: relative;
         border-radius: 16px;
         overflow: hidden;
+        max-width: 100%;
         aspect-ratio: 3/4;
         box-shadow: 0 14px 34px rgba(0,0,0,0.6), 0 0 16px rgba(0,200,255,0.15);
         border: 2px solid rgba(0,200,255,0.4);
@@ -449,7 +450,7 @@
       /* Responsive */
       @media (max-width: 992px) {
         .dj-content-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
           row-gap: 40px;
           column-gap: 0;
         }
@@ -581,12 +582,7 @@
           
           <!-- Performance Reel -->
           <div class="dj-reel-wrapper">
-            <video 
-              autoplay 
-              muted 
-              loop 
-              playsinline
-              poster="/video/nopheros_djbanner.mp4">
+            <video autoplay muted loop playsinline preload="metadata">
               <source src="/video/nopheros_djbanner.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>

@@ -14,10 +14,18 @@
     <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
     <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
 
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
     <style>
       html, body { background-color: #000 !important; color: #00d4ff; }
-      .contact-area { background-color: #000 !important; background-image: none !important; padding: 80px 20px !important; }
-      .section-heading h2 { color: #00d4ff !important; text-shadow: 0 0 10px rgba(0, 212, 255, 0.6); }
+      .contact-area { background-color: #000 !important; background-image: none !important; padding: 140px 20px 80px !important; }
+      .section-heading h2 { color: #00d4ff !important; font-size: 2.4rem; margin-bottom: 40px; text-shadow: 0 0 10px rgba(0, 212, 255, 0.6); }
+      @media (max-width: 768px) {
+        .contact-area { padding: 110px 16px 60px !important; }
+        .section-heading h2 { font-size: 1.8rem; margin-bottom: 28px; }
+        .contact-social-area { margin-top: 24px; }
+      }
       .contact-form-area { background: rgba(10, 20, 30, 0.8) !important; border: 1px solid rgba(0, 212, 255, 0.3) !important; padding: 30px; border-radius: 4px; box-shadow: 0 0 15px rgba(0, 212, 255, 0.15); }
       .form-control { background-color: rgba(10, 20, 30, 0.9) !important; border: 1px solid rgba(0, 212, 255, 0.3) !important; color: #00d4ff !important; }
       .form-control::placeholder { color: rgba(0, 212, 255, 0.5) !important; }

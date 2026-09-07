@@ -16,6 +16,7 @@ Nothing on the live site links to these files.
 | `broadcaster_old.html` | Superseded by the rebuilt `broadcaster.html` (kept as a backup) |
 | `anchor-template.html` | Scaffold for building new skill pages — kept for reference, not a live page |
 | `VOICE_ACTOR_PAGE_GUIDE.md` | Internal planning notes for `voice-actor.html` — not meant to be public |
+| `OOBE_refined_lockup_white.png` | "Out of Bounds Entertainment" logo — the branding was removed from `broadcaster.html` (station is now "Tower 3") |
 
 To restore one, `git mv _archive/<file> <file>` and re-link it from the nav.
 Note: `anchor-template.html` uses relative asset paths (`style.css`, `js/…`) that

@@ -21,17 +21,17 @@
 
     <style>
       html, body { background-color: #000 !important; color: #fff; }
-      .page-main { padding: 120px 0; text-align: center; }
+      .page-main { padding: 120px 20px; text-align: center; }
       .page-main h1 { color: #fff; letter-spacing: 6px; font-family: "Archivo Narrow", sans-serif; font-weight:700; }
       .page-main p { color: #dcdcdc; max-width: 900px; margin: 0 auto 40px; line-height:1.8; }
       .calendar-wrap { display:flex; justify-content:center; width:100%; }
       .calendar-container { width:100%; max-width:1000px; margin:0 auto; }
-      #calendar { background:#111; border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:20px; }
-      .tz-controls { display:inline-flex; justify-content:center; gap:0; align-items:center; margin-bottom:30px; flex-wrap:nowrap; }
+      #calendar { background:#111; border:1px solid rgba(255,255,255,0.06); border-radius:6px; padding:20px; overflow-x:auto; }
+      .tz-controls { display:flex; justify-content:center; gap:10px; align-items:center; margin-bottom:30px; flex-wrap:wrap; }
       .tz-controls > * { margin:0; }
       .tz-controls label { margin-right:8px; }
-      .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; margin:0; }
-      .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; margin:0 0 0 8px; }
+      .tz-controls select, .tz-controls input { background:#111; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:8px 10px; border-radius:6px; margin:0; max-width:100%; }
+      .tz-controls .oneMusic-btn { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; padding:8px 12px; border-radius:6px; cursor:pointer; margin:0; }
       /* FullCalendar dark theme overrides */
       .fc { font-family: "Archivo Narrow", sans-serif; }
       .fc-button-primary { background-color:#333; border-color:#555; }
@@ -52,6 +52,12 @@
       #calendar-loading { color:#ddd; padding:40px; text-align:center; }
       #calendar-error { color:#ff6b6b; padding:40px; text-align:center; }
       @media (max-width: 991px){ #calendar { padding:15px; } }
+      @media (max-width: 600px){
+        .page-main { padding: 96px 14px 60px; }
+        .page-main h1 { font-size: 1.6rem; letter-spacing: 3px; }
+        .page-main p { font-size: 0.95rem; }
+        .tz-controls label { width: 100%; margin: 0 0 4px; }
+      }
       @media (max-width: 480px){ #calendar { padding:10px; } }
     </style>
 </head>

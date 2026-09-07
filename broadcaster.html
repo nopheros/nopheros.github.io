@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Out of Bounds Entertainment - 24/7 radio signal by DJ Nopheros.">
+  <meta name="description" content="Tower 3 - 24/7 radio signal by DJ Nopheros.">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -65,8 +65,6 @@
     }
 
     .hero-shell,
-    .radio-shell,
-    .actions-shell,
     .legacy-shell {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -77,8 +75,6 @@
     }
 
     .hero-shell::before,
-    .radio-shell::before,
-    .actions-shell::before,
     .legacy-shell::before {
       content: '';
       position: absolute;
@@ -113,10 +109,6 @@
     }
 
     .hero-top {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-      align-items: start;
       margin-bottom: 24px;
     }
 
@@ -128,41 +120,10 @@
       max-width: 62ch;
     }
 
-    .hero-brand {
-      display: grid;
-      justify-items: center;
-      gap: 10px;
-      text-align: center;
-    }
-
-    .hero-brand img {
-      width: min(92%, 340px);
-      height: auto;
-      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
-      border-radius: 8px;
-    }
-
-    .brand-caption {
-      font-family: 'Chakra Petch', sans-serif;
-      letter-spacing: 2px;
-      font-size: 0.78rem;
-      color: #9ad4e8;
-      text-transform: uppercase;
-    }
-
     .hero-divider {
       border: none;
       border-top: 1px solid rgba(100, 190, 230, 0.2);
       margin: 0 0 22px;
-    }
-
-    @media (max-width: 1040px) {
-      .hero-top {
-        grid-template-columns: 1fr;
-      }
-      .hero-brand {
-        display: none;
-      }
     }
 
     .status-row {
@@ -337,6 +298,9 @@
 
     /* ---- Player redesign: hidden native audio, custom controls ---- */
     #tower3-audio { display: none; }
+    /* Suppress the site-wide audioPlayer plugin widget (active.js) on this
+       page — the broadcaster uses its own custom transport below. */
+    .player-box .audioplayer { display: none !important; }
 
     .player-header-row {
       display: flex;
@@ -454,65 +418,26 @@
       margin-top: 4px;
     }
 
-    .actions-shell {
-      max-width: 1080px;
-      margin: 0 auto 28px;
-      padding: 24px;
-    }
-
-    .actions-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .action-card {
-      border: 1px solid rgba(130, 200, 230, 0.3);
-      border-radius: 12px;
-      padding: 16px;
-      background: rgba(8, 16, 23, 0.72);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.16s ease, border-color 0.16s ease;
-      min-height: 152px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .action-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(70, 190, 240, 0.72);
-    }
-
-    .action-kicker {
-      color: #8ec7db;
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 0.74rem;
-      letter-spacing: 1.1px;
-      text-transform: uppercase;
-    }
-
-    .action-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
-      color: #e4f7ff;
-      letter-spacing: 0.8px;
-      margin: 6px 0;
-    }
-
-    .action-copy {
-      margin: 0;
-      color: #b6deec;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.93rem;
-      line-height: 1.5;
-    }
-
     .legacy-shell {
       max-width: 1080px;
       margin: 0 auto;
       padding: 24px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      color: var(--ink-0);
+      margin: 0 0 6px;
+      text-shadow: 0 0 14px rgba(70, 185, 255, 0.32);
+    }
+
+    .section-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink-1);
+      font-size: 0.92rem;
+      margin: 0 0 18px;
     }
 
     .legacy-grid {
@@ -637,45 +562,54 @@
 
     @media (max-width: 1040px) {
       .hero-shell,
-      .radio-shell,
-      .actions-shell,
       .legacy-shell {
         max-width: 94vw;
       }
 
-      .hero-shell,
-      .radio-grid,
       .legacy-grid {
         grid-template-columns: 1fr;
       }
-
     }
 
     @media (max-width: 760px) {
+      .page-main {
+        padding: 96px 0 56px;
+      }
+
       .hero-title {
         font-size: 1.78rem;
       }
 
-      .actions-grid {
-        grid-template-columns: 1fr;
+      .hero-shell,
+      .legacy-shell {
+        padding: 22px 18px;
       }
 
       .poster-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .player-btn-row .player-btn {
+        min-width: calc(50% - 5px);
+      }
     }
 
     @media (max-width: 440px) {
+      .hero-title {
+        font-size: 1.5rem;
+      }
+
       .poster-grid {
         grid-template-columns: 1fr;
       }
 
       .hero-shell,
-      .radio-shell,
-      .actions-shell,
       .legacy-shell {
-        padding: 16px;
+        padding: 16px 14px;
+      }
+
+      .honor-badge {
+        flex: 1 1 100%;
       }
     }
   </style>
@@ -727,11 +661,10 @@
 
   <main class="page-main">
     <section class="hero-shell">
-      <!-- Top row: brand text + logo -->
       <div class="hero-top">
         <div>
           <div class="hero-kicker">24/7 RADIO</div>
-          <h1 class="hero-title">Out of Bounds Entertainment</h1>
+          <h1 class="hero-title">Tower 3</h1>
           <p class="hero-copy">
             The live relay point for Tower 3. Built by DJ Nopheros, carrying the spirit of Everlook Broadcasting into a continuous station for listeners in every time zone.
           </p>
@@ -757,18 +690,12 @@
             </div>
           </div>
           <div class="hero-cta">
-            <a class="btn-outline" href="https://www.outofbounds.live/" target="_blank" rel="noopener">OutOfBounds.live</a>
             <a class="btn-outline" href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener">Discord</a>
             <a class="btn-outline" href="https://www.twitch.tv/noferos" target="_blank" rel="noopener">Twitch</a>
           </div>
         </div>
-        <div class="hero-brand">
-          <img src="/OOBE_refined_lockup_white.png" alt="Out of Bounds Entertainment logo">
-          <div class="brand-caption">Signal Partner Brand</div>
-        </div>
       </div>
 
-      <!-- Divider -->
       <hr class="hero-divider">
 
       <!-- Player panel merged directly into hero -->
@@ -777,7 +704,7 @@
         <audio id="tower3-audio" preload="none" crossorigin="anonymous"></audio>
 
         <div class="player-header-row">
-          <p class="player-station-name">Tower 3 — Out of Bounds Entertainment</p>
+          <p class="player-station-name">Tower 3 — 24/7 Radio</p>
           <div id="live-status-player" class="status-pill offline" style="font-size:0.76rem;padding:5px 10px;">
             <span class="status-dot"></span>
             <span id="live-status-text-player">Offline</span>
@@ -809,39 +736,8 @@
       </div>
     </section>
 
-    <section class="actions-shell">
-      <h2 class="section-title">Forward Channels</h2>
-      <p class="section-sub">Jump directly into live platforms and community touchpoints.</p>
-      <div class="actions-grid">
-        <a class="action-card" href="https://www.outofbounds.live/" target="_blank" rel="noopener">
-          <div>
-            <div class="action-kicker">Primary Platform</div>
-            <div class="action-title">Out of Bounds Live</div>
-            <p class="action-copy">Launch the branded station site and additional stream controls.</p>
-          </div>
-          <div class="action-kicker">Visit Site</div>
-        </a>
-        <a class="action-card" href="https://www.twitch.tv/noferos" target="_blank" rel="noopener">
-          <div>
-            <div class="action-kicker">Live Broadcast</div>
-            <div class="action-title">Twitch Channel</div>
-            <p class="action-copy">Catch live sets, special events, and signal experiments in real time.</p>
-          </div>
-          <div class="action-kicker">Watch Stream</div>
-        </a>
-        <a class="action-card" href="https://discord.gg/2dFqMnrNdU" target="_blank" rel="noopener">
-          <div>
-            <div class="action-kicker">Community Relay</div>
-            <div class="action-title">Discord</div>
-            <p class="action-copy">Get alerts, event drops, and direct updates from the signal tower.</p>
-          </div>
-          <div class="action-kicker">Join Signal</div>
-        </a>
-      </div>
-    </section>
-
     <section class="legacy-shell">
-      <h2 class="section-title">Legacy Archive: Everlook to Out of Bounds</h2>
+      <h2 class="section-title">Legacy Archive</h2>
       <p class="section-sub">A memorial of broadcast years, event work, and world-built programming.</p>
       <div class="legacy-grid">
         <div>
@@ -863,7 +759,7 @@
             </li>
             <li>
               <span class="legacy-year">Current Chapter</span>
-              <span class="legacy-event">Out of Bounds Entertainment: a 24/7 relay with live DJ intersections and curated continuity.</span>
+              <span class="legacy-event">Tower 3: a 24/7 relay with live DJ intersections and curated continuity.</span>
             </li>
           </ul>
         </div>
@@ -1092,7 +988,8 @@
         if (!Array.isArray(arr)) return null;
         return arr.find(function(s) {
           var n = ((s && s.name) ? String(s.name) : '').toLowerCase();
-          return n.indexOf('tower 3') > -1 || n.indexOf('tower3') > -1 || n.indexOf('out of bounds') > -1;
+          // Match the Tower 3 series in the shared listener-dashboard feed.
+          return n.indexOf('tower 3') > -1 || n.indexOf('tower3') > -1;
         }) || null;
       }
 
@@ -1284,13 +1181,13 @@
       popoutBtn.addEventListener('click', function() {
         if (popoutWindow && !popoutWindow.closed) { popoutWindow.focus(); return; }
 
-        popoutWindow = window.open('', 'oobeTower3Player', 'width=430,height=290,resizable=yes');
+        popoutWindow = window.open('', 'tower3Player', 'width=430,height=290,resizable=yes');
         if (!popoutWindow) { showInfo('Pop-out blocked by browser', true); return; }
 
         var html = [
           '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">',
           '<meta name="viewport" content="width=device-width,initial-scale=1">',
-          '<title>Tower 3 — Out of Bounds</title>',
+          '<title>Tower 3</title>',
           '<style>body{margin:0;background:#07111a;color:#d9f6ff;font-family:system-ui,sans-serif;padding:14px;}',
           '.box{border:1px solid rgba(110,200,235,.4);border-radius:12px;padding:14px;background:rgba(8,18,26,.85);}',
           'h3{margin:0 0 6px;font-size:.95rem;}',
@@ -1303,7 +1200,7 @@
           'input[type=range]{flex:1;accent-color:#13f5d7;}',
           'audio{display:none;}</style></head><body>',
           '<div class="box">',
-          '<h3>Tower 3 — Out of Bounds</h3>',
+          '<h3>Tower 3</h3>',
           '<p id="popout-status" class="meta">Listeners: -- | Peak: --</p>',
           '<div class="np" id="popout-now-playing">Loading metadata…</div>',
           '<div class="row">',
