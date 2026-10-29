@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Tower 3 - 24/7 radio signal by DJ Nopheros.">
+  <meta name="description" content="Broadcaster work by DJ Nopheros: Everlook Broadcasting, Pilgrim of the Signal, and show production.">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -11,7 +11,8 @@
   <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
   <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;700&family=Cinzel:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/demo-player.css">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;700&family=Cinzel:wght@500;700&family=Space+Grotesk:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -424,6 +425,13 @@
       padding: 24px;
     }
 
+    .intro-shell {
+      margin-bottom: 28px;
+    }
+
+    .intro-shell .dp-title { font-family: 'Cinzel', serif; }
+    .intro-shell .dp-meta { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; }
+
     .section-title {
       font-family: 'Cinzel', serif;
       font-size: 1.5rem;
@@ -660,7 +668,8 @@
   </header>
 
   <main class="page-main">
-    <section class="hero-shell">
+    <!-- Tower 3 is offline (no Shoutcast server running). Remove `hidden` to bring it back. -->
+    <section class="hero-shell" hidden>
       <div class="hero-top">
         <div>
           <div class="hero-kicker">24/7 RADIO</div>
@@ -736,6 +745,22 @@
       </div>
     </section>
 
+    <section class="legacy-shell intro-shell">
+      <h2 class="section-title">Show Intro</h2>
+      <p class="section-sub">Produced show open: voice, music bed, and mix by Nopheros.</p>
+      <div class="demo-player" data-src="audio/pilgrim-of-the-signal-intro.mp3" data-duration="0:36" data-title="Pilgrim of the Signal: Show Open">
+        <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+        <div class="dp-body">
+          <div class="dp-title">Pilgrim of the Signal: Show Open</div>
+          <div class="dp-meta">Everlook Broadcasting Co.</div>
+          <div class="dp-row">
+            <div class="dp-track" role="slider" tabindex="0" aria-label="Seek Pilgrim of the Signal: Show Open" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+            <span class="dp-time">0:00 / 0:36</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="legacy-shell">
       <h2 class="section-title">Legacy Archive</h2>
       <p class="section-sub">A memorial of broadcast years, event work, and world-built programming.</p>
@@ -757,7 +782,7 @@
               <span class="legacy-year">Event Portfolio</span>
               <span class="legacy-event">Produced branded show flyers, themed nights, and collaborative scene-driven broadcasts.</span>
             </li>
-            <li>
+            <li hidden>
               <span class="legacy-year">Current Chapter</span>
               <span class="legacy-event">Tower 3: a 24/7 relay with live DJ intersections and curated continuity.</span>
             </li>
@@ -813,9 +838,13 @@
   <script src="js/bootstrap/bootstrap.min.js"></script>
   <script src="js/plugins/plugins.js"></script>
   <script src="js/active.js"></script>
+  <script src="js/demo-player.js"></script>
 
   <script>
     (function() {
+      // Tower 3 player stays off while its section is hidden
+      if (document.querySelector('.hero-shell[hidden]')) return;
+
       // ── DOM refs ───────────────────────────────────────────────────────────
       var statusEl          = document.getElementById('live-status');
       var statusTextEl      = document.getElementById('live-status-text');

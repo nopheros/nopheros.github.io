@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="">
+    <meta name="description" content="Nopheros: voice actor for character, narration and commercial work. Voice of Rotgrowl in Turtle WoW's Timbermaw Hold update.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -14,8 +14,12 @@
     <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" type="image/gif">
     <link rel="icon" href="/video/nopheros_glitchlogo_transparent.gif" sizes="any">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Share+Tech+Mono&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/demo-player.css">
 
     <style>
       html, body { background-color: #050505 !important; color: #dff8ff; }
@@ -306,19 +310,28 @@
         text-shadow: 0 0 8px rgba(0,200,255,0.5);
       }
 
-      .demo-placeholder {
-        width: 100%;
-        height: 60px;
-        border-radius: 8px;
-        border: 1px dashed rgba(159, 216, 255, 0.5);
-        background: linear-gradient(135deg, rgba(0, 200, 255, 0.08), rgba(0, 80, 140, 0.20));
-        color: #9fd8ff;
-        font-family: 'Share Tech Mono', monospace;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .demo-group {
+        margin-top: 26px;
+        text-align: left;
+      }
+
+      .demo-group .demo-grid {
+        gap: 14px;
+        margin-top: 10px;
+      }
+
+      .demo-note {
+        font-family: 'EB Garamond', serif;
+        color: #dff8ff;
+        font-size: 1.05rem;
+        margin: 8px 0 0 0;
+      }
+
+      .demo-footnote {
+        margin-top: 28px;
         text-align: center;
+        color: #9fd8ff;
+        font-style: italic;
       }
 
       /* Bio Text */
@@ -453,7 +466,8 @@
                 </p>
                 <p>
                   His background in live broadcast performance has developed skills in cold reading, improvisation, 
-                  timing precision, and vocal endurance. Select credits include promo work for gaming and streaming platforms. 
+                  timing precision, and vocal endurance. Credits include voicing the boss Rotgrowl for Turtle WoW's Timbermaw Hold update, 
+                  along with character and narration work for the same project. 
                   Available for remote sessions with quick turnaround and flexible scheduling.
                 </p>
               </div>
@@ -484,7 +498,20 @@
                 
                 <li class="profile-item">
                   <span class="profile-label">Studio</span>
-                  <span class="profile-value">Samson Q2U (XLR), Behringer Xenyx 802S, Audacity — clean processing workflow</span>
+                  <span class="profile-value">MXL 990 Blizzard condenser, Behringer Xenyx 802S, Roland VT-4 voice transformer</span>
+                </li>
+              </ul>
+
+              <h3 style="margin-top: 28px; margin-bottom: 16px; font-family: 'Cinzel Decorative', serif; color: #9fd8ff; letter-spacing: 2px; font-size: 1.3rem; text-shadow: 0 0 10px rgba(0, 200, 255, 0.6);">SELECTED CREDITS</h3>
+              <ul class="voice-profile-list" style="margin-top: 0;">
+                <li class="profile-item">
+                  <span class="profile-label">Turtle WoW (2026)</span>
+                  <span class="profile-value">Voice of Rotgrowl, boss of the Timbermaw Hold update</span>
+                </li>
+
+                <li class="profile-item">
+                  <span class="profile-label">Turtle WoW</span>
+                  <span class="profile-value">Additional character voices (Zappo Zapblast) and lore book narration (Archmage Ur)</span>
                 </li>
               </ul>
             </div>
@@ -495,32 +522,102 @@
         <section class="section-shell">
           <div class="scanline"></div>
           <h2>DEMO REELS</h2>
-          
-          <div class="demo-grid">
-            <!-- Commercial Demo -->
-            <div class="demo-item">
-              <div class="demo-title">COMMERCIAL DEMO</div>
-              <div class="demo-placeholder">
-                Demo reel coming soon — Contact for sample reads
-              </div>
-            </div>
 
-            <!-- Character/Narrative Demo -->
-            <div class="demo-item">
-              <div class="demo-title">CHARACTER / NARRATIVE DEMO</div>
-              <div class="demo-placeholder">
-                Demo reel coming soon — Contact for sample reads
+          <div class="demo-group">
+            <span class="profile-label">Character</span>
+            <div class="demo-grid">
+              <div class="demo-player" data-src="audio/rotgrowl-timbermaw-hold.mp3" data-duration="1:04" data-title="Rotgrowl, Timbermaw Hold Boss">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">Rotgrowl, Timbermaw Hold Boss</div>
+                  <div class="dp-meta">Boss voice &middot; Turtle WoW, Timbermaw Hold update (2026)</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek Rotgrowl, Timbermaw Hold Boss" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 1:04</span>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <!-- Long-Form Demo -->
-            <div class="demo-item">
-              <div class="demo-title">LONG-FORM / PODCAST DEMO</div>
-              <div class="demo-placeholder">
-                Demo reel coming soon — Contact for sample reads
+              <div class="demo-player" data-src="audio/zappo-zapblast-peacebloom.mp3" data-duration="0:28" data-title="Zappo Zapblast: Peacebloom">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">Zappo Zapblast: Peacebloom</div>
+                  <div class="dp-meta">Character voice &middot; Turtle WoW</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek Zappo Zapblast: Peacebloom" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 0:28</span>
+                  </div>
+                </div>
+              </div>
+              <div class="demo-player" data-src="audio/zappo-zapblast-gnome-lover.mp3" data-duration="0:58" data-title="Zappo Zapblast: Gnome Lover">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">Zappo Zapblast: Gnome Lover</div>
+                  <div class="dp-meta">Character voice &middot; Turtle WoW</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek Zappo Zapblast: Gnome Lover" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 0:58</span>
+                  </div>
+                </div>
+              </div>
+              <div class="demo-player" data-src="audio/bill-marriott-call.mp3" data-duration="1:18" data-title="Bill Marriott: In-Character Call">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">Bill Marriott: In-Character Call</div>
+                  <div class="dp-meta">Improvised comedy &middot; GTA V roleplay</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek Bill Marriott: In-Character Call" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 1:18</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+          <div class="demo-group">
+            <span class="profile-label">Narration</span>
+            <div class="demo-grid">
+              <div class="demo-player" data-src="audio/archmage-ur-journal.mp3" data-duration="1:30" data-title="Archmage Ur&rsquo;s Journal">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">Archmage Ur&rsquo;s Journal</div>
+                  <div class="dp-meta">Lore book reading &middot; Turtle WoW</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek Archmage Ur&rsquo;s Journal" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 1:30</span>
+                  </div>
+                </div>
+              </div>
+              <div class="demo-player" data-src="audio/a-good-day-braedin.mp3" data-duration="1:05" data-title="A Good Day: Commander Braedin">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">A Good Day: Commander Braedin</div>
+                  <div class="dp-meta">Audiobook excerpt &middot; narrator and character voice</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek A Good Day: Commander Braedin" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 1:05</span>
+                  </div>
+                </div>
+              </div>
+              <div class="demo-player" data-src="audio/a-good-day-astalor.mp3" data-duration="1:31" data-title="A Good Day: Astalor Sunsworn">
+                <button class="dp-btn" type="button"><svg class="dp-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="dp-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button>
+                <div class="dp-body">
+                  <div class="dp-title">A Good Day: Astalor Sunsworn</div>
+                  <div class="dp-meta">Audiobook excerpt &middot; narrator and character voice</div>
+                  <div class="dp-row">
+                    <div class="dp-track" role="slider" tabindex="0" aria-label="Seek A Good Day: Astalor Sunsworn" aria-valuemin="0"><div class="dp-bar"><div class="dp-fill"></div></div></div>
+                    <span class="dp-time">0:00 / 1:31</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-group">
+            <span class="profile-label">Commercial</span>
+            <p class="demo-note">Commercial and custom sample reads available on request.</p>
+          </div>
+
+          <p class="demo-note demo-footnote">Full-length reels available on request.</p>
         </section>
 
         <!-- Booking CTA -->
@@ -560,6 +657,7 @@
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/plugins/plugins.js"></script>
     <script src="js/active.js"></script>
+    <script src="js/demo-player.js"></script>
 </body>
 
 </html>
